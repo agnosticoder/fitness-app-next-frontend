@@ -1,4 +1,4 @@
-import styles from '../styles/modules/Hello.module.scss';
+import styles from '../styles/modules/App.module.scss';
 
 const App = () => {
     return (
