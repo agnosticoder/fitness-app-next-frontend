@@ -1,9 +1,23 @@
-import styles from '../styles/modules/App.module.scss';
+import { useEffect } from 'react';
+import fetchAllExercises from '../lib/fetchAllExercises';
+import CreateWorkoutModal from './CreateWorkoutModal';
+import useWorkouts from './hooks/useWorkouts';
+import WorkoutLinks from './WorkoutsLinks';
+
 
 const App = () => {
+    const workouts = useWorkouts();
+
+    useEffect(() => {
+        fetchAllExercises();
+    }, []);
+
     return (
-        <div className={styles.container}>
-            <h2 className={styles.test}>Content color has bee applied using css modules but using scss</h2>
+        <div>
+            <h2>Your last resort for Fitness</h2>
+            <CreateWorkoutModal />
+            <h3>Past Workouts</h3>
+            <WorkoutLinks workouts={workouts}/>
         </div>
     );
 };

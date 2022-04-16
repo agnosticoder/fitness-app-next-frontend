@@ -1,0 +1,60 @@
+import { FormEvent, useState } from "react";
+import {useRouter} from 'next/router';
+
+interface PostExercise{
+    name: string,
+    workoutId: string
+}
+
+const postExercise = async ({name, workoutId}: PostExercise) => {
+    try {
+        const result = await fetch('http://localhost:8000/exercise', {
+            method: 'Post',
+            headers: {
+                'Content-type': 'Application/json',
+            },
+            body: JSON.stringify({ name, workoutId }),
+        });
+        if (result.ok) {
+            return await result.json();
+        }
+    } catch (err) {
+        console.error({ err });
+    }
+};
+
+interface AddExerciseProps{
+    id: string
+}
+
+const AddExercise = ({id}: AddExerciseProps) => {
+    const [exerciseName, setExerciseName] = useState('');
+
+    const router = useRouter();
+
+    const onAddExercise = (e: FormEvent) => {
+        e.preventDefault();
+        postExercise({ name: exerciseName, workoutId: id })
+            .then((res) => {
+                console.log({ res });
+                router.replace(router.asPath);
+            })
+            .catch((e) => console.error(e));
+    };
+
+    return (
+        <div>
+            <form onSubmit={onAddExercise}>
+                <input
+                    type="text"
+                    placeholder="Exercise Name"
+                    value={exerciseName}
+                    onChange={(e) => setExerciseName(e.currentTarget.value)}
+                />
+                <button type="submit">Add Exercise</button>
+            </form>
+        </div>
+    );
+};
+
+export default AddExercise;
