@@ -1,27 +1,34 @@
 import { Dialog } from '@headlessui/react';
 import { useState } from 'react';
 import Button from './Button';
+import ConfirmDialog from './ConfirmDialog';
 import CreateWorkout from './CreateWorkout';
-import { useErrorMessageStore } from './store/errorMessageStore';
 
 const CreateWorkoutModal = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [, setError] = useErrorMessageStore();
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
     const onCloseDialog = () => {
-        const close = confirm('Are you sure to dismiss this?');
-        if (close) setIsOpen(false);
-        setError('');
+        setIsConfirmDialogOpen(true);
     };
 
     return (
         <div>
-            <Dialog open={isOpen} onClose={onCloseDialog} className="fixed z-10 inset-0">
-                <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
+            <Dialog open={isDialogOpen} onClose={onCloseDialog} className="z-50">
+                {/* backdrop */}
+                <div className='fixed inset-0 bg-slate-500/50' aria-hidden={true} />
                 {/* Style the following component according to your needs */}
                 <CreateWorkout />
+
+                {/* ConfirmDialog */}
+                {isConfirmDialogOpen &&
+                    <ConfirmDialog
+                        isConfirmDialogOpen={isConfirmDialogOpen}
+                        setIsConfirmDialogOpen={setIsConfirmDialogOpen}
+                        setIsDialogOpen={setIsDialogOpen} />}
             </Dialog>
-            <Button onClick={() => setIsOpen(true)}>Create Workout</Button>
+
+            <Button onClick={() => setIsDialogOpen(true)}>Create Workout</Button>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import {useRouter} from 'next/router';
+import Button from './Button';
 
 interface PostExercise{
     name: string,
@@ -51,7 +52,7 @@ const AddExercise = ({id}: AddExerciseProps) => {
                     value={exerciseName}
                     onChange={(e) => setExerciseName(e.currentTarget.value)}
                 />
-                <button type="submit">Add Exercise</button>
+                <Button type="submit">Add Exercise</Button>
             </form>
         </div>
     );

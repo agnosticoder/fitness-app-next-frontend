@@ -1,20 +1,29 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { FC } from 'react';
+import ErrorMessagePortal from '../components/ErrorMessagePortal';
+import useErrorMessage from '../components/hooks/useErrorMessage';
 
-const Layout: FC = ({ children }) => (
-    <div className="text-cyan-900 bg-slate-200 min-h-screen">
+const Layout: FC = ({ children }) => {
+    const { error } = useErrorMessage();
+
+    return (<div className="text-cyan-900 bg-slate-200 min-h-screen">
         <Head>
-            <title>Fit & Diet</title>
+            <title>Fitness App</title>
         </Head>
         {/* Header */}
         <div className="bg-slate-500 text-slate-200 px-16 py-4">
             <div>
-                <h1 className='text-2xl text-indigo-200'>Fit and Deit</h1>
+                <h1 className='text-2xl text-indigo-200'>Fitness App</h1>
                 <ul>
                     <li>
                         <Link href="/">
                             <a>Home</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/startworkout">
+                            <a>Start Workout</a>
                         </Link>
                     </li>
                     {/* <li>
@@ -27,10 +36,12 @@ const Layout: FC = ({ children }) => (
         </div>
 
         {/* Main Content */}
-        <div className="mx-16 pt-4">
+        <div className="mx-4 sm:mx-16 pt-4 pb-1">
             <main>{children}</main>
         </div>
+        {error && <ErrorMessagePortal>{error}</ErrorMessagePortal>}
     </div>
-);
+    );
+};
 
 export default Layout;

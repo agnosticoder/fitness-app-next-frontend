@@ -1,54 +1,46 @@
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
-import AddExercise from "../../components/AddExercise";
-import { WorkoutHeading } from "../../components/hooks/useWorkouts";
 import getWorkout from "../../lib/getWorkout";
+import AddExercisesModal from '../../components/AddExercisesModal';
+import { Workout } from '../../lib/interfaces/Workout';
+import Exercise from '../../components/Exercise';
 
-export interface Exercise{
-    id: string,
-    name: string,
-    reps: number,
-    setOrder: number,
-    weight: number
-}
+export const getServerSideProps:GetServerSideProps = async ({ params }) => {
+    const id = params?.id as string;
 
-interface Workout extends WorkoutHeading{
-    exercises: Exercise[]
-}
+    const workout = await getWorkout<Workout>(id);
+    
+    if(!workout) {
+        return {
+            notFound: true,
+        }
+    }
 
-const Workout = (workout: Workout) => {
-    console.log(workout.id, workout.exercises, workout.name);
+    return {
+        props: {
+            ...workout
+        }
+    };
+    
+};
+
+const Workout = ({id, name, exercises}:Workout) => {
+    console.log('Workout', id, name, exercises);
 
     const router = useRouter();
-    const { id } = router.query;
 
     return (
         <div>
-            <h2>Workout: {workout.name}</h2>
-            <AddExercise id={workout.id}/>
-            {workout.exercises.map((e) => (
-                <div key={e.id}>
-                    <ul>
-                        <li>Name: {e.name}</li>
-                        <li>Set: {e.setOrder}</li>
-                        <li>Reps: {e.reps}</li>
-                        <li>Weight(lbs): {e.weight}</li>
-                    </ul>
-                </div>
-            ))}
+            <AddExercisesModal workoutId={id}/>
+            <h2>Workout: {name}</h2>
+            {/*//Todo: Add functionality to create custom exercises */}
+            {/* <AddExercise id={id} /> */}
+            <div className="grid grid-cols-2 gap-2">
+                {exercises?.map(exercise => <Exercise key={exercise.id} {...exercise}/>)}
+            </div>
         </div>
     );
 };
 
 export default Workout;
 
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-    const id = params?.id as string;
-    const workout = await getWorkout(id);
-    return {
-        props: {
-            ...workout,
-        },
-    };
-};

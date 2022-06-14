@@ -3,10 +3,10 @@ const fetchAllExercises = async () => {
         const result = await  fetch('http://localhost:8000/exercises');
         if(result.ok){
             const exercises = await result.json();
-            console.log({exercises});
             return exercises;
         }
     }catch(err){
+        // error during fetch is handled here
         console.warn({err});
     }
 }

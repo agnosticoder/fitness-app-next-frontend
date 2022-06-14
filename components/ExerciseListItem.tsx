@@ -1,8 +1,14 @@
-import { Exercise } from "../pages/workout/[id]";
+import { UseComboboxGetItemPropsOptions } from "downshift";
+import { ExerciseProps } from "../pages/workout/[id]";
 
-const ExerciseListItem = ({ id, name }: Exercise) => {
+interface ExerciseListItemProps extends ExerciseProps {
+    className: string;
+    getItemProps: (options: UseComboboxGetItemPropsOptions<string>) => any;
+}
+
+const ExerciseListItem = ({className, getItemProps, id, name}: ExerciseListItemProps) => {
     return (
-            <li className="list-none" key={id}>
+            <li className={className} {...getItemProps({item: name, id})}>
                 {name}
             </li>
     );
