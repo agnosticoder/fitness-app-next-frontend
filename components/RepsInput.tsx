@@ -3,9 +3,7 @@ import { Set } from '../lib/interfaces/Set';
 import useUpdateSet from './hooks/useUpdateSet';
 
 const RepsInput = ({id, reps}:Set) => {
-    const [repsValue, setRepsValue] = useState(() => reps === null ? '' : reps);
-    const {mutate} = useUpdateSet();
-    const prevReps = useRef(reps);
+    const [repsValue, setRepsValue] = useState(reps || '');
 
     const onChangeRepsInput = (e: ChangeEvent<HTMLInputElement>) => {
         // allow floating point numbers upto two decimal places using regex
@@ -15,17 +13,8 @@ const RepsInput = ({id, reps}:Set) => {
         setRepsValue(value);
     }
 
-    const onUpdateReps = () => {
-        console.log('Update reps', id, reps);
-        console.log('Previous reps', prevReps.current);
-        if (repsValue !== prevReps.current) {
-            prevReps.current = repsValue;
-            mutate({ setId: id, reps: repsValue });
-        }
-    }
-
     return (
-        <input onBlur={onUpdateReps} className='w-full' type="text" value={repsValue} onChange={onChangeRepsInput} />
+        <input className='w-full' type="text" value={repsValue} onChange={onChangeRepsInput} />
     );
 };
 

@@ -11,6 +11,8 @@ const useCreateSet = () => {
 
     interface Payload {
         exerciseId: string;
+        reps: string;
+        weight: string;
     }
 
     return useMutation(

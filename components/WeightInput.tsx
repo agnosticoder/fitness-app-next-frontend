@@ -4,7 +4,7 @@ import useErrorMessage from './hooks/useErrorMessage';
 import useUpdateSet from './hooks/useUpdateSet';
 
 const WeightInput = ({id, weight}:Set) => {
-    const [weightValue, setWeightValue] = useState(() => weight === null ? '' : weight);
+    const [weightValue, setWeightValue] = useState(weight || '');
     const {mutate} = useUpdateSet();
     const preWeight = useRef(weight);
 
