@@ -1,9 +1,11 @@
-import { ChangeEvent, useRef, useState } from 'react';
-import { Set } from '../lib/interfaces/Set';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { Set } from '../pages/workout/[id]';
+import useDebounce from './hooks/useDebounce';
 import useUpdateSet from './hooks/useUpdateSet';
 
 const RepsInput = ({id, reps}:Set) => {
     const [repsValue, setRepsValue] = useState(() => reps === null ? '' : reps);
+    const {debouncedValue} = useDebounce(repsValue);
     const {mutate} = useUpdateSet();
     const prevReps = useRef(reps);
 
@@ -15,17 +17,16 @@ const RepsInput = ({id, reps}:Set) => {
         setRepsValue(value);
     }
 
-    const onUpdateReps = () => {
-        console.log('Update reps', id, reps);
-        console.log('Previous reps', prevReps.current);
-        if (repsValue !== prevReps.current) {
-            prevReps.current = repsValue;
-            mutate({ setId: id, reps: repsValue });
+    useEffect(() => {
+        console.log('Update reps', id, debouncedValue);
+        if (debouncedValue !== prevReps.current) {
+            prevReps.current = debouncedValue;
+            mutate({ setId: id, reps: debouncedValue });
         }
-    }
+    }, [debouncedValue]);
 
     return (
-        <input onBlur={onUpdateReps} className='w-full' type="text" value={repsValue} onChange={onChangeRepsInput} />
+        <input className='w-full' type="text" value={repsValue} onChange={onChangeRepsInput} />
     );
 };
 

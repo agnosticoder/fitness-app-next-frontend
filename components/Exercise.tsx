@@ -1,21 +1,10 @@
-import { FormEvent } from 'react';
-import { Exercise } from '../lib/interfaces/Exercise';
-import Button from './Button';
-import useCreateSet from './hooks/useCreateSet';
+import { Exercise } from '../pages/workout/[id]';
+import AddSetButton from './AddSetButton';
+import DeleteExerciseButton from './DeleteExerciseButton';
 import Set from './Set';
 
 const Exercise = ({id, name, workoutId, sets}: Exercise) => {
 
-    const { mutate, data } = useCreateSet();
-
-    console.log('Exercise', data);
-
-    const onAddSet = (e:FormEvent) => {
-        e.preventDefault();
-
-        mutate({exerciseId: id });
-        console.log({id, name, workoutId, sets});
-    }
 
     return (
         <div>
@@ -34,11 +23,8 @@ const Exercise = ({id, name, workoutId, sets}: Exercise) => {
                         {sets?.map((set, index) => <Set key={set.id} {...set} index={index}/>)}
                     </tbody>
                 </table>
-                <form onSubmit={onAddSet}>
-                    <div className='w-full'>
-                        <Button className='block w-full' type='submit'>Add Set</Button>
-                    </div>
-                </form>
+                <AddSetButton exerciseId={id}/>
+                <DeleteExerciseButton exerciseId={id}/>
             </ul>
         </div>
     );

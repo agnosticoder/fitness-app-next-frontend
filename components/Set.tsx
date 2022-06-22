@@ -1,8 +1,8 @@
-import { Set } from '../lib/interfaces/Set';
 import WeightInput from './WeightInput';
 import RepsInput from './RepsInput';
 import DeleteSet from './DeleteSet';
 import SetIsDoneCheckbox from './SetIsDoneChecbox';
+import { Set } from '../pages/workout/[id]';
 
 interface SetProps extends Set {
     index: number;

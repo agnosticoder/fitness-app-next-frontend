@@ -1,10 +1,12 @@
-import { ChangeEvent, useRef, useState } from 'react';
-import { Set } from '../lib/interfaces/Set';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { Set } from '../pages/workout/[id]';
+import useDebounce from './hooks/useDebounce';
 import useErrorMessage from './hooks/useErrorMessage';
 import useUpdateSet from './hooks/useUpdateSet';
 
 const WeightInput = ({id, weight}:Set) => {
     const [weightValue, setWeightValue] = useState(() => weight === null ? '' : weight);
+    const {debouncedValue} = useDebounce(weightValue);
     const {mutate} = useUpdateSet();
     const preWeight = useRef(weight);
 
@@ -16,16 +18,16 @@ const WeightInput = ({id, weight}:Set) => {
         setWeightValue(value);
     }
 
-    const onUpdateWeight = () => {
-        console.log('Update weight', id, weightValue);
-        if (weightValue !== preWeight.current) {
-            preWeight.current = weightValue;
-            mutate({ setId: id, weight: weightValue });
+    useEffect(() => {
+        console.log('Update weight', id, debouncedValue);
+        if (debouncedValue !== preWeight.current) {
+            preWeight.current = debouncedValue;
+            mutate({ setId: id, weight: debouncedValue });
         }
-    }
+    }, [debouncedValue]);
 
     return (
-        <input onBlur={onUpdateWeight} className='w-full' type="text" value={weightValue} onChange={onChangeWeightInput} />
+        <input className='w-full' type="text" value={weightValue} onChange={onChangeWeightInput} />
     );
 };
 

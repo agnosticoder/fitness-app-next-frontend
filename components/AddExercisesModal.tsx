@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 import Button from './Button';
 import ChooseExercises from './ChooseExercises';
 import ConfirmDialog from './ConfirmDialog';
