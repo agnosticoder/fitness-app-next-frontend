@@ -4,19 +4,17 @@ import { useMutation } from 'react-query';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
-const useCreateSet = () => {
+type Payload = any;
+
+const useFinishWorkout = () => {
     const { handleError: handleErrorMessage } = useErrorMessage();
     const handleError = useErrorHandler();
     const router = useRouter();
 
-    interface Payload {
-        exerciseId: string;
-    }
-
     return useMutation(
         async (payload:Payload) => {
-            const { data, error } = await customFetch('http://localhost:8000/set', {
-                method: 'POST',
+            const { data, error } = await customFetch('http://localhost:8000/finishworkout', {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -24,7 +22,7 @@ const useCreateSet = () => {
             });
 
             if (error) {
-                console.log('useCreateSet', error);
+                console.log('useFinishWorkout', error);
                 //* show error to user
                 handleErrorMessage(error);
                 return;
@@ -36,13 +34,13 @@ const useCreateSet = () => {
             onError: (err) => {
                 //* send error to error boundary
                 handleError(err);
-                console.log('useCreateSet', err);
+                console.log('useFinishWorkout', err);
             },
             onSuccess: () => {
                 router.replace(router.asPath)
             }
         }
     );
-};
+}
 
-export default useCreateSet;
+export default useFinishWorkout;

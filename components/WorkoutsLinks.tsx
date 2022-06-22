@@ -1,20 +1,12 @@
 import Link from "next/link";
 import Button from './Button';
+import DeleteWorkoutButton from "./DeleteWorkoutButton";
 import useDeleteWorkout from './hooks/useDeleteWorkout';
 import useGetWorkouts from './hooks/useGetWorkouts';
 
-export interface WorkoutHeading{
-    id: string,
-    name: string
-}
-
 const WorkoutLinks = () => {
     const {isLoading, data:workouts} = useGetWorkouts();
-    const {mutate} = useDeleteWorkout();
 
-    const onDeleteWorkout = async (workoutId: string) => {
-        mutate({workoutId});
-    };
 
     return (
         <div>
@@ -31,7 +23,7 @@ const WorkoutLinks = () => {
                                     </a>
                                 </Link>
                             </div>
-                            <Button className='block mx-auto' onClick={() => onDeleteWorkout(workout.id)}>Delete</Button>
+                            <DeleteWorkoutButton workoutId={workout.id}/>
                         </div>
                     ))}
                 </ul>

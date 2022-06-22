@@ -1,9 +1,6 @@
-import { FormEvent, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { Exercise } from '../lib/interfaces/Exercise';
-import AddSetForm from './AddSetForm';
-import Button from './Button';
-import useCreateSet from './hooks/useCreateSet';
+import { Exercise } from '../pages/workout/[id]';
+import AddSetButton from './AddSetButton';
+import DeleteExerciseButton from './DeleteExerciseButton';
 import Set from './Set';
 
 
@@ -28,7 +25,8 @@ const Exercise = ({ id, name, workoutId, sets }: Exercise) => {
                         ))}
                     </tbody>
                 </table>
-                <AddSetForm exerciseId={id}/>
+                <AddSetButton exerciseId={id}/>
+                <DeleteExerciseButton exerciseId={id}/>
             </ul>
         </div>
     );

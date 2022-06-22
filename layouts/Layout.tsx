@@ -9,21 +9,16 @@ const Layout: FC = ({ children }) => {
 
     return (<div className="text-cyan-900 bg-slate-200 min-h-screen">
         <Head>
-            <title>Fitness App</title>
+            <title>Fitness Resort</title>
         </Head>
         {/* Header */}
         <div className="bg-slate-500 text-slate-200 px-16 py-4">
             <div>
-                <h1 className='text-2xl text-indigo-200'>Fitness App</h1>
+                <h1 className='text-3xl font-bold'>Fitness Resort</h1>
                 <ul>
                     <li>
                         <Link href="/">
                             <a>Home</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/startworkout">
-                            <a>Start Workout</a>
                         </Link>
                     </li>
                     {/* <li>

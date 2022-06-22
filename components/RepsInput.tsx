@@ -1,9 +1,13 @@
-import { ChangeEvent, useRef, useState } from 'react';
-import { Set } from '../lib/interfaces/Set';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { Set } from '../pages/workout/[id]';
+import useDebounce from './hooks/useDebounce';
 import useUpdateSet from './hooks/useUpdateSet';
 
 const RepsInput = ({id, reps}:Set) => {
     const [repsValue, setRepsValue] = useState(reps || '');
+    const {debouncedValue} = useDebounce(repsValue);
+    const {mutate} = useUpdateSet();
+    const prevReps = useRef(reps);
 
     const onChangeRepsInput = (e: ChangeEvent<HTMLInputElement>) => {
         // allow floating point numbers upto two decimal places using regex
@@ -12,6 +16,14 @@ const RepsInput = ({id, reps}:Set) => {
         if(!regex.test(value)) return
         setRepsValue(value);
     }
+
+    useEffect(() => {
+        console.log('Update reps', id, debouncedValue);
+        if (debouncedValue !== prevReps.current) {
+            prevReps.current = debouncedValue;
+            mutate({ setId: id, reps: debouncedValue });
+        }
+    }, [debouncedValue]);
 
     return (
         <input className='w-full' type="text" value={repsValue} onChange={onChangeRepsInput} />
