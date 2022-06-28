@@ -4,67 +4,35 @@ import AddExercisesModal from '../../components/AddExercisesModal';
 import Exercise from '../../components/Exercise';
 import FinishWorkoutButton from "../../components/FinishWorkoutButton";
 import CancelWorkoutButton from "../../components/CancelWorkoutButton";
+import { useRouter } from "next/router";
+import useGetWorkout from "../../components/hooks/useGetWorkout";
+import useGetLatestExercises from "../../components/hooks/useGetLatestExercises";
+import { useEffect } from "react";
 
-export interface Set {
-    id: string;
-    weight: string;
-    reps: string;
-    setOrder: string | null;
-    isDone: boolean;
-    exerciseId: string;
-}
-
-export interface Exercise {
-    id: string;
-    name: string;
-    workoutId: string;
-    sets: Set[];
-}
-
-export interface Workout {
-    id: string;
-    name: string;
-    isDone: boolean;
-    exercises: Exercise[];
-}
-
-export const getServerSideProps:GetServerSideProps = async ({ params }) => {
-    const id = params?.id as string;
-
-    const workout = await getWorkout(id) as Workout;
-
-    if (!workout) {
-        return {
-            notFound: true,
-        };
-    }
-
-    return {
-        props: {
-            ...workout,
-        },
-    };
-};
-
-const Workout = (workout: Workout) => {
-
-    console.log('exercises', workout.exercises);
+const Workout = () => {
+    const router = useRouter();
+    const { id } = router.query as { id: string };
+    const { data: workout } = useGetWorkout({ id });
 
     return (
         <div>
-            <div className="flex justify-between">
-                <AddExercisesModal workoutId={workout.id} />
-                <FinishWorkoutButton {...workout}/>
-                <CancelWorkoutButton workoutId={workout.id}/>
-            </div>
-            <h2>Workout: {workout.name}</h2>
-            {/*//Todo: Add functionality to create custom exercises */}
-            {/* <AddExercise id={id} /> */}
-            <div className="grid grid-cols-2 gap-2">
-                {workout.exercises?.map((exercise: any) => (
-                    <Exercise key={exercise.id} {...exercise} />
-                ))}
-            </div>
+            {workout && (
+                <div>
+                    <div className="flex justify-between">
+                        <AddExercisesModal workoutId={workout.id} />
+                        <FinishWorkoutButton {...workout} identifier="workout" />
+                        <CancelWorkoutButton workoutId={workout.id} identifier="workout" />
+                    </div>
+                    <h2>Workout: {workout.name}</h2>
+                    {/*//Todo: Add functionality to create custom exercises */}
+                    {/* <AddExercise id={id} /> */}
+                    <div className="grid grid-cols-2 gap-2">
+                        {workout.exercises?.map((exercise: any) => (
+                            <Exercise key={exercise.id} {...exercise} />
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

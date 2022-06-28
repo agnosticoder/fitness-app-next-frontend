@@ -4,8 +4,14 @@ import { useMutation } from 'react-query';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
+interface Set{
+    reps?: string;
+    weight?: string;
+}
+
 interface Exercise {
     name: string;
+    sets?: Set[];
 }
 
 interface Workout {
@@ -25,6 +31,7 @@ const useCreateWorkout = () => {
 
     return useMutation(
         async (workout: Workout) => {
+            console.log('workout', workout);
             const { data, error } = await customFetch<Data>('http://localhost:8000/workout', {
                 method: 'POST',
                 headers: {

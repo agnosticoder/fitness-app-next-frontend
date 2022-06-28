@@ -2,13 +2,20 @@ import WeightInput from './WeightInput';
 import RepsInput from './RepsInput';
 import DeleteSet from './DeleteSet';
 import SetIsDoneCheckbox from './SetIsDoneChecbox';
-import { Set } from '../pages/workout/[id]';
+import useGetWorkout, { Set } from './hooks/useGetWorkout';
+import { useRouter } from 'next/router';
 
 interface SetProps extends Set {
     index: number;
 }
 
 const Set = (set:SetProps) => {
+    const router = useRouter();
+    const { id } = router.query as {id: string};
+    const {data: workout} = useGetWorkout({id});
+
+    const isTemplate = workout?.isTemplate;
+
     return (
         <tr>
             <td>
@@ -23,9 +30,10 @@ const Set = (set:SetProps) => {
                 <RepsInput {...set}/>
             </td>
 
-            <td>
+            {!isTemplate && <td>
                 <SetIsDoneCheckbox {...set}/>
-            </td>
+            </td>}
+
             <td>
                 <DeleteSet {...set}/>
             </td>

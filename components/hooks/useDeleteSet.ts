@@ -8,7 +8,7 @@ interface Payload {
     setId: string;
 }
 
-const useDeleteSet = () => {
+const useDeleteSet = (workoutId: string) => {
     const { handleError: handleErrorMessage } = useErrorMessage();
     const handleError = useErrorHandler();
     const queryClient = useQueryClient();
@@ -40,6 +40,7 @@ const useDeleteSet = () => {
                 console.log('useDeleteSet', err);
             },
             onSuccess: () => {
+                queryClient.invalidateQueries(['workout', workoutId]);
                 router.replace(router.asPath);
             },
         }

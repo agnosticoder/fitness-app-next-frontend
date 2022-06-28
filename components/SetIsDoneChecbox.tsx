@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { Set } from '../lib/interfaces/Set';
 import useErrorMessage from './hooks/useErrorMessage';
+import { Set } from './hooks/useGetWorkout';
 import useUpdateSet from './hooks/useUpdateSet';
 
 const SetIsDoneCheckbox = ({ id, isDone, weight, reps }: Set) => {

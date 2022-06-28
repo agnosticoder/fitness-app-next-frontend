@@ -1,0 +1,28 @@
+import { Menu } from '@headlessui/react';
+import { AiFillDelete } from 'react-icons/ai';
+import { useModal } from '@ebay/nice-modal-react';
+
+const DeleteTemplateButton = ({ workoutId }: { workoutId: string }) => {
+    const deleteTemplateModal = useModal(`template/delete-${workoutId}`);
+
+
+    const onDelete = () => {
+        deleteTemplateModal.show();
+    };
+
+    return (
+        <Menu.Item>
+            {({ active }: { active: boolean }) => (
+                <button
+                    onClick={onDelete}
+                    className={`${active ? 'bg-blue-500' : 'bg-blue-200'} rounded text-left p-1`}
+                >
+                    <AiFillDelete className="inline-block mr-2" />
+                    Delete
+                </button>
+            )}
+        </Menu.Item>
+    );
+};
+
+export default DeleteTemplateButton;

@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import useDebounce from "../components/hooks/useDebounce";
+import DialogWithLocalState from "../components/DialogWithLocalState";
 
 const Debounce = () => {
     const [value, setValue] = useState('');
@@ -12,6 +13,10 @@ const Debounce = () => {
     useEffect(() => {
         console.log('debounced value', debouncedValue);
     }, [debouncedValue]);
+
+    const onClickItem1 = () => {
+        console.log('item 1');
+    };
 
     return (
         <div>
@@ -26,6 +31,7 @@ const Debounce = () => {
                 <div className="text-2xl inline-block mr-4">Debounce:</div>
                 <span className="text-2xl">{debouncedValue}</span>
             </h1>
+            <DialogWithLocalState />
         </div>
     );
 };

@@ -1,10 +1,15 @@
-import { Exercise } from '../pages/workout/[id]';
 import AddSetButton from './AddSetButton';
 import DeleteExerciseButton from './DeleteExerciseButton';
+import useGetLatestExercise from './hooks/useGetLatestExercise';
+import { Exercise } from './hooks/useGetWorkout';
+import DeleteExercise from './modals/DeleteExercise';
 import Set from './Set';
 
 
 const Exercise = ({ id, name, workoutId, sets }: Exercise) => {
+    const {data: exercise} = useGetLatestExercise({name});
+
+    console.log('exercise', exercise);
 
     return (
         <div>
@@ -27,6 +32,8 @@ const Exercise = ({ id, name, workoutId, sets }: Exercise) => {
                 </table>
                 <AddSetButton exerciseId={id}/>
                 <DeleteExerciseButton exerciseId={id}/>
+
+                <DeleteExercise id={`exercise/delete-${id}`} exerciseId={id}/>
             </ul>
         </div>
     );

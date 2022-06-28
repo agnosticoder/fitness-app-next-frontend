@@ -1,9 +1,12 @@
-import { Set } from '../lib/interfaces/Set';
 import useDeleteSet from './hooks/useDeleteSet';
 import { AiFillDelete } from 'react-icons/ai';
+import { useRouter } from 'next/router';
+import { Set } from './hooks/useGetWorkout';
 
 const DeleteSet = ({id}:Set) => {
-    const {mutate, data} = useDeleteSet();
+    const router = useRouter();
+    const {id: workoutId} = router.query as {id: string};
+    const {mutate, data} = useDeleteSet(workoutId);
 
     const onDeleteSet = () => {
         console.log('Delete set', id);

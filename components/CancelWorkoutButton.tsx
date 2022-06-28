@@ -1,20 +1,25 @@
-import { useRouter } from "next/router";
 import Button from "./Button";
-import useDeleteWorkout from "./hooks/useDeleteWorkout";
+import ConfirmCancelWorkout from "./modals/ConfirmCancelWorkout";
+import {useModal} from '@ebay/nice-modal-react';
 
-const CancelWorkoutButton = ({workoutId}: {workoutId: string}) => {
-    const {mutate} = useDeleteWorkout();
-    const router = useRouter();
+const CancelWorkoutButton = ({
+    workoutId,
+    identifier,
+}: {
+    workoutId: string;
+    identifier: 'template' | 'history' | 'workout';
+}) => {
+    const modal = useModal('workout/confirm-cancel-workout');
 
-    const onCancelWorkout = () => {
-        const isConfirmed = confirm('Are you sure you want to cancel this workout?');
-        if(isConfirmed) {
-            mutate({workoutId});
-            router.push('/');
-        }
-    };
+    return (
+        <div>
+            <Button onClick={() => modal.show()} className="bg-red-500 text-red-200" type="button">
+                {identifier === 'workout' ? 'Cancel Workout' : 'Delete'}
+            </Button>
 
-    return <Button onClick={onCancelWorkout} className="bg-red-500 text-red-200" type="button">Cancel Workout</Button>;
+            <ConfirmCancelWorkout id="workout/confirm-cancel-workout" identifier={identifier} workoutId={workoutId} />
+        </div>
+    );
 };
 
 export default CancelWorkoutButton;

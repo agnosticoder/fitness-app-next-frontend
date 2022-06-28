@@ -8,6 +8,10 @@ import ErrorFallbackComponent from '../components/ErrorFallbackComponent';
 import { SelectedExercisesProvider } from '../components/store/selectedExercisesStore';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import GlobalLoader from '../components/GloabalLoader';
+import NiceModal from '@ebay/nice-modal-react';
+import ConfirmStartNewWorkout from '../components/modals/ConfirmStartNewWorkout';
+
 
 const queryClient = new QueryClient();
 
@@ -17,14 +21,17 @@ function MyApp({ Component, pageProps }: AppProps) {
         <div>
             <ErrorBoundary FallbackComponent={ErrorFallbackComponent} onError={clientErrorHandler}>
                 <QueryClientProvider client={queryClient}>
-                    <ErrorMessageProvider init=''>
-                        <SelectedExercisesProvider init={[]}>
-                            <Layout>
-                                <Component {...pageProps} />
-                            </Layout>
-                        </SelectedExercisesProvider>
-                    </ErrorMessageProvider>
-                    <ReactQueryDevtools />
+                    <NiceModal.Provider>
+                        <GlobalLoader />
+                        <ErrorMessageProvider init="">
+                            <SelectedExercisesProvider init={[]}>
+                                <Layout>
+                                    <Component {...pageProps} />
+                                </Layout>
+                            </SelectedExercisesProvider>
+                        </ErrorMessageProvider>
+                        <ReactQueryDevtools />
+                    </NiceModal.Provider>
                 </QueryClientProvider>
             </ErrorBoundary>
         </div>

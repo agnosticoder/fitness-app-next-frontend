@@ -1,15 +1,13 @@
-import { FormEvent } from "react";
-import Button from "./Button";
-import useDeleteExercise from "./hooks/useDeleteExercise";
+import { FormEvent } from 'react';
+import Button from './Button';
+import { useModal } from '@ebay/nice-modal-react';
 
 const DeleteExerciseButton = ({ exerciseId }: { exerciseId: string }) => {
-    const { mutate } = useDeleteExercise();
+    const deleteExerciseModal = useModal(`exercise/delete-${exerciseId}`);
 
     const onDeleteExercise = (e: FormEvent) => {
         e.preventDefault();
-        const isConfirm = confirm('Are you sure to delete this exercise?');
-
-        mutate({ exerciseId });
+        deleteExerciseModal.show();
     };
 
     return (

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
@@ -31,6 +31,8 @@ const useUpdateSet = () => {
     const { handleError: handleErrorMessage } = useErrorMessage();
     const handleError = useErrorHandler();
     const router = useRouter();
+    const { id: workoutId } = router.query as { id: string };
+    const queryClient = useQueryClient();
 
     return useMutation(
         async (payload:Payload) => {
@@ -58,6 +60,7 @@ const useUpdateSet = () => {
                 console.log('useUpdateSet', err);
             },
             onSuccess: () => {
+                queryClient.invalidateQueries(['workout', workoutId]);
                 router.replace(router.asPath)
             }
         }

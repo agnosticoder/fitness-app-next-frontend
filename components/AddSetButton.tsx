@@ -5,8 +5,6 @@ import useCreateSet from "./hooks/useCreateSet";
 const AddSetButton = ({exerciseId}: {exerciseId: string}) => {
     const { mutate, data } = useCreateSet();
 
-    console.log('Exercise', data);
-
     const onAddSet = (e: FormEvent) => {
         e.preventDefault();
 

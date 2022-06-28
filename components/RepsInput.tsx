@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { Set } from '../pages/workout/[id]';
 import useDebounce from './hooks/useDebounce';
+import { Set } from './hooks/useGetWorkout';
 import useUpdateSet from './hooks/useUpdateSet';
 
 const RepsInput = ({id, reps}:Set) => {

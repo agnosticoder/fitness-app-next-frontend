@@ -4,13 +4,13 @@ import { useErrorHandler } from 'react-error-boundary';
 export const customFetch = async <T = unknown>(url: string, options?: RequestInit) => {
     try {
         const response = await fetch(url, options);
-        console.log('response', response);
         // 1.1 check if response is json
         const isJson = response.headers.get('Content-Type')?.includes('application/json');
 
         // 1. Check if reponse is ok
         if (response.ok && isJson) {
             const {data, code} = (await response.json()) as {data: T, code: number};
+            console.log(data, code);
             return { data };
 
         } else if (!response.ok && isJson) {

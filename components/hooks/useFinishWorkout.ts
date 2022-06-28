@@ -6,7 +6,7 @@ import { customFetch } from './useFetch';
 
 type Payload = any;
 
-const useFinishWorkout = () => {
+const useFinishWorkout = (path: string) => {
     const { handleError: handleErrorMessage } = useErrorMessage();
     const handleError = useErrorHandler();
     const router = useRouter();
@@ -37,7 +37,7 @@ const useFinishWorkout = () => {
                 console.log('useFinishWorkout', err);
             },
             onSuccess: () => {
-                router.replace(router.asPath)
+                router.push(path);
             }
         }
     );

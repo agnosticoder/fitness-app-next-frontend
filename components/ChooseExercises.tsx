@@ -1,11 +1,7 @@
 import { matchSorter } from "match-sorter";
 import { useEffect, useMemo, useRef, useState } from "react";
-import fetchAllExercises from "../lib/fetchAllExercises";
-import { ExerciseProps } from "../pages/workout/[id]";
-import ExerciseListItem from "./ExerciseListItem";
 import { useCombobox, useMultipleSelection } from 'downshift';
 import { useErrorHandler } from 'react-error-boundary';
-import Button from './Button';
 import { useSelectedExercisesStore } from './store/selectedExercisesStore';
 
 const allExercises = [{name: 'Biceps', id: 'biceps'}, {name: 'Triceps', id: 'triceps'}, {name: 'Chest', id: 'chest'}, {name: 'Back', id: 'back'}, {name: 'Shoulders', id: 'shoulders'}, {name: 'Legs', id: 'legs'}];
@@ -24,7 +20,7 @@ const ChooseExercises = () => {
         addSelectedItem,
         removeSelectedItem,
         selectedItems,
-    } = useMultipleSelection<ExerciseProps>();
+    } = useMultipleSelection<{ name: string, id: string }>();
 
     // filter items based on inputValue and remove selected items from the list
     const getFilteredItems = () => {

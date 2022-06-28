@@ -3,6 +3,7 @@ import { useErrorHandler } from 'react-error-boundary';
 import { useMutation, useQueryClient } from 'react-query';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
+import { Exercise } from './useGetWorkout';
 
 interface Payload {
     exerciseId: string;
@@ -16,7 +17,7 @@ const useDeleteExercise = () => {
 
     return useMutation(
         async (payload: Payload) => {
-            const { data, error } = await customFetch('http://localhost:8000/exercise', {
+            const { data, error } = await customFetch<Exercise>('http://localhost:8000/exercise', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,8 +40,8 @@ const useDeleteExercise = () => {
                 handleError(err);
                 console.log('useDeleteExercise error', err);
             },
-            onSuccess: () => {
-                router.replace(router.asPath);
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(['workout', data?.workoutId]);
             },
         }
     );

@@ -1,11 +1,12 @@
 import produce from "immer";
-import { Exercise, Workout } from "../pages/workout/[id]";
 import Button from "./Button";
 import useErrorMessage from "./hooks/useErrorMessage";
 import useFinishWorkout from "./hooks/useFinishWorkout";
+import { Exercise, Workout } from "./hooks/useGetWorkout";
 
-const FinishWorkoutButton = ({id, name, exercises}: Workout) => {
-    const {mutate, data} = useFinishWorkout();
+const FinishWorkoutButton = ({id, name, exercises, identifier}: Workout & {identifier: 'history' | 'workout'}) => {
+    const path = identifier === 'history' ? '/history' : '/';
+    const {mutate, data} = useFinishWorkout(path);
     const {handleError} = useErrorMessage();
 
     const onFinishWorkout = () => {
@@ -14,6 +15,7 @@ const FinishWorkoutButton = ({id, name, exercises}: Workout) => {
             return;
         }
 
+        // if any exercise has no weight or reps, send message saying reps and weight are required
         const isDone = exercises.every((exercise: any) => {
             if (exercise.sets?.length === 0) {
                 handleError(`Please add at least one set to ${exercise.name}`);
@@ -45,7 +47,7 @@ const FinishWorkoutButton = ({id, name, exercises}: Workout) => {
             mutate({id, name, exercises: exercisesWithSets});
         }
     }
-    return <Button onClick={onFinishWorkout}>Finish Workout</Button>;
+    return <Button onClick={onFinishWorkout}>{identifier === 'history' ? 'Save' : 'Finish Workout'}</Button>;
 };
 
 export default FinishWorkoutButton;
