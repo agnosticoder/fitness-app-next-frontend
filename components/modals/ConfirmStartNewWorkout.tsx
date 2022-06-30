@@ -1,15 +1,18 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { useRouter } from 'next/router';
 import invariant from 'tiny-invariant';
+import { getWorkoutName } from '../../lib/getWorkoutName';
 import Button from '../Button';
 import GenricDialog from '../GenricDialog';
+import useCreateWorkout from '../hooks/useCreateWorkout';
 import useDeleteTemplate from '../hooks/useDeleteTemplate';
 import useGetWorkouts from '../hooks/useGetWorkouts';
 
 const ConfirmStartNewWorkout = NiceModal.create(() => {
     const { visible, hide } = useModal();
     const { data: workouts } = useGetWorkouts();
-    const { mutate } = useDeleteTemplate();
+    const { mutate:deleteWorkout } = useDeleteTemplate();
+    const {mutate: createWorkout} = useCreateWorkout();
     const router = useRouter();
     const createWorkoutModal = useModal('workout/create-workout');
 
@@ -21,11 +24,12 @@ const ConfirmStartNewWorkout = NiceModal.create(() => {
         hide();
     };
 
-    const onStartNewTemplate = () => {
+    const onStartNewWorkout = () => {
         invariant(inProcessWorkouts, 'inProcessWorkouts is undefined');
-        mutate({ workoutId: inProcessWorkouts[0].id });
+        deleteWorkout({ workoutId: inProcessWorkouts[0].id });
+        createWorkout({name: getWorkoutName()});
         hide();
-        createWorkoutModal.show();
+        // createWorkoutModal.show();
     };
 
     return (
@@ -35,7 +39,7 @@ const ConfirmStartNewWorkout = NiceModal.create(() => {
 
                 <div className="flex justify-center items-center">
                     <Button onClick={onResumeTemplate}>Resume Workout</Button>
-                    <Button className="bg-red-500" onClick={onStartNewTemplate}>
+                    <Button className="bg-red-500" onClick={onStartNewWorkout}>
                         Start New Workout
                     </Button>
                     <Button onClick={hide}>Cancel</Button>

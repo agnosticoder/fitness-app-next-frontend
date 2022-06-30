@@ -11,23 +11,23 @@ const WorkoutInProcess = () => {
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
-
                 <div>
-                    <h1 className="text-center text-2xl">Workout In Process</h1>
-                    <ul className="mb-20 grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                        {inProcessWorkouts &&
-                            inProcessWorkouts.map((workout) => (
-                                <div key={workout.id}>
-                                    <div className="aspect-w-1 aspect-h-1">
-                                        <Link href={`/workout/${workout.id}`}>
-                                            <a className="nav-link flex justify-center items-center bg-orange-500/70 rounded-lg hover:bg-orange-500 hover:text-orange-200 text-xl">
-                                                {workout.name}
-                                            </a>
-                                        </Link>
-                                    </div>
-                                </div>
-                            ))}
-                    </ul>
+                    {inProcessWorkouts &&
+                        inProcessWorkouts.map((workout) => (
+                            <div key={workout.id}>
+                                <Link href={`/workout/${workout.id}`}>
+                                    <a className="fixed bottom-36 right-4 text-orange-100 italic bg-orange-500 text-sm font-bold rounded-lg p-2 z-10 shadow-md shadow-orange-700/40">
+                                        <div className="relative flex items-center justify-center gap-1">
+                                            <span>Workout In Progress {workout.name}</span>
+                                            <span className="absolute -top-4 -right-3 h-3 w-3">
+                                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                            </span>
+                                        </div>
+                                    </a>
+                                </Link>
+                            </div>
+                        ))}
                 </div>
             )}
         </>

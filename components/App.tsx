@@ -4,25 +4,27 @@ import Template from './Template';
 import WorkoutInProcess from './WorkoutInProcess';
 import { useModal } from '@ebay/nice-modal-react';
 import Modal from './modals/Modal';
+import { IoIosArrowBack } from 'react-icons/io';
 
 const App = () => {
     const modal = useModal(Modal);
 
     return (
         <div>
-            <div className="flex items-center justify-around">
+
+            <div className='fixed bottom-0 left-0 right-0 z-10 h-28 flex justify-center items-center bg-zinc-700 shadow-xl'>
                 <CreateWorkoutModal />
-                <CreateTemplateButton />
             </div>
+
             <WorkoutInProcess />
             {/* <WorkoutLinks /> */}
             <Template />
-            <button
+            {/* <button
                 onClick={() => modal.show()}
                 className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
             >
                 Open dialog
-            </button>
+            </button> */}
         </div>
     );
 };

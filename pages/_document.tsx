@@ -3,9 +3,9 @@ import Document, { Html, Head, Main, NextScript, DocumentContext, DocumentInitia
 const MyDocument = () => {
 
     return (
-        <Html lang="en">
+        <Html lang="en" className='bg-zinc-800'>
             <Head />
-            <body className=''>
+            <body className='bg-zinc-800'>
                 <Main />
                 <NextScript />
                 <div id='error-message'></div>

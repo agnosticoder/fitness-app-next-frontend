@@ -18,7 +18,7 @@ const EditWorkoutButton = ({workoutId, isTemplate}: {workoutId: string, isTempla
         <Menu.Item>
             {({ active }: { active: boolean }) => (
                 // Todo: Later I can change to prefetch using Link or react-query
-                <button onClick={onEdit} className={`${active ? 'bg-blue-500' : 'bg-blue-200'} rounded text-left p-1`}>
+                <button onClick={onEdit} className={`rounded text-left p-1`}>
                     <MdEdit className="inline-block mr-2" />
                     Edit
                 </button>

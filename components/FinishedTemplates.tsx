@@ -22,26 +22,35 @@ const FinishedTemplates = () => {
             return;
         }
 
-        startTemplateWorkoutModal.show({workoutId});
+        startTemplateWorkoutModal.show({ workoutId });
     };
 
     return (
         <div>
-            <h1 className="text-center text-2xl">Finished Templates</h1>
             {isLoading ? (
                 <div>Loading...</div>
             ) : (
-                <ul className="mb-20 grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                <ul className="mb-20 grid gap-3 grid-cols-1 md:grid-cols-2 md:gap-4" >
                     {finishedTemplates &&
                         finishedTemplates.map((workout) => (
                             <div key={workout.id}>
-                                <div className="aspect-w-1 aspect-h-1">
+                                <div className="aspect-w-2 aspect-h-1">
                                     <div>
                                         <button
                                             onClick={() => onStartWorkout(workout.id)}
-                                            className="w-full h-full nav-link flex justify-center items-center bg-green-500/70 rounded-lg hover:bg-green-500 hover:text-green-200 text-xl"
+                                            className="relative w-full h-full bg-rose-800 text-rose-200 rounded-lg overflow-hidden shadow-inner-2xl"
                                         >
-                                            {workout.name}
+                                            <div 
+                                            className='absolute left-0 right-0 bottom-0 top-[calc(90%)] bg-gradient-to-t from-rose-800'
+                                            />
+                                            <div className="w-full h-full text-left p-2">
+                                                <span className='font-bold'>{workout.name.toUpperCase()}</span>
+                                                {workout.exercises.map((exercise) => (
+                                                    <div key={exercise.id}>
+                                                        <span className='text-rose-200/70 italic'>{exercise.name}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
                                         </button>
                                         <GenricMenu>
                                             <EditHistoryWorkout workoutId={workout.id} isTemplate />

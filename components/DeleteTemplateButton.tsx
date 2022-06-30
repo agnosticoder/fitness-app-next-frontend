@@ -19,7 +19,7 @@ const DeleteTemplateButton = ({ workoutId }: { workoutId: string }) => {
             {({ active }: { active: boolean }) => (
                 <button
                     onClick={onDelete}
-                    className={`${active ? 'bg-blue-500' : 'bg-blue-200'} rounded text-left p-1`}
+                    className={`rounded text-left p-1`}
                 >
                     <AiFillDelete className="inline-block mr-2" />
                     Delete

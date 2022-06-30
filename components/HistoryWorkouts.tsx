@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { IoIosArrowBack } from "react-icons/io";
 import HistoryWorkoutMenu from "./HistoryWorkoutMenu";
 import useGetWorkouts, { Set } from "./hooks/useGetWorkouts";
 
@@ -18,6 +20,12 @@ const HistoryWorkouts = () => {
 
     return (
         <div>
+            {/* Top header with back button */}
+            <Link href="/">
+                <a className="fixed top-2 left-2 right-0 z-10 flex justify-between items-center">
+                    <IoIosArrowBack size={35} />
+                </a>
+            </Link>
             <ul className="mb-20 grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
                 {onlyWorkouts?.map((workout) => (
                     <div key={workout.id}>

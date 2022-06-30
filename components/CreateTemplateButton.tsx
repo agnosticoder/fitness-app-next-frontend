@@ -4,7 +4,8 @@ import useGetWorkouts from './hooks/useGetWorkouts';
 import { useModal } from '@ebay/nice-modal-react';
 import ConfirmStartNewTemplate from './modals/ConfrimStartNewTemplate';
 import CreateTemplate from './modals/CreateTemplate';
-
+import { GrFormAdd } from 'react-icons/gr';
+import { IoMdAdd } from 'react-icons/io';
 const CreateTemplateButton = () => {
     const { data: workouts } = useGetWorkouts();
     const confirmStartNewTemplateModal = useModal('template/confirm-start-new-template');
@@ -26,11 +27,19 @@ const CreateTemplateButton = () => {
 
     return (
         <div>
-            <div className="flex justify-center">
-                <Button onClick={onCreateTemplate}>Create Template</Button>
-            </div>
-            <ConfirmStartNewTemplate id='template/confirm-start-new-template'/>
-            <CreateTemplate id='template/create-template'/>
+            <button
+                className="bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md"
+                onClick={onCreateTemplate}
+            >
+                <div className="flex items-center gap-1">
+                    <span className="inline-block">Add Template</span>
+                    <span className="inline-block">
+                        <IoMdAdd size={20} strokeWidth={20} />
+                    </span>
+                </div>
+            </button>
+            <ConfirmStartNewTemplate id="template/confirm-start-new-template" />
+            <CreateTemplate id="template/create-template" />
         </div>
     );
 };

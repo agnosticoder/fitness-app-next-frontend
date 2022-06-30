@@ -6,6 +6,8 @@ import useGetWorkout from '../../components/hooks/useGetWorkout';
 import AddExercises from '../../components/modals/AddExercises';
 import Button from '../../components/Button';
 import { useModal } from '@ebay/nice-modal-react';
+import { IoIosArrowBack } from 'react-icons/io';
+import Link from 'next/link';
 
 const Workout = () => {
     const router = useRouter();
@@ -15,10 +17,17 @@ const Workout = () => {
 
     return (
         <div>
+            {/* Top header with back button */}
+            <Link href="/">
+                <a className="fixed top-2 left-2 right-0 z-10 flex justify-between items-center">
+                    <IoIosArrowBack size={35} />
+                </a>
+            </Link>
+
             {workout && (
                 <div>
                     <div className="flex justify-between">
-                        <Button onClick={() => addExercisesModal.show({workoutId: id})}>Add Exercises</Button>
+                        <Button onClick={() => addExercisesModal.show({ workoutId: id })}>Add Exercises</Button>
                         <FinishWorkoutButton {...workout} identifier="workout" />
                         <CancelWorkoutButton workoutId={workout.id} identifier="workout" />
                     </div>
