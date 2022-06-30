@@ -1,12 +1,15 @@
 import { Menu } from '@headlessui/react';
 import { BiMessageSquareAdd } from 'react-icons/bi';
 import { useModal } from '@ebay/nice-modal-react';
+import SaveAsTemplate from './modals/SaveAsTemplate';
 
 const SaveAsTemplateHistoryWorkout = ({ workoutId }: { workoutId: string }) => {
-    const saveAsTemplateModal = useModal(`workout/save-as-template-${workoutId}`);
+    const saveAsTemplateModal = useModal(SaveAsTemplate);
 
     const onSaveAsTemplate = () => {
-        saveAsTemplateModal.show();
+        setTimeout(() => {
+            saveAsTemplateModal.show({ workoutId });
+        }, 50);
     };
 
     return (

@@ -1,10 +1,10 @@
-import CreateWorkoutDialog from './modals/CreateWorkout';
+import CreateWorkout from './modals/CreateWorkout';
 import CreateWorkoutButton from './CreateWorkoutButton';
 
 const CreateWorkoutModal = () => {
     return (
         <div>
-            <CreateWorkoutDialog id='workout/create-workout'/>
+            <CreateWorkout id="workout/create-workout" />
             <CreateWorkoutButton />
         </div>
     );

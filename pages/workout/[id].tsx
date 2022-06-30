@@ -1,25 +1,24 @@
-import { GetServerSideProps, GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
-import getWorkout from "../../lib/getWorkout";
-import AddExercisesModal from '../../components/AddExercisesModal';
 import Exercise from '../../components/Exercise';
-import FinishWorkoutButton from "../../components/FinishWorkoutButton";
-import CancelWorkoutButton from "../../components/CancelWorkoutButton";
-import { useRouter } from "next/router";
-import useGetWorkout from "../../components/hooks/useGetWorkout";
-import useGetLatestExercises from "../../components/hooks/useGetLatestExercises";
-import { useEffect } from "react";
+import FinishWorkoutButton from '../../components/FinishWorkoutButton';
+import CancelWorkoutButton from '../../components/CancelWorkoutButton';
+import { useRouter } from 'next/router';
+import useGetWorkout from '../../components/hooks/useGetWorkout';
+import AddExercises from '../../components/modals/AddExercises';
+import Button from '../../components/Button';
+import { useModal } from '@ebay/nice-modal-react';
 
 const Workout = () => {
     const router = useRouter();
     const { id } = router.query as { id: string };
     const { data: workout } = useGetWorkout({ id });
+    const addExercisesModal = useModal(AddExercises);
 
     return (
         <div>
             {workout && (
                 <div>
                     <div className="flex justify-between">
-                        <AddExercisesModal workoutId={workout.id} />
+                        <Button onClick={() => addExercisesModal.show({workoutId: id})}>Add Exercises</Button>
                         <FinishWorkoutButton {...workout} identifier="workout" />
                         <CancelWorkoutButton workoutId={workout.id} identifier="workout" />
                     </div>
@@ -38,4 +37,3 @@ const Workout = () => {
 };
 
 export default Workout;
-

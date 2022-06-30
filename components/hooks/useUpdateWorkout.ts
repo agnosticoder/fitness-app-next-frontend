@@ -21,7 +21,7 @@ const useUpdateWorkout = () => {
 
     return useMutation(
         async (payload: Payload) => {
-            const { data, error } = await customFetch<Workout>('http://localhost:8000/workout/update', {
+            const { data, error } = await customFetch<Workout>('http://satinder.local:8000/workout/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

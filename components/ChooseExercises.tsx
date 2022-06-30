@@ -2,7 +2,8 @@ import { matchSorter } from "match-sorter";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCombobox, useMultipleSelection } from 'downshift';
 import { useErrorHandler } from 'react-error-boundary';
-import { useSelectedExercisesStore } from './store/selectedExercisesStore';
+import { selectedExercisesAtom } from "./store/atoms";
+import { useAtom } from "jotai";
 
 const allExercises = [{name: 'Biceps', id: 'biceps'}, {name: 'Triceps', id: 'triceps'}, {name: 'Chest', id: 'chest'}, {name: 'Back', id: 'back'}, {name: 'Shoulders', id: 'shoulders'}, {name: 'Legs', id: 'legs'}];
 
@@ -10,7 +11,7 @@ const allExercises = [{name: 'Biceps', id: 'biceps'}, {name: 'Triceps', id: 'tri
 const ChooseExercises = () => {
     const [inputValue, setInputValue] = useState('');
     const handleError = useErrorHandler();
-    const [,setSelectedExercies] = useSelectedExercisesStore();
+    const [,setSelectedExercies] = useAtom(selectedExercisesAtom);
 
 
     // useMultipleSelection

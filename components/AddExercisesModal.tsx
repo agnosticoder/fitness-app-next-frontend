@@ -1,10 +1,11 @@
 import { Dialog } from '@headlessui/react';
+import { useAtom } from 'jotai';
 import { useState } from 'react';
 import Button from './Button';
 import ChooseExercises from './ChooseExercises';
 import ConfirmDialog from './ConfirmDialog';
 import useCreateExercises from './hooks/useCreateExercises';
-import { useSelectedExercisesStore } from './store/selectedExercisesStore';
+import { selectedExercisesAtom } from './store/atoms';
 
 interface AddExerciseModalProps {
     workoutId: string;
@@ -13,7 +14,7 @@ interface AddExerciseModalProps {
 const AddExerciseModal = ({workoutId}: AddExerciseModalProps) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
-    const [selectedExercises] = useSelectedExercisesStore();
+    const [selectedExercises] = useAtom(selectedExercisesAtom);
     const {mutate, data} = useCreateExercises();
 
     const onCloseDialog = () => {

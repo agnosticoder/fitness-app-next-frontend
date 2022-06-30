@@ -13,7 +13,7 @@ const useSaveTemplate = () => {
 
     return useMutation(
         async (payload:Payload) => {
-            const { data, error } = await customFetch('http://localhost:8000/savetemplate', {
+            const { data, error } = await customFetch('http://satinder.local:8000/savetemplate', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

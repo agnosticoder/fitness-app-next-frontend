@@ -1,6 +1,6 @@
 const fetchAllExercises = async () => {
     try{
-        const result = await  fetch('http://localhost:8000/exercises');
+        const result = await  fetch('http://satinder.local:8000/exercises');
         if(result.ok){
             const exercises = await result.json();
             return exercises;

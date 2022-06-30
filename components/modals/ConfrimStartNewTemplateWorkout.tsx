@@ -1,16 +1,35 @@
 import NiceModal, {useModal} from '@ebay/nice-modal-react';
-import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import invariant from 'tiny-invariant';
 import Button from '../Button';
 import GenricDialog from '../GenricDialog';
 import useDeleteTemplate from '../hooks/useDeleteTemplate';
 import useGetWorkouts from '../hooks/useGetWorkouts';
+import {z} from 'zod';
+import useGetWorkout from '../hooks/useGetWorkout';
+import useCreateWorkout from '../hooks/useCreateWorkout';
+
+const Set = z.object({
+    reps: z.string().optional(),
+    weight: z.string().optional(),
+});
+
+const Exercise = z.object({
+    name: z.string(),
+    sets: z.array(Set),
+});
+
+const Workout = z.object({
+    name: z.string(),
+    exercises: z.array(Exercise),
+});
 
 const ConfirmStartNewTemplateWorkout = NiceModal.create(({workoutId}: {workoutId: string}) => {
     const { visible, hide } = useModal();
     const { data: workouts } = useGetWorkouts();
-    const { mutate } = useDeleteTemplate();
+    const { data: workout } = useGetWorkout({ id: workoutId });
+    const { mutate: deleteTemplate } = useDeleteTemplate();
+    const { mutate: createWorkout } = useCreateWorkout();
     const router = useRouter();
 
     const inProcessWorkouts = workouts?.filter((workout) => !workout.isDone && !workout.isTemplate);
@@ -23,8 +42,10 @@ const ConfirmStartNewTemplateWorkout = NiceModal.create(({workoutId}: {workoutId
 
     const onStartNewTemplate = () => {
         invariant(inProcessWorkouts, 'inProcessTemplates is undefined');
-        mutate({ workoutId: inProcessWorkouts[0].id });
-        NiceModal.show(`workout/start-template-workout-${workoutId }`);
+        deleteTemplate({ workoutId: inProcessWorkouts[0].id });
+        const newWorkout = Workout.parse(workout);
+        createWorkout({ ...newWorkout });
+
         hide();
     };
 

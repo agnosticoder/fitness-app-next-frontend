@@ -1,32 +1,28 @@
-import NiceModal, { useModal } from '@ebay/nice-modal-react';
-import Button from '../Button';
-import GenricDialog from '../GenricDialog';
+import { useAtom } from "jotai";
+import Button from "../Button";
+import GenricDialog from "../GenricDialog";
+import { confirmDialogAtom } from "../store/atoms";
 
-interface ConfirmCloseProps {
-    hideDialog: () => void;
-    reset?: () => void;
-}
-
-const ConfirmClose = NiceModal.create(({ hideDialog, reset }: ConfirmCloseProps) => {
-    const { visible, hide } = useModal();
+const Confrim = ({hide, reset}: {hide: () => void, reset?: () => void}) => {
+    const [isOpen, setIsOpen] = useAtom(confirmDialogAtom)
 
     return (
-        <GenricDialog isOpen={visible}>
+        <GenricDialog isOpen={isOpen} setIsOpen={setIsOpen}>
             <div>
                 <h1>Are you sure you want to close this dialog?</h1>
                 <div className="flex justify-center">
                     <Button
                         onClick={() => {
                             reset && reset();
-                            hideDialog();
                             hide();
+                            setIsOpen(false);
                         }}
                     >
                         Yes
                     </Button>
                     <Button
                         onClick={() => {
-                            hide();
+                            setIsOpen(false);
                         }}
                     >
                         No
@@ -35,6 +31,6 @@ const ConfirmClose = NiceModal.create(({ hideDialog, reset }: ConfirmCloseProps)
             </div>
         </GenricDialog>
     );
-});
+};
 
-export default ConfirmClose;
+export default Confrim;

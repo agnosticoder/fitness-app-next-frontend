@@ -16,7 +16,7 @@ const useDeleteSet = (workoutId: string) => {
 
     return useMutation(
         async (payload: Payload) => {
-            const { data, error } = await customFetch('http://localhost:8000/set', {
+            const { data, error } = await customFetch('http://satinder.local:8000/set', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

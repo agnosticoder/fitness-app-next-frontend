@@ -7,7 +7,7 @@ const useGetLatestExercise = ({ name }: { name: string }) => {
     const handleError = useErrorHandler();
     const {handleError: handleErrorMessage} = useErrorMessage();
     return useQuery(['latestexercise', name], async () => {
-        const {data, error} = await customFetch(`http://localhost:8000/exercise/${name}`);
+        const {data, error} = await customFetch(`http://satinder.local:8000/exercise/${name}`);
         if(error) {
             handleErrorMessage(error);
             return;

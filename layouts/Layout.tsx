@@ -1,11 +1,13 @@
+import { useAtom } from 'jotai';
 import Head from 'next/head';
 import Link from 'next/link';
 import { FC } from 'react';
 import ErrorMessagePortal from '../components/ErrorMessagePortal';
 import useErrorMessage from '../components/hooks/useErrorMessage';
+import { messageAtom } from '../components/store/atoms';
 
 const Layout: FC = ({ children }) => {
-    const { error } = useErrorMessage();
+    const [message] = useAtom(messageAtom);
 
     return (
         <div className="text-cyan-900 bg-slate-200 min-h-screen">
@@ -35,7 +37,7 @@ const Layout: FC = ({ children }) => {
             <div className="mx-4 sm:mx-16 pt-4 pb-1">
                 <main>{children}</main>
             </div>
-            {error && <ErrorMessagePortal>{error}</ErrorMessagePortal>}
+            {message && <ErrorMessagePortal>{message}</ErrorMessagePortal>}
         </div>
     );
 };

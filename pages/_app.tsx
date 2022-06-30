@@ -1,7 +1,6 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import Layout from '../layouts/Layout';
-import { ErrorMessageProvider } from '../components/store/errorMessageStore';
 import { ErrorBoundary } from 'react-error-boundary';
 import clientErrorHandler from '../lib/clientErrorHandler';
 import ErrorFallbackComponent from '../components/ErrorFallbackComponent';
@@ -10,7 +9,7 @@ import { QueryClientProvider, QueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import GlobalLoader from '../components/GloabalLoader';
 import NiceModal from '@ebay/nice-modal-react';
-import ConfirmStartNewWorkout from '../components/modals/ConfirmStartNewWorkout';
+import '../components/modals/modals';
 
 
 const queryClient = new QueryClient();
@@ -23,13 +22,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <QueryClientProvider client={queryClient}>
                     <NiceModal.Provider>
                         <GlobalLoader />
-                        <ErrorMessageProvider init="">
-                            <SelectedExercisesProvider init={[]}>
-                                <Layout>
-                                    <Component {...pageProps} />
-                                </Layout>
-                            </SelectedExercisesProvider>
-                        </ErrorMessageProvider>
+                        <Layout>
+                            <Component {...pageProps} />
+                        </Layout>
                         <ReactQueryDevtools />
                     </NiceModal.Provider>
                 </QueryClientProvider>

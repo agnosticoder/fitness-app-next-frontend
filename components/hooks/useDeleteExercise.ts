@@ -17,7 +17,7 @@ const useDeleteExercise = () => {
 
     return useMutation(
         async (payload: Payload) => {
-            const { data, error } = await customFetch<Exercise>('http://localhost:8000/exercise', {
+            const { data, error } = await customFetch<Exercise>('http://satinder.local:8000/exercise', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,11 +1,12 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
+import { useAtom } from 'jotai';
 import { useForm } from 'react-hook-form';
 import Button from '../Button';
 import ChooseExercises from '../ChooseExercises';
 import GenricDialog from '../GenricDialog';
 import useCreateTemplate from '../hooks/useCreateTemplate';
-import { useSelectedExercisesStore } from '../store/selectedExercisesStore';
-import ConfirmClose from './ConfirmClose';
+import { confirmDialogAtom, selectedExercisesAtom } from '../store/atoms';
+import Confrim from './Confirm';
 
 interface Inputs {
     workoutName: string;
@@ -13,7 +14,6 @@ interface Inputs {
 
 const CreateTemplate = NiceModal.create(() => {
     const { visible, hide } = useModal();
-    const confirmClose = useModal('template/confirm-close-create-template');
     const { mutate } = useCreateTemplate();
     const {
         register,
@@ -21,7 +21,8 @@ const CreateTemplate = NiceModal.create(() => {
         reset,
         formState: { errors },
     } = useForm<Inputs>();
-    const [selectedExercises] = useSelectedExercisesStore();
+    const [selectedExercises] = useAtom(selectedExercisesAtom);
+    const [, setConfirmDialog] = useAtom(confirmDialogAtom);
 
     const onSubmit = ({ workoutName }: Inputs) => {
         console.log('Submit');
@@ -32,7 +33,7 @@ const CreateTemplate = NiceModal.create(() => {
 
     return (
         <>
-            <GenricDialog isOpen={visible} setIsOpen={() => confirmClose.show()}>
+            <GenricDialog isOpen={visible}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <input
@@ -47,15 +48,15 @@ const CreateTemplate = NiceModal.create(() => {
                     <Button type="submit">Create Template</Button>
                     <Button
                         onClick={() => {
-                            confirmClose.show();
+                            setConfirmDialog(true);
                         }}
                         type="button"
                     >
                         Close
                     </Button>
                 </form>
+                <Confrim hide={() => hide()} reset={() => reset()}/>
             </GenricDialog>
-            <ConfirmClose id='template/confirm-close-create-template' hideDialog={hide} reset={reset}/>
         </>
     );
 });

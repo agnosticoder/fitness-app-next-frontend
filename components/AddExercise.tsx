@@ -9,7 +9,7 @@ interface PostExercise{
 
 const postExercise = async ({name, workoutId}: PostExercise) => {
     try {
-        const result = await fetch('http://localhost:8000/exercise', {
+        const result = await fetch('http://satinder.local:8000/exercise', {
             method: 'Post',
             headers: {
                 'Content-type': 'Application/json',

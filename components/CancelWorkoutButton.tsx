@@ -9,15 +9,13 @@ const CancelWorkoutButton = ({
     workoutId: string;
     identifier: 'template' | 'history' | 'workout';
 }) => {
-    const modal = useModal('workout/confirm-cancel-workout');
+    const modal = useModal(ConfirmCancelWorkout);
 
     return (
         <div>
-            <Button onClick={() => modal.show()} className="bg-red-500 text-red-200" type="button">
+            <Button onClick={() => modal.show({identifier, workoutId})} className="bg-red-500 text-red-200" type="button">
                 {identifier === 'workout' ? 'Cancel Workout' : 'Delete'}
             </Button>
-
-            <ConfirmCancelWorkout id="workout/confirm-cancel-workout" identifier={identifier} workoutId={workoutId} />
         </div>
     );
 };

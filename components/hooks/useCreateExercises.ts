@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
-interface Exercise {
+export interface Exercise {
     name: string;
 }
 
@@ -22,7 +22,7 @@ const useCreateExercises = () => {
 
     return useMutation(
         async (payload:Payload) => {
-            const { data, error } = await customFetch('http://localhost:8000/exercises', {
+            const { data, error } = await customFetch('http://satinder.local:8000/exercises', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -16,7 +16,7 @@ const useSaveHistoryWorkoutAsTemplate = () => {
 
     return useMutation(
         async (workout: Payload) => {
-            const { data, error } = await customFetch('http://localhost:8000/workout/copytotemplate', {
+            const { data, error } = await customFetch('http://satinder.local:8000/workout/copytotemplate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

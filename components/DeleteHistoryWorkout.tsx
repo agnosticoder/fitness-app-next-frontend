@@ -1,12 +1,15 @@
 import { Menu } from "@headlessui/react";
 import { AiFillDelete } from "react-icons/ai";
 import { useModal } from "@ebay/nice-modal-react";
+import DeleteHisotory from "./modals/DeleteHistory";
 
 const DeleteHistoryWorkout = ({ workoutId }: { workoutId: string }) => {
-    const deleteHistoryModal = useModal(`workout/delete-history-${workoutId}`);
+    const deleteHistoryModal = useModal(DeleteHisotory);
 
     const onDelete = () => {
-        deleteHistoryModal.show();
+        setTimeout(() => {
+            deleteHistoryModal.show({ workoutId });
+        }, 50);
     };
 
     return (

@@ -25,7 +25,7 @@ const useCreateTemplate = () => {
 
     return useMutation(
         async (workout: Workout) => {
-            const { data, error } = await customFetch<Data>('http://localhost:8000/workout/template', {
+            const { data, error } = await customFetch<Data>('http://satinder.local:8000/workout/template', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

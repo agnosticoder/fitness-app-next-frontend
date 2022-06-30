@@ -16,7 +16,7 @@ interface Exercise {
 
 interface Workout {
     name: string;
-    exercises: Exercise[];
+    exercises?: Exercise[];
 }
 
 interface Data{
@@ -32,7 +32,7 @@ const useCreateWorkout = () => {
     return useMutation(
         async (workout: Workout) => {
             console.log('workout', workout);
-            const { data, error } = await customFetch<Data>('http://localhost:8000/workout', {
+            const { data, error } = await customFetch<Data>('http://satinder.local:8000/workout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -32,8 +32,6 @@ const Exercise = ({ id, name, workoutId, sets }: Exercise) => {
                 </table>
                 <AddSetButton exerciseId={id}/>
                 <DeleteExerciseButton exerciseId={id}/>
-
-                <DeleteExercise id={`exercise/delete-${id}`} exerciseId={id}/>
             </ul>
         </div>
     );

@@ -6,9 +6,10 @@ import ChooseExercises from '../ChooseExercises';
 import GenricDialog from '../GenricDialog';
 import useCreateWorkout from '../hooks/useCreateWorkout';
 import useGetLatestExercises from '../hooks/useGetLatestExercises';
-import { useSelectedExercisesStore } from '../store/selectedExercisesStore';
-import ConfirmClose from './ConfirmClose';
 import { z } from 'zod';
+import Confrim from './Confirm';
+import { confirmDialogAtom, selectedExercisesAtom } from '../store/atoms';
+import { useAtom } from 'jotai';
 
 const ExerciseSchema = z.array(
     z.object({
@@ -22,7 +23,7 @@ const ExerciseSchema = z.array(
             )
             .optional(),
     })
-);
+).optional();
 
 interface Inputs {
     workoutName: string;
@@ -30,10 +31,8 @@ interface Inputs {
 
 const CreatWorkout = NiceModal.create(() => {
     const { visible, hide } = useModal();
-    const confirmClose = useModal('workout/confirm-close-create-workout');
-
     const { mutate } = useCreateWorkout();
-    const [selectedExercises] = useSelectedExercisesStore();
+    const [selectedExercises] = useAtom(selectedExercisesAtom)
     const {
         register,
         handleSubmit,
@@ -42,8 +41,8 @@ const CreatWorkout = NiceModal.create(() => {
     } = useForm<Inputs>();
     const exercisesWithNames = selectedExercises.map((exercise) => exercise.name);
     const { data: latestExercises } = useGetLatestExercises({ names: exercisesWithNames });
+    const [, setConfirmDialog] = useAtom(confirmDialogAtom);
 
-    console.log('latestExercises', latestExercises);
     const onSubmit = ({ workoutName }: Inputs) => {
         const exercises = ExerciseSchema.parse(latestExercises);
         mutate({ name: workoutName, exercises: exercises });
@@ -52,7 +51,7 @@ const CreatWorkout = NiceModal.create(() => {
 
     return (
         <>
-            <GenricDialog isOpen={visible} setIsOpen={() => confirmClose.show()}>
+            <GenricDialog isOpen={visible}>
                 <Dialog.Title>Create Workout</Dialog.Title>
                 <Dialog.Description>Please start adding exercises and more</Dialog.Description>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -67,9 +66,16 @@ const CreatWorkout = NiceModal.create(() => {
                     <div>
                         <Button type="submit">Create Workout</Button>
                     </div>
+                    <div>
+                        <Button type="button" onClick={() => {
+                            setConfirmDialog(true);
+                        }}>
+                            Close
+                        </Button>
+                    </div>
                 </form>
+                <Confrim hide={() => hide()} reset={() => reset()}/>
             </GenricDialog>
-            <ConfirmClose id="workout/confirm-close-create-workout" hideDialog={hide} reset={reset}/>
         </>
     );
 });

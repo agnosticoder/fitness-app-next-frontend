@@ -4,8 +4,6 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 import DeleteHistoryWorkout from './DeleteHistoryWorkout';
 import SaveAsTemplateHistoryWorkout from './SaveAsTemplateHistoryWorkout';
 import EditWorkoutButton from './EditWorkoutButton';
-import SaveAsTemplate from './modals/SaveAsTemplate';
-import DeleteHisotory from './modals/DeleteHistory';
 
 const HistoryWorkoutMenu = ({ workoutId }: { workoutId: string }) => {
     return (
@@ -30,8 +28,6 @@ const HistoryWorkoutMenu = ({ workoutId }: { workoutId: string }) => {
                     </Menu.Items>
                 </Transition>
             </Menu>
-            <SaveAsTemplate id={`workout/save-as-template-${workoutId}`} workoutId={workoutId} />
-            <DeleteHisotory id={`workout/delete-history-${workoutId}`} workoutId={workoutId} />
         </div>
     );
 };

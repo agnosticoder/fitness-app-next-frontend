@@ -1,17 +1,16 @@
-import { useAtom } from 'jotai';
 import DeleteTemplateButton from './DeleteTemplateButton';
 import EditHistoryWorkout from './EditWorkoutButton';
 import GenricMenu from './GenricMenu';
 import useGetWorkouts from './hooks/useGetWorkouts';
-import DeleteTemplate from './modals/DeleteTemplate';
-import RenameTemplate from './modals/RenameTemplate';
 import RenameTemplateButton from './RenameTemplateButton';
-import NiceModal from '@ebay/nice-modal-react';
 import ConfirmStartNewTemplateWorkout from './modals/ConfrimStartNewTemplateWorkout';
 import StartTemplateWorkout from './modals/StartTemplateWorkout';
+import {useModal} from '@ebay/nice-modal-react';
 
 const FinishedTemplates = () => {
     const { isLoading, data: workouts } = useGetWorkouts();
+    const startTemplateWorkoutModal = useModal(StartTemplateWorkout);
+    const confirmStartNewTemplateWorkoutModal = useModal(ConfirmStartNewTemplateWorkout);
 
     const finishedTemplates = workouts?.filter((workout) => workout.isDone && workout.isTemplate);
 
@@ -19,11 +18,11 @@ const FinishedTemplates = () => {
 
     const onStartWorkout = (workoutId: string) => {
         if (workoutInProgress && workoutInProgress?.length > 0) {
-            NiceModal.show(`workout/confirm-start-new-template-workout-${workoutId }`);
+            confirmStartNewTemplateWorkoutModal.show({ workoutId });
             return;
         }
 
-        NiceModal.show(`workout/start-template-workout-${workoutId }`);
+        startTemplateWorkoutModal.show({workoutId});
     };
 
     return (
@@ -50,10 +49,6 @@ const FinishedTemplates = () => {
                                             <RenameTemplateButton workoutId={workout.id} />
                                         </GenricMenu>
                                     </div>
-                                    <DeleteTemplate id={`template/delete-${workout.id}`} workoutId={workout.id} />
-                                    <RenameTemplate id={`template/rename-${workout.id}`} workoutId={workout.id} />
-                                    <ConfirmStartNewTemplateWorkout id= {`workout/confirm-start-new-template-workout-${workout.id}`} workoutId={workout.id} />
-                                    <StartTemplateWorkout id={`workout/start-template-workout-${workout.id}`} workoutId={workout.id} />
                                 </div>
                             </div>
                         ))}

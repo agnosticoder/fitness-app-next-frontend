@@ -13,7 +13,7 @@ const useFinishWorkout = (path: string) => {
 
     return useMutation(
         async (payload:Payload) => {
-            const { data, error } = await customFetch('http://localhost:8000/finishworkout', {
+            const { data, error } = await customFetch('http://satinder.local:8000/finishworkout', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

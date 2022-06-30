@@ -22,7 +22,7 @@ const useCreateSet = () => {
 
     return useMutation(
         async (payload:Payload) => {
-            const { data, error } = await customFetch<Data>('http://localhost:8000/set', {
+            const { data, error } = await customFetch<Data>('http://satinder.local:8000/set', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,10 +1,11 @@
+import { useAtom } from "jotai";
 import { useEffect, useRef } from "react";
-import { useErrorMessageStore } from "../store/errorMessageStore";
+import { messageAtom } from "../store/atoms";
 
 //Todo: Make this shit work and figure out why this rendering so many time?
 //? Why this shitty hook is rendering so many times
 const useErrorMessage = () => {
-    const [error, setError] = useErrorMessageStore();
+    const [error, setError] = useAtom(messageAtom)
     const errorRef = useRef(error);
 
     let timeout:NodeJS.Timeout;
