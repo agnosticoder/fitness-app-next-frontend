@@ -19,7 +19,7 @@ const TemplateWorkout = () => {
         <div>
             {/* Top header with back button */}
             <Link href="/">
-                <a className="fixed top-2 left-2 right-0 z-10 flex justify-between items-center">
+                <a className="fixed standalone:top-[50px] top-5 left-2 right-0 z-10 flex justify-between items-center">
                     <IoIosArrowBack size={35} />
                 </a>
             </Link>

@@ -18,10 +18,13 @@ const WorkoutInProcess = () => {
                                 <Link href={`/workout/${workout.id}`}>
                                     <a className="fixed bottom-36 right-4 text-orange-100 italic bg-orange-500 text-sm font-bold rounded-lg p-2 z-10 shadow-md shadow-orange-700/40">
                                         <div className="relative flex items-center justify-center gap-1">
-                                            <span>Workout In Progress {workout.name}</span>
+                                            <span>
+                                                <span className="mr-1">{workout.name}</span>
+                                                <span>In Progress</span>
+                                            </span>
                                             <span className="absolute -top-4 -right-3 h-3 w-3">
                                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                                <span className="absolute inline-flex rounded-full h-3 w-3 bg-green-500"></span>
                                             </span>
                                         </div>
                                     </a>

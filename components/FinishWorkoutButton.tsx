@@ -4,13 +4,13 @@ import useErrorMessage from "./hooks/useErrorMessage";
 import useFinishWorkout from "./hooks/useFinishWorkout";
 import { Exercise, Workout } from "./hooks/useGetWorkout";
 
-const FinishWorkoutButton = ({id, name, exercises, identifier}: Workout & {identifier: 'history' | 'workout'}) => {
+const FinishWorkoutButton = ({ id, name, exercises, identifier }: Workout & { identifier: 'history' | 'workout' }) => {
     const path = identifier === 'history' ? '/history' : '/';
-    const {mutate, data} = useFinishWorkout(path);
-    const {handleError} = useErrorMessage();
+    const { mutate, data } = useFinishWorkout(path);
+    const { handleError } = useErrorMessage();
 
     const onFinishWorkout = () => {
-        if(exercises?.length === 0) {
+        if (exercises?.length === 0) {
             handleError('Please add at least one exercise');
             return;
         }
@@ -23,7 +23,7 @@ const FinishWorkoutButton = ({id, name, exercises, identifier}: Workout & {ident
             }
 
             return exercise.sets.every((set: any) => {
-                if(set.isDone === false){
+                if (set.isDone === false) {
                     handleError(`Please mark set ${set.id} as done`);
                     return false;
                 }
@@ -32,7 +32,7 @@ const FinishWorkoutButton = ({id, name, exercises, identifier}: Workout & {ident
             });
         });
 
-        if(isDone) {
+        if (isDone) {
             const exercisesWithSets = produce(exercises, (draft: Exercise[]) => {
                 draft.forEach((exercise) => {
                     exercise.sets = exercise.sets.map((set, index) => {
@@ -44,10 +44,12 @@ const FinishWorkoutButton = ({id, name, exercises, identifier}: Workout & {ident
                 });
             });
 
-            mutate({id, name, exercises: exercisesWithSets});
+            mutate({ id, name, exercises: exercisesWithSets });
         }
-    }
-    return <Button onClick={onFinishWorkout}>{identifier === 'history' ? 'Save' : 'Finish Workout'}</Button>;
+    };
+    return (
+            <button className="bg-green-500 text-zinc-100 font-bold py-1 px-2 rounded-md" onClick={onFinishWorkout}>{identifier === 'history' ? 'Save' : 'Finish Workout'}</button>
+    );
 };
 
 export default FinishWorkoutButton;

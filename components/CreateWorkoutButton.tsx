@@ -10,8 +10,7 @@ import { getWorkoutName } from "../lib/getWorkoutName";
 const CreateWorkoutButton = () => {
     const { data: workouts } = useGetWorkouts();
     const {mutate} = useCreateWorkout();
-    const confirmStartNewWorkoutModal = useModal('workout/confirm-start-new-workout');
-    const createWorkoutModal = useModal('workout/create-workout');
+    const confirmStartNewWorkoutModal = useModal(ConfirmStartNewWorkout);
 
     const inProcessWorkouts = workouts?.filter((workout) => !workout.isDone && !workout.isTemplate);
 
@@ -24,19 +23,17 @@ const CreateWorkoutButton = () => {
         }
 
         mutate({name: getWorkoutName()});
-        // createWorkoutModal.show();
     };
 
     return (
         <div>
-            <ConfirmStartNewWorkout id="workout/confirm-start-new-workout" />
             <button
                 type="button"
-                className="bg-rose-500 text-rose-100 p-2 text-xl rounded-md"
+                className="bg-rose-600 text-rose-100 p-2 text-xl rounded-md"
                 onClick={onCreateWorkout}
             >
                 <div className="flex items-center gap-2">
-                    <span className="inline-block">Start New Workout</span>
+                    <span className="inline-block font-bold">Start New Workout</span>
                     <span className="inline-block">
                         <IoMdFitness size={25} />
                     </span>

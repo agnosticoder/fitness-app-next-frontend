@@ -8,6 +8,7 @@ import Button from '../../components/Button';
 import { useModal } from '@ebay/nice-modal-react';
 import { IoIosArrowBack } from 'react-icons/io';
 import Link from 'next/link';
+import WorkoutInputName from '../../components/WorkoutNameInput';
 
 const Workout = () => {
     const router = useRouter();
@@ -19,25 +20,36 @@ const Workout = () => {
         <div>
             {/* Top header with back button */}
             <Link href="/">
-                <a className="fixed top-2 left-2 right-0 z-10 flex justify-between items-center">
+                <a className="fixed standalone:top-[50px] top-5 left-2 right-0 z-10 flex justify-between items-center">
                     <IoIosArrowBack size={35} />
                 </a>
             </Link>
 
             {workout && (
                 <div>
-                    <div className="flex justify-between">
-                        <Button onClick={() => addExercisesModal.show({ workoutId: id })}>Add Exercises</Button>
-                        <FinishWorkoutButton {...workout} identifier="workout" />
-                        <CancelWorkoutButton workoutId={workout.id} identifier="workout" />
+                    <div className="">
+                        <div className="mb-4 flex justify-between">
+                            <CancelWorkoutButton workoutId={workout.id} identifier="workout" />
+                            <FinishWorkoutButton {...workout} identifier="workout" />
+                        </div>
                     </div>
-                    <h2>Workout: {workout.name}</h2>
-                    {/*//Todo: Add functionality to create custom exercises */}
-                    {/* <AddExercise id={id} /> */}
-                    <div className="grid grid-cols-2 gap-2">
-                        {workout.exercises?.map((exercise: any) => (
-                            <Exercise key={exercise.id} {...exercise} />
-                        ))}
+                    <div className="mt-4 mb-4">
+                        <WorkoutInputName workoutName={workout.name} workoutId={workout.id} />
+                        {/*//Todo: Add functionality to create custom exercises */}
+                        {/* <AddExercise id={id} /> */}
+                        <div className="grid grid-cols-2 gap-2">
+                            {workout.exercises?.map((exercise: any) => (
+                                <Exercise key={exercise.id} {...exercise} />
+                            ))}
+                        </div>
+                    </div>
+                    <div className="text-center">
+                        <button
+                            className="bg-rose-200/70 text-rose-600 py-1 px-2 text-lg font-bold rounded-md w-52"
+                            onClick={() => addExercisesModal.show({ workoutId: id })}
+                        >
+                            Add Exercises
+                        </button>
                     </div>
                 </div>
             )}

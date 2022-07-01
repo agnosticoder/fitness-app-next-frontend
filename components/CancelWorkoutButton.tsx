@@ -13,9 +13,11 @@ const CancelWorkoutButton = ({
 
     return (
         <div>
-            <Button onClick={() => modal.show({identifier, workoutId})} className="bg-red-500 text-red-200" type="button">
+            <button onClick={() => modal.show({identifier, workoutId})} 
+            className="bg-red-500 text-zinc-100 font-bold py-1 px-2 rounded-md"
+            type="button">
                 {identifier === 'workout' ? 'Cancel Workout' : 'Delete'}
-            </Button>
+            </button>
         </div>
     );
 };

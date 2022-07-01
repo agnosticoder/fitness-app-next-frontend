@@ -11,9 +11,10 @@ const App = () => {
 
     return (
         <div>
-
-            <div className='fixed bottom-0 left-0 right-0 z-10 h-28 flex justify-center items-center bg-zinc-700 shadow-xl'>
-                <CreateWorkoutModal />
+            <div className="fixed bottom-0 left-0 right-0 z-10 h-28 flex justify-center items-center bg-zinc-700 shadow-xl">
+                <div className='pb-10'>
+                    <CreateWorkoutModal />
+                </div>
             </div>
 
             <WorkoutInProcess />

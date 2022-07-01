@@ -4,7 +4,8 @@ import CreateWorkoutButton from './CreateWorkoutButton';
 const CreateWorkoutModal = () => {
     return (
         <div>
-            <CreateWorkout id="workout/create-workout" />
+            {/*//*Todo: Don't need the following, delete it later and delete the component */}
+            {/* <CreateWorkout id="workout/create-workout" /> */}
             <CreateWorkoutButton />
         </div>
     );

@@ -22,7 +22,6 @@ const AddExercises = NiceModal.create(({workoutId}: {workoutId: string}) => {
         <div>
             <GenricDialog isOpen={visible}>
                     <h1 className="text-3xl">Add your Exercises</h1>
-                    <ChooseExercises />
                     <div>
                         <Button onClick={onAddExercises} type="button">
                             Add Exercises
@@ -31,6 +30,7 @@ const AddExercises = NiceModal.create(({workoutId}: {workoutId: string}) => {
                             Close
                         </Button>
                     </div>
+                    <ChooseExercises />
                 <Confrim hide={() => hide()}/>
             </GenricDialog>
         </div>

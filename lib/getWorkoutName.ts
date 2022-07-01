@@ -2,25 +2,25 @@
 export const getWorkoutName = () => {
     const date = new Date();
     if (date.getHours() >= 3 && date.getHours() < 6) {
-        return 'Early Morning';
+        return 'Early Morning Workout';
     }
     if (date.getHours() >= 6 && date.getHours() < 9) {
-        return 'Morning';
+        return 'Morning Workout';
     }
     if (date.getHours() >= 9 && date.getHours() < 12) {
-        return 'Late Morning';
+        return 'Late Morning Workout';
     }
     if (date.getHours() >= 12 && date.getHours() < 15) {
-        return 'Early Afternoon';
+        return 'Early Afternoon Workout';
     }
     if (date.getHours() >= 15 && date.getHours() < 18) {
-        return 'Late Afternoon';
+        return 'Late Afternoon Workout';
     }
     if (date.getHours() >= 18 && date.getHours() < 21) {
-        return 'Evening';
+        return 'Evening Workout';
     }
     if (date.getHours() >= 21 && date.getHours() < 24) {
-        return 'Night';
+        return 'Night Workout';
     }
-    return 'Late Night';
+    return 'Late Night Workout';
 };

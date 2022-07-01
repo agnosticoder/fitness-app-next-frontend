@@ -14,7 +14,6 @@ const ConfirmStartNewWorkout = NiceModal.create(() => {
     const { mutate:deleteWorkout } = useDeleteTemplate();
     const {mutate: createWorkout} = useCreateWorkout();
     const router = useRouter();
-    const createWorkoutModal = useModal('workout/create-workout');
 
     const inProcessWorkouts = workouts?.filter((workout) => !workout.isDone && !workout.isTemplate);
 
@@ -29,7 +28,6 @@ const ConfirmStartNewWorkout = NiceModal.create(() => {
         deleteWorkout({ workoutId: inProcessWorkouts[0].id });
         createWorkout({name: getWorkoutName()});
         hide();
-        // createWorkoutModal.show();
     };
 
     return (
