@@ -26,11 +26,10 @@ const GenricDialog = ({ children, isOpen, setIsOpen}: GenricDialogProps) => {
                 transition = {{duration: 0.15}}
                 as={motion.div} 
                 open={isOpen} 
-                onClose={handleOnClose} 
-                className="z-50">
-                    <div className="fixed inset-0 bg-slate-500/50" aria-hidden={true} />
-                    <div className="fixed inset-0 flex justify-center items-center z-50">
-                        <Dialog.Panel className="bg-slate-300 p-4 rounded-md">{children}</Dialog.Panel>
+                onClose={handleOnClose}>
+                    <div className="fixed inset-0 bg-zinc-500/40 z-50" aria-hidden={true} />
+                    <div className="fixed inset-0 z-50">
+                        <Dialog.Panel className='w-full h-full flex justify-center items-center'>{children}</Dialog.Panel>
                     </div>
                 </Dialog>
             )}
