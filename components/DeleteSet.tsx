@@ -26,7 +26,6 @@ const DeleteSet = ({id}:Set) => {
                     </span>
                 </div>
             </button>
-            {/* <button onClick={onDeleteSet} className='text-red-600'><AiFillDelete /></button> */}
         </div>
 
     )

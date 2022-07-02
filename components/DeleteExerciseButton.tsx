@@ -13,10 +13,10 @@ const DeleteExerciseButton = ({ exerciseId }: { exerciseId: string }) => {
 
     return (
         <form onSubmit={onDeleteExercise}>
-            <div className="w-full">
-                <Button className="block w-full bg-red-500 text-white" type="submit">
+            <div className="">
+                <button className="absolute bottom-2 left-2 py-1 px-2 text-sm font-bold bg-red-500 text-zinc-200 rounded-md" type="submit">
                     Delete Exercise
-                </Button>
+                </button>
             </div>
         </form>
     );

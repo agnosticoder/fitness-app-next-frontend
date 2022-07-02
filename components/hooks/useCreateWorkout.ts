@@ -11,7 +11,7 @@ interface Set{
 
 interface Exercise {
     name: string;
-    sets?: Set[];
+    
 }
 
 interface Workout {

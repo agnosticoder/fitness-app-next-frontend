@@ -39,7 +39,7 @@ const CreatWorkout = NiceModal.create(() => {
         reset,
         formState: { errors },
     } = useForm<Inputs>();
-    const exercisesWithNames = selectedExercises.map((exercise) => exercise.name);
+    const exercisesWithNames = selectedExercises.map((exercise) => exercise?.name);
     const { data: latestExercises } = useGetLatestExercises({ names: exercisesWithNames });
     const [, setConfirmDialog] = useAtom(confirmDialogAtom);
 

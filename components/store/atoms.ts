@@ -3,13 +3,15 @@ import { atom } from "jotai";
 export const confirmDialogAtom = atom(false);
 export const messageAtom = atom('');
 
-type Exercise = {id: string, name: string} | null;
+/* ------------------------- select Exercises Atom ------------------------ */
 
-export const selectedExercisesAtom = atom<Exercise[]>([]);
+type ExerciseT = {id: string, name: string};
+
+export const selectedExercisesAtom = atom<ExerciseT[]>([]);
 
 export const getSelectedExercisesAtom = atom((get) => get(selectedExercisesAtom));
 
-export const setSelectedExercisesAtom = atom(null, (get, set, exercise: Exercise) => {
+export const setSelectedExercisesAtom = atom(null, (get, set, {exercise}: {exercise: ExerciseT | null}) => {
     if(!exercise) return set(selectedExercisesAtom, []);
     const selectedExercises = get(selectedExercisesAtom);
 
@@ -25,3 +27,26 @@ export const setSelectedExercisesAtom = atom(null, (get, set, exercise: Exercise
         set(selectedExercisesAtom, [...selectedExercises, exercise])
       }
 })
+
+/* ------------------------------ Workout Atom ------------------------------ */
+interface Set{
+    reps?: string;
+    weight?: string;
+}
+interface Exercise {
+    name: string;
+    sets?: Set[];
+}
+
+interface Workout {
+    name: string;
+    exercises: Exercise[];
+}
+
+export const workoutAtom = atom<Workout>({} as Workout);
+
+export const getWorkoutAtom = atom((get) => get(workoutAtom));
+
+export const setWorkoutAtom = atom(null, (get, set, {workout}: {workout: Workout | null}) => {
+
+});

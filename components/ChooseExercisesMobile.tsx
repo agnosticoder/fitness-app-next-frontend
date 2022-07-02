@@ -76,12 +76,12 @@ const ChooseExercisesMobile = () => {
         onSelectedItemChange: ({ selectedItem }) => {
             if (!selectedItem) return;
             // setInputValue('');
-            setSelectedExercies(selectedItem);
+            setSelectedExercies({exercise: selectedItem});
         },
     });
 
     useEffect(() => {
-        setSelectedExercies(null);
+        setSelectedExercies({exercise: null});
     }, []);
 
     return (

@@ -18,7 +18,7 @@ const AddSetButton = ({ exerciseId }: { exerciseId: string }) => {
         <form onSubmit={onAddSet}>
             <div className="w-full">
             <button
-                className="absolute top-2 right-2 bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md"
+                className="absolute bottom-2 right-2 bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md"
                 type="submit"
             >
                 <div className="flex items-center gap-1">

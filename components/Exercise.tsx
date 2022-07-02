@@ -13,7 +13,7 @@ const Exercise = ({ id, name, workoutId, sets }: Exercise) => {
 
     return (
         <div>
-            <ul className="relative bg-rose-900 text-zinc-300 rounded-lg p-2 drop-shadow-md">
+            <ul className="relative bg-rose-900 text-zinc-300 rounded-lg p-2 drop-shadow-md pb-14">
                 <div className="font-bold text-2xl tracking-wider mb-4 text-white">{name}</div>
                 <table className="w-full table-auto">
                     <thead>
@@ -31,7 +31,7 @@ const Exercise = ({ id, name, workoutId, sets }: Exercise) => {
                     </tbody>
                 </table>
                 <AddSetButton exerciseId={id}/>
-                {/* <DeleteExerciseButton exerciseId={id}/> */}
+                <DeleteExerciseButton exerciseId={id}/>
             </ul>
         </div>
     );

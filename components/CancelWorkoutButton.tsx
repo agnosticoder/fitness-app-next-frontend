@@ -2,6 +2,17 @@ import Button from "./Button";
 import ConfirmCancelWorkout from "./modals/ConfirmCancelWorkout";
 import {useModal} from '@ebay/nice-modal-react';
 
+type IdentifierWithWorkoutId = {
+    identifier: 'history' | 'workout';
+    workoutId: string;
+}
+
+type IdentifierWithoutWorkoutId = {
+    identifier: 'template';
+}
+
+export type Identifier = IdentifierWithWorkoutId | IdentifierWithoutWorkoutId;
+
 const CancelWorkoutButton = ({
     workoutId,
     identifier,

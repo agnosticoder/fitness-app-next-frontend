@@ -49,7 +49,7 @@ const useCreateSet = () => {
                 if(data) {
                     queryClient.invalidateQueries(['workout', data.workoutId]);
                 }
-                router.replace(router.asPath)
+                // router.replace(router.asPath)
             }
         }
     );
