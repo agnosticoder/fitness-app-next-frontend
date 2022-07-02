@@ -18,7 +18,7 @@ const EditHistoryWorkout = () => {
     return (
         <div>
             {/* Top header with back button */}
-            <Link href="/">
+            <Link href="/history">
                 <a className="fixed top-5 standalone:top-[50px] left-2 right-0 z-10 flex justify-between items-center">
                     <IoIosArrowBack size={35} />
                 </a>
@@ -30,7 +30,7 @@ const EditHistoryWorkout = () => {
             </div>
             {/*//Todo: Add functionality to create custom exercises */}
             {/* <AddExercise id={id} /> */}
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-col-1 sm:grid-cols-2 gap-3 sm:gap-2">
                 {workout?.exercises?.map((exercise: any) => (
                     <Exercise key={exercise.id} {...exercise} />
                 ))}

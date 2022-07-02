@@ -1,12 +1,13 @@
 import NiceModal, {useModal} from '@ebay/nice-modal-react';
 import { useAtom } from 'jotai';
 import { AiFillCloseCircle } from 'react-icons/ai';
-import Button from '../Button';
-import ChooseExercises from '../ChooseExercises';
+import ChooseExercisesBrowser from '../ChooseExercisesBrowser';
 import GenricDialog from '../GenricDialog';
 import useCreateExercises from '../hooks/useCreateExercises';
 import { confirmDialogAtom, selectedExercisesAtom } from '../store/atoms';
-import Confrim from './Confirm';
+import {BrowserView, MobileView} from 'react-device-detect';
+import ChooseExercisesMobile from '../ChooseExercisesMobile';
+import {z} from 'zod';
 
 const AddExercises = NiceModal.create(({ workoutId }: { workoutId: string }) => {
     const { visible, hide } = useModal();
@@ -15,7 +16,8 @@ const AddExercises = NiceModal.create(({ workoutId }: { workoutId: string }) => 
     const [, setConfirmDialog] = useAtom(confirmDialogAtom);
 
     const onAddExercises = () => {
-        mutate({ workoutId, exercises: selectedExercises });
+        const exercises = z.array(z.object({name: z.string()})).parse(selectedExercises);
+        mutate({ workoutId, exercises});
         hide();
     };
 
@@ -28,9 +30,19 @@ const AddExercises = NiceModal.create(({ workoutId }: { workoutId: string }) => 
                         <button className="absolute top-0 left-0" onClick={hide} type="button">
                             <AiFillCloseCircle size={40} className="p-2 text-red-500" />
                         </button>
-                        <ChooseExercises />
-                        <button disabled={!selectedExercises.length} className="font-bold text-lg absolute top-0 right-0 p-2 text-rose-600 disabled:text-rose-600/40" onClick={onAddExercises} type="button">
-                            Add {!!selectedExercises.length && ('(' +selectedExercises.length + ')')}
+                        <BrowserView>
+                            <ChooseExercisesBrowser />
+                        </BrowserView>
+                        <MobileView>
+                            <ChooseExercisesMobile />
+                        </MobileView>
+                        <button
+                            disabled={!selectedExercises.length}
+                            className="font-bold text-lg absolute top-0 right-0 p-2 text-rose-600 disabled:text-rose-600/40"
+                            onClick={onAddExercises}
+                            type="button"
+                        >
+                            Add {!!selectedExercises.length && '(' + selectedExercises.length + ')'}
                         </button>
                     </div>
                 </div>

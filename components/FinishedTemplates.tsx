@@ -38,7 +38,7 @@ const FinishedTemplates = () => {
                                     <div>
                                         <button
                                             onClick={() => onStartWorkout(workout.id)}
-                                            className="relative w-full h-full bg-rose-800 text-rose-200 rounded-lg overflow-hidden shadow-inner-2xl"
+                                            className="relative w-full h-full bg-rose-900 text-rose-200 rounded-lg overflow-hidden shadow-inner-2xl"
                                         >
                                             <div 
                                             className='absolute left-0 right-0 bottom-0 top-[calc(90%)] bg-gradient-to-t from-rose-800'

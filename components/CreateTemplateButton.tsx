@@ -28,7 +28,7 @@ const CreateTemplateButton = () => {
     return (
         <div>
             <button
-                className="bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md"
+                className="bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md border-[1px] border-rose-300/70"
                 onClick={onCreateTemplate}
             >
                 <div className="flex items-center gap-1">

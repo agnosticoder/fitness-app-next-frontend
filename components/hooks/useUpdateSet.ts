@@ -61,7 +61,7 @@ const useUpdateSet = () => {
             },
             onSuccess: () => {
                 queryClient.invalidateQueries(['workout', workoutId]);
-                router.replace(router.asPath)
+                // router.replace(router.asPath)
             }
         }
     );

@@ -41,7 +41,7 @@ const useDeleteSet = (workoutId: string) => {
             },
             onSuccess: () => {
                 queryClient.invalidateQueries(['workout', workoutId]);
-                router.replace(router.asPath);
+                // router.replace(router.asPath);
             },
         }
     );

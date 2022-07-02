@@ -26,7 +26,7 @@ const HistoryWorkouts = () => {
                     <IoIosArrowBack size={35} />
                 </a>
             </Link>
-            <ul className="mb-20 grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <ul className="mb-20 grid grid-col-1 sm:grid-cols-2 gap-3 sm:gap-2">
                 {onlyWorkouts?.map((workout) => (
                     <div key={workout.id}>
                         <div className="aspect-w-1 aspect-h-1">

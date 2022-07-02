@@ -17,8 +17,8 @@ const WorkoutInputName = ({workoutName, workoutId}: {workoutName: string; workou
     }, [debouncedValue, mutate, workoutId]);
 
     return (
-        <div className="text-center text-xl font-bold mx-10">
-            <input className='w-full bg-zinc-800 outline-none focus:outline-zinc-700/80 text-center rounded-md' type="text" value={workoutNameValue} onChange={(e) => setWorkoutNameValue(e.currentTarget.value)} />
+        <div className="text-center text-xl font-bold mx-10 border-[1px] border-zinc-700/40">
+            <input className='w-full text-zinc-300 font-bold bg-zinc-800  outline-none focus:outline-none text-center rounded-md focus:ring-0 border-none' type="text" value={workoutNameValue} onChange={(e) => setWorkoutNameValue(e.currentTarget.value)} />
         </div>
     );
 };

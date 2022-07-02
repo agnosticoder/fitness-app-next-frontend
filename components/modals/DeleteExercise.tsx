@@ -15,8 +15,17 @@ const DeleteExercise = NiceModal.create(({ exerciseId }: { exerciseId: string })
 
     return (
         <GenricDialog isOpen={visible} setIsOpen={hide}>
-            <div className="text-center">
-                <h1 className="text-3xl font-bold">Delete Exercise</h1>
+            <div className="text-center max-w-xs bg-zinc-800 text-zinc-200 p-4 rounded-md drop-shadow-2xl">
+                <h1 className="text-2xl font-semibold mb-2">Delete Exercise?</h1>
+                <h2 className='font-semibold mb-4'>Are you sure you want to delete the Exercise?</h2>
+                <div className="flex justify-around items-center mx-6">
+                    <button className='bg-zinc-500 px-3 py-1 rounded drop-shadow-md' onClick={hide}>Cancel</button>
+                    <button className="bg-red-500 px-3 py-1 rounded drop-shadow-md" onClick={onDeleteExercise}>
+                        Delete
+                    </button>
+                </div>
+            </div>
+            {/* <div className="text-center">
                 <p className="text-lg">Are you sure you want to delete the Exercise?</p>
                 <div className="flex justify-center">
                     <button
@@ -32,7 +41,7 @@ const DeleteExercise = NiceModal.create(({ exerciseId }: { exerciseId: string })
                         Cancel
                     </button>
                 </div>
-            </div>
+            </div> */}
         </GenricDialog>
     );
 });

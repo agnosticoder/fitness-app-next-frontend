@@ -22,17 +22,20 @@ const ConfirmCancelWorkout = NiceModal.create(({workoutId, identifier}:ConfirmCa
 
     return (
         <GenricDialog isOpen={visible} setIsOpen={hide}>
-            <div className="flex justify-center items-center flex-col bg-slate-300 p-4 rounded-md">
-                <h1>
-                    Are you sure you want to {identifier && 'delete'} this{' '}
-                    {identifier === 'history' ? 'workout history' : 'template'}?
+            <div className="text-center max-w-xs bg-zinc-800 text-zinc-200 p-4 rounded-md drop-shadow-2xl">
+                <h1 className="text-2xl font-semibold mb-2">Delete 
+                    {identifier === 'history' ? ' Workout History' : identifier === 'template' ? ' Template': ' Workout'}?
                 </h1>
+                <h2 className='font-semibold mb-4'>
+                    Are you sure you want to {identifier && 'delete'} this{' '}
+                    {identifier === 'history' ? 'workout history' : identifier === 'template' ? 'template': 'workout'}?
+                </h2>
 
-                <div className="flex justify-center items-center">
-                    <Button onClick={hide}>No</Button>
-                    <Button className="bg-red-500" onClick={onCancelWorkout}>
-                        Yes
-                    </Button>
+                <div className="flex justify-around items-center mx-6">
+                    <button className='bg-zinc-500 px-3 py-1 rounded drop-shadow-md' onClick={hide}>Cancel</button>
+                    <button className="bg-red-500 px-3 py-1 rounded drop-shadow-md" onClick={onCancelWorkout}>
+                        Delete
+                    </button>
                 </div>
             </div>
         </GenricDialog>

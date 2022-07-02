@@ -35,9 +35,11 @@ const Workout = () => {
                     </div>
                     <div className="mt-4 mb-4">
                         <WorkoutInputName workoutName={workout.name} workoutId={workout.id} />
+                    </div>
+                    <div className='mb-4'>
                         {/*//Todo: Add functionality to create custom exercises */}
                         {/* <AddExercise id={id} /> */}
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-col-1 sm:grid-cols-2 gap-3 sm:gap-2">
                             {workout.exercises?.map((exercise: any) => (
                                 <Exercise key={exercise.id} {...exercise} />
                             ))}
@@ -45,7 +47,7 @@ const Workout = () => {
                     </div>
                     <div className="text-center">
                         <button
-                            className="bg-rose-200/70 text-rose-600 py-1 px-2 text-lg font-bold rounded-md w-52"
+                            className="bg-rose-200/70 text-rose-600 py-1 px-2 text-lg font-bold rounded-md w-52 drop-shadow-md border-[1px] border-rose-300/70"
                             onClick={() => addExercisesModal.show({ workoutId: id })}
                         >
                             Add Exercises

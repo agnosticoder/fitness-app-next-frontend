@@ -2,7 +2,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { Dialog } from '@headlessui/react';
 import { useForm } from 'react-hook-form';
 import Button from '../Button';
-import ChooseExercises from '../ChooseExercises';
+import ChooseExercises from '../ChooseExercisesBrowser';
 import GenricDialog from '../GenricDialog';
 import useCreateWorkout from '../hooks/useCreateWorkout';
 import useGetLatestExercises from '../hooks/useGetLatestExercises';

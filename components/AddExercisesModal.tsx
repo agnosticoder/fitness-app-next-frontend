@@ -2,7 +2,7 @@ import { Dialog } from '@headlessui/react';
 import { useAtom } from 'jotai';
 import { useState } from 'react';
 import Button from './Button';
-import ChooseExercises from './ChooseExercises';
+import ChooseExercises from './ChooseExercisesBrowser';
 import ConfirmDialog from './ConfirmDialog';
 import useCreateExercises from './hooks/useCreateExercises';
 import { selectedExercisesAtom } from './store/atoms';

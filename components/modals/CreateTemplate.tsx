@@ -2,7 +2,7 @@ import NiceModal, { useModal } from '@ebay/nice-modal-react';
 import { useAtom } from 'jotai';
 import { useForm } from 'react-hook-form';
 import Button from '../Button';
-import ChooseExercises from '../ChooseExercises';
+import ChooseExercises from '../ChooseExercisesBrowser';
 import GenricDialog from '../GenricDialog';
 import useCreateTemplate from '../hooks/useCreateTemplate';
 import { confirmDialogAtom, selectedExercisesAtom } from '../store/atoms';

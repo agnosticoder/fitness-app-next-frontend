@@ -18,7 +18,7 @@ const Set = (set:SetProps) => {
 
     return (
         <tr>
-            <td>
+            <td className='text-center'>
                 {set.index + 1}
             </td>
 
@@ -30,7 +30,7 @@ const Set = (set:SetProps) => {
                 <RepsInput {...set}/>
             </td>
 
-            {!isTemplate && <td>
+            {!isTemplate && <td className='text-center'>
                 <SetIsDoneCheckbox {...set}/>
             </td>}
 

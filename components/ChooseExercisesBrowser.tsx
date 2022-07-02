@@ -8,9 +8,10 @@ import { CgCloseO } from 'react-icons/cg';
 import { TiTick } from 'react-icons/ti';
 import { isMobile, BrowserView, MobileView } from 'react-device-detect';
 
-import { exercises } from '../db/exercises.json';
+import _exercises from '../db/exercises.json';
 
-console.log('exercises', exercises);
+const exercises = _exercises.exercises;
+
 
 //choose any 30 exercises form exercises array
 const getExercises = () => {
@@ -34,7 +35,7 @@ const allExercises = [
     { name: 'Other', id: 'other' },
 ];
 
-const ChooseExercises = () => {
+const ChooseExercisesBrowser = () => {
     const [inputValue, setInputValue] = useState('');
     const handleError = useErrorHandler();
     const [, setSelectedExercies] = useAtom(selectedExercisesAtom);
@@ -80,6 +81,7 @@ const ChooseExercises = () => {
                     return {
                         ...changes,
                         isOpen: true,
+                        highlightedIndex: state.highlightedIndex
                     };
             }
 
@@ -96,7 +98,7 @@ const ChooseExercises = () => {
                 case useCombobox.stateChangeTypes.InputKeyDownEnter:
                     // case useCombobox.stateChangeTypes.InputBlur:
                     if (!selectedItem) return;
-                    setInputValue('');
+                    !isMobile && setInputValue('');
                     if (selectedItems.filter((item) => item.id === selectedItem.id).length > 0) {
                         removeSelectedItem(selectedItem);
                         return;
@@ -118,7 +120,7 @@ const ChooseExercises = () => {
             {/* <label {...getLabelProps()}>Search your Exercise</label> */}
             <div {...getComboboxProps()}>
                 <input
-                    {...getInputProps(getDropdownProps({ preventKeyAction: isOpen }))}
+                    {...getInputProps(getDropdownProps({ preventKeyAction: isOpen}))}
                     className="w-full mb-2 p-2 rounded bg-zinc-700"
                     placeholder="Search your Exercise"
                 />
@@ -134,7 +136,7 @@ const ChooseExercises = () => {
                 {isOpen &&
                     getFilteredItems().map((exercise, index) => (
                         <li
-                            className={`relative cursor-pointer h-14 pr-6 ${!isMobile &&
+                            className={`relative cursor-pointer h-14 rounded p-2 pr-4 ${!isMobile &&
                                 index === highlightedIndex
                                     ? exercise.id === selectedItem?.id
                                         ? 'bg-zinc-500'
@@ -168,4 +170,4 @@ const ChooseExercises = () => {
     );
 };
 
-export default ChooseExercises;
+export default ChooseExercisesBrowser;

@@ -27,7 +27,9 @@ const WeightInput = ({id, weight}:Set) => {
     }, [debouncedValue]);
 
     return (
-        <input className='w-full' type="text" value={weightValue} onChange={onChangeWeightInput} />
+        <input
+        className='w-full p-0 bg-rose-100/40 rounded text-black text-center font-extrabold italic standalone:focus:ring-0 standalone:focus:border-none'
+         type="text" pattern='[0-9]*' inputMode='decimal' value={weightValue} onChange={onChangeWeightInput} />
     );
 };
 

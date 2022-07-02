@@ -35,7 +35,7 @@ const SetIsDoneCheckbox = ({ id, isDone, weight, reps }: Set) => {
         }
     }, [id, isDoneValue, mutate]);
 
-    return  <input className='w-full' type="checkbox" checked={isDoneValue} onChange={onHandleChange} />
+    return  <input className='rounded w-6 h-6 bg-rose-300 text-rose-600 cursor-pointer' type="checkbox" checked={isDoneValue} onChange={onHandleChange} />
 }
 
 export default SetIsDoneCheckbox;
