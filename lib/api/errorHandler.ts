@@ -1,10 +1,6 @@
 //Todo: Implement this in nodejs backend
-
 import { NextApiResponse } from 'next';
-import { serializeError } from 'serialize-error';
-import { prisma } from './getPrisma';
 import { ZodError } from 'zod';
-import { Prisma } from '@prisma/client';
 
 export interface ErrorProps {
     error: string;
@@ -54,18 +50,16 @@ const errorHandler = async ({ err, res }: ErrorHandlerProps) => {
 
         //* log full err to the server and send back message to client
         //Todo: check if serializeError is a good idea
-        await prisma.error.create({
-            data: {
-                error: JSON.stringify(serializeError(err), null, 2),
-            },
-        });
+        // await prisma.error.create({
+        //     data: {
+        //         error: JSON.stringify(serializeError(err), null, 2),
+        //     },
+        // });
         console.log({ err });
         res.status(500).json({ error: 'Something went wrong from our end, Please try again later', code: 500 });
     } catch (err) {
         console.error(err);
-    } finally {
-        prisma.$disconnect();
-    }
+    } 
 };
 
 export default errorHandler;
