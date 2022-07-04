@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
 import { useMutation } from 'react-query';
+import { config } from '../../config/config';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
@@ -32,7 +33,7 @@ const useCreateWorkout = () => {
     return useMutation(
         async (workout: Workout) => {
             console.log('workout', workout);
-            const { data, error } = await customFetch<Data>('http://satinder.local:8000/workout', {
+            const { data, error } = await customFetch<Data>(`${config.apiUrl}/workout`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

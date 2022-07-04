@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 import { customFetch } from './useFetch';
 import { useErrorHandler } from 'react-error-boundary';
 import useErrorMessage from './useErrorMessage';
+import { config } from '../../config/config';
 
 export interface Set {
     id: string;
@@ -39,7 +40,7 @@ const useGetWorkout = ({ id }: { id: string }) => {
     //Todo: Fix the following shit, try to make this with jotai
     const {handleError: handleErrorMessage} = useErrorMessage();
     return useQuery(['workout', id], async () => {
-        const {data, error} = await customFetch<Workout>(`http://satinder.local:8000/workout/${id}`);
+        const {data, error} = await customFetch<Workout>(`${config.apiUrl}/workout/${id}`);
         if(error) {
             handleErrorMessage(error);
             return;

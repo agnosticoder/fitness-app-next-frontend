@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
 import { useMutation, useQueryClient } from 'react-query';
+import { config } from '../../config/config';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
@@ -16,7 +17,7 @@ const useDeleteSet = (workoutId: string) => {
 
     return useMutation(
         async (payload: Payload) => {
-            const { data, error } = await customFetch('http://satinder.local:8000/set', {
+            const { data, error } = await customFetch(`${config.apiUrl}/set`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

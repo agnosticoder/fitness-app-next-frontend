@@ -17,7 +17,7 @@ const CancelWorkoutButton = ({
     workoutId,
     identifier,
 }: {
-    workoutId: string;
+    workoutId?: string;
     identifier: 'template' | 'history' | 'workout';
 }) => {
     const modal = useModal(ConfirmCancelWorkout);

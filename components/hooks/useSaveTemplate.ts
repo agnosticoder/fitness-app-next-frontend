@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
 import { useMutation } from 'react-query';
+import { config } from '../../config/config';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
@@ -13,7 +14,7 @@ const useSaveTemplate = () => {
 
     return useMutation(
         async (payload:Payload) => {
-            const { data, error } = await customFetch('http://satinder.local:8000/savetemplate', {
+            const { data, error } = await customFetch(`${config.apiUrl}/savetemplate`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

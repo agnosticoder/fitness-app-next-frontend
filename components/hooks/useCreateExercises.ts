@@ -3,6 +3,7 @@ import { useErrorHandler } from 'react-error-boundary';
 import { useMutation, useQueryClient } from 'react-query';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
+import { config } from '../../config/config';
 
 export interface Exercise {
     name: string;
@@ -21,13 +22,13 @@ const useCreateExercises = () => {
     const queryClient = useQueryClient();
 
     return useMutation(
-        async (payload:Payload) => {
-            const { data, error } = await customFetch('http://satinder.local:8000/exercises', {
+        async (payload: Payload) => {
+            const { data, error } = await customFetch(`${config.apiUrl}/exercises`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({...payload}),
+                body: JSON.stringify({ ...payload }),
             });
 
             if (error) {
@@ -46,9 +47,9 @@ const useCreateExercises = () => {
                 console.log('useCreateExercises', err);
             },
             onSuccess: () => {
-                router.replace(router.asPath)
+                router.replace(router.asPath);
                 queryClient.invalidateQueries(['workout', workoutId]);
-            }
+            },
         }
     );
 };

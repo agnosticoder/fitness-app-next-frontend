@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
 import { useMutation, useQueryClient } from 'react-query';
+import { config } from '../../config/config';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 import { Exercise } from './useGetWorkout';
@@ -17,7 +18,7 @@ const useDeleteExercise = () => {
 
     return useMutation(
         async (payload: Payload) => {
-            const { data, error } = await customFetch<Exercise>('http://satinder.local:8000/exercise', {
+            const { data, error } = await customFetch<Exercise>(`${config.apiUrl}/exercise`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
 import { useMutation } from 'react-query';
+import { config } from '../../config/config';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 
@@ -30,7 +31,7 @@ const useCreateTemplate = () => {
 
     return useMutation(
         async (workout: Workout) => {
-            const { data, error } = await customFetch<Data>('http://satinder.local:8000/workout/template', {
+            const { data, error } = await customFetch<Data>(`${config.apiUrl}/workout/template`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

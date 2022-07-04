@@ -5,7 +5,7 @@ import GenricDialog from '../GenricDialog';
 import useDeleteWorkout from '../hooks/useDeleteWorkout';
 
 interface ConfirmCancelWorkoutProps {
-    workoutId: string;
+    workoutId?: string;
     identifier: 'template' | 'history' | 'workout';
 }
 
@@ -16,7 +16,8 @@ const ConfirmCancelWorkout = NiceModal.create(({workoutId, identifier}:ConfirmCa
 
     const onCancelWorkout = () => {
         hide();
-        mutate({ workoutId });
+        workoutId && mutate({ workoutId });
+        //Todo: empty workout atom
         router.push('/');
     }
 

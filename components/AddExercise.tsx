@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import {useRouter} from 'next/router';
 import Button from './Button';
+import { config } from "../config/config";
 
 interface PostExercise{
     name: string,
@@ -9,7 +10,7 @@ interface PostExercise{
 
 const postExercise = async ({name, workoutId}: PostExercise) => {
     try {
-        const result = await fetch('http://satinder.local:8000/exercise', {
+        const result = await fetch(`${config.apiUrl}/exercise`, {
             method: 'Post',
             headers: {
                 'Content-type': 'Application/json',

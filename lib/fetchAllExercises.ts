@@ -1,6 +1,8 @@
+import { config } from "../config/config"
+
 const fetchAllExercises = async () => {
     try{
-        const result = await  fetch('http://satinder.local:8000/exercises');
+        const result = await  fetch(`${config.apiUrl}/exercises`);
         if(result.ok){
             const exercises = await result.json();
             return exercises;
