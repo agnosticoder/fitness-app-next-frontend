@@ -3,12 +3,17 @@ import useDebounce from './hooks/useDebounce';
 import useErrorMessage from './hooks/useErrorMessage';
 import { Set } from './hooks/useGetWorkout';
 import useUpdateSet from './hooks/useUpdateSet';
+import { getWorkoutAtom, SetLocal, setWorkoutAtom } from './store/atoms';
+import produce from 'immer';
+import { useAtomValue, useSetAtom } from 'jotai';
 
-const WeightInput = ({id, weight}:Set) => {
+const WeightInputTemplate = ({id, weight, exerciseId}:SetLocal & {exerciseId: string}) => {
     const [weightValue, setWeightValue] = useState(weight || '');
     const {debouncedValue} = useDebounce(weightValue);
-    const {mutate} = useUpdateSet();
     const preWeight = useRef(weight);
+
+    const workout = useAtomValue(getWorkoutAtom);
+    const setWorkout = useSetAtom(setWorkoutAtom);
 
     const onChangeWeightInput = (e: ChangeEvent<HTMLInputElement>) => {
         // allow floating point numbers upto two decimal places using regex
@@ -19,12 +24,25 @@ const WeightInput = ({id, weight}:Set) => {
     }
 
     useEffect(() => {
-        console.log('Update weight', id, debouncedValue);
         if (debouncedValue !== preWeight.current) {
             preWeight.current = debouncedValue;
-            mutate({ setId: id, weight: debouncedValue });
+
+            //update the workout atom
+            const newWorkout = produce(workout, draft => {
+                draft.exercises.forEach(exercise => {
+                    if(exercise.id === exerciseId){
+                        exercise.sets?.forEach(set => {
+                            if(set.id === id){
+                                set.weight = debouncedValue;
+                            }
+                        }
+                        )
+                    }
+                });
+            });
+            setWorkout({workout: newWorkout});
         }
-    }, [debouncedValue]);
+    }, [debouncedValue, exerciseId, id, setWorkout, workout]);
 
     return (
         <input
@@ -33,4 +51,4 @@ const WeightInput = ({id, weight}:Set) => {
     );
 };
 
-export default WeightInput;
+export default WeightInputTemplate;

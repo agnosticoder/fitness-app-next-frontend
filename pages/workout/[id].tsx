@@ -45,10 +45,10 @@ const Workout = () => {
                             ))}
                         </div>
                     </div>
-                    <div className="text-center">
+                    <div className="text-center mb-32">
                         <button
                             className="bg-rose-200/70 text-rose-600 py-1 px-2 text-lg font-bold rounded-md w-52 drop-shadow-md border-[1px] border-rose-300/70"
-                            onClick={() => addExercisesModal.show({ workoutId: id })}
+                            onClick={() => addExercisesModal.show({ workoutId: id, isTemplate: false })}
                         >
                             Add Exercises
                         </button>

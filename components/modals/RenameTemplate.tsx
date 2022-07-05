@@ -12,20 +12,25 @@ type Input = {
 const RenameTemplate = NiceModal.create(({ workoutId }: { workoutId: string }) => {
     const { visible, hide } = useModal();
 
-    const {register, reset, handleSubmit, formState: {errors}} = useForm<Input>()
-    const {data: workout} = useGetWorkout({id: workoutId});
-    const {mutate} = useUpdateWorkout();
+    const {
+        register,
+        reset,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<Input>();
+    const { data: workout } = useGetWorkout({ id: workoutId });
+    const { mutate } = useUpdateWorkout();
 
     useEffect(() => {
         if (visible) {
-            reset({name: workout?.name});
+            reset({ name: workout?.name });
         }
     }, [workoutId, workout?.name, visible, reset]);
 
-    const onSubmit = ({name}: Input) => {
-        mutate({id: workoutId, name});
+    const onSubmit = ({ name }: Input) => {
+        mutate({ id: workoutId, name });
         hide();
-        reset({name: ''});
+        reset({ name: '' });
     };
 
     const onCancel = () => {
@@ -35,29 +40,28 @@ const RenameTemplate = NiceModal.create(({ workoutId }: { workoutId: string }) =
 
     return (
         <GenricDialog isOpen={visible} setIsOpen={hide}>
-            <div className="text-center">
-                <h1 className="text-3xl font-bold">Rename Template</h1>
+            <div className="text-center w-80 bg-zinc-800 text-zinc-200 p-4 rounded-md drop-shadow-2xl">
+                <h1 className="text-2xl font-semibold mb-2">Rename Template</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        type="text"
-                        className="w-full p-2 mb-2"
-                        placeholder="Template Name"
-                        {...register('name', { required: true })}
-                    />
-                    {errors.name && <p className="text-red-500 text-sm">required</p>}
-                    <div className="flex justify-center">
+                    <div className='relative'>
+                        <input
+                            type="text"
+                            className="w-full p-2 mb-8 rounded-md text-zinc-700 placeholder:text-zinc-300"
+                            placeholder="Template Name"
+                            {...register('name', { required: true })}
+                        />
+                        {errors.name && <p className="absolute bottom-3 text-red-500 text-sm">required</p>}
+                    </div>
+                    <div className="flex justify-around items-center mx-6">
                         <button
-                            type="submit"
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                            Rename
-                        </button>
-                        <button
+                            className="bg-zinc-500 px-3 py-1 rounded drop-shadow-md"
                             onClick={onCancel}
                             type="button"
-                            className="bg-gray-200 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded ml-4"
                         >
                             Cancel
+                        </button>
+                        <button className="bg-green-500 px-3 py-1 rounded drop-shadow-md" type="submit">
+                            Rename
                         </button>
                     </div>
                 </form>

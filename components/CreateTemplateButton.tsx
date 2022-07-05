@@ -7,10 +7,17 @@ import CreateTemplate from './modals/CreateTemplate';
 import { GrFormAdd } from 'react-icons/gr';
 import { IoMdAdd } from 'react-icons/io';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useSetAtom } from 'jotai';
+import { setWorkoutAtom, WorkoutLocal } from './store/atoms';
+import {v4 as uuid} from 'uuid';
+
 const CreateTemplateButton = () => {
     const { data: workouts } = useGetWorkouts();
     const confirmStartNewTemplateModal = useModal('template/confirm-start-new-template');
     const createTemplateModal = useModal('template/create-template');
+    const router = useRouter();
+    const setWorkout = useSetAtom(setWorkoutAtom);
 
     const inProcessTemplates = workouts?.filter((workout) => !workout.isDone && workout.isTemplate);
 
@@ -26,11 +33,21 @@ const CreateTemplateButton = () => {
         // setIsOpen(true);
     };
 
+    const onAddTemplate = () => {
+        const workout: WorkoutLocal = {
+            id: uuid(),
+            name: 'New Template',
+            exercises: []
+        }
+        setWorkout({workout});
+        router.push('/template/create');
+    };
+
     return (
         <div>
-            <Link href='/template/create'>
-            <a
+            <button
                 className="inline-block bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md border-[1px] border-rose-300/70"
+                onClick={onAddTemplate}
             >
                 <div className="flex items-center gap-1">
                     <span className="inline-block">Add Template</span>
@@ -38,8 +55,7 @@ const CreateTemplateButton = () => {
                         <IoMdAdd size={20} strokeWidth={20} />
                     </span>
                 </div>
-            </a>
-            </Link>
+            </button>
             {/* <button
                 className="bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md border-[1px] border-rose-300/70"
                 onClick={onCreateTemplate}

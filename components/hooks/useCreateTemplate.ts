@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
@@ -28,6 +28,7 @@ const useCreateTemplate = () => {
     const { handleError: handleErrorMessage } = useErrorMessage();
     const handleError = useErrorHandler();
     const router = useRouter();
+    const queryClient = useQueryClient();
 
     return useMutation(
         async (workout: Workout) => {
@@ -57,7 +58,8 @@ const useCreateTemplate = () => {
             onSuccess: (data) => {
                 if (data) {
                     console.log('success', data);
-                    router.push(`/template/${data.id}`);
+                    queryClient.invalidateQueries('workouts');
+                    router.replace(`/`);
                 }
             },
         }

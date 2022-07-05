@@ -1,8 +1,11 @@
 import NiceModal, { useModal } from '@ebay/nice-modal-react';
+import { useSetAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import Button from '../Button';
 import GenricDialog from '../GenricDialog';
 import useDeleteWorkout from '../hooks/useDeleteWorkout';
+import { setWorkoutAtom, WorkoutLocal } from '../store/atoms';
+import {v4 as uuid} from 'uuid';
 
 interface ConfirmCancelWorkoutProps {
     workoutId?: string;
@@ -13,13 +16,23 @@ const ConfirmCancelWorkout = NiceModal.create(({workoutId, identifier}:ConfirmCa
     const {visible, hide} = useModal();
     const { mutate } = useDeleteWorkout();
     const router = useRouter();
+    const setWorkout = useSetAtom(setWorkoutAtom);
 
     const onCancelWorkout = () => {
         hide();
         workoutId && mutate({ workoutId });
+
         //Todo: empty workout atom
+        if (identifier === 'template') {
+            const workout: WorkoutLocal = {
+                id: uuid(),
+                name: 'New Template',
+                exercises: [],
+            };
+            setWorkout({ workout });
+        }
         router.push('/');
-    }
+    };
 
     return (
         <GenricDialog isOpen={visible} setIsOpen={hide}>

@@ -1,12 +1,28 @@
 import NiceModal, { useModal} from '@ebay/nice-modal-react';
+import produce from 'immer';
+import { useAtomValue, useSetAtom } from 'jotai';
 import GenricDialog from '../GenricDialog';
 import useDeleteExercise from '../hooks/useDeleteExercise';
+import { getWorkoutAtom, setWorkoutAtom } from '../store/atoms';
 
-const DeleteExercise = NiceModal.create(({ exerciseId }: { exerciseId: string }) => {
+const DeleteExercise = NiceModal.create(({ exerciseId, isTemplate }: { exerciseId: string, isTemplate: boolean }) => {
     const { visible, hide } = useModal();
     const {mutate} = useDeleteExercise();
 
+    const workout = useAtomValue(getWorkoutAtom);
+    const setWorkout = useSetAtom(setWorkoutAtom);
+
     const onDeleteExercise = () => {
+        if(isTemplate) {
+            const newWorkout = produce(workout, draft => {
+                draft.exercises = draft.exercises.filter(exercise => exercise.id !== exerciseId);
+            });
+
+            setWorkout({workout: newWorkout});
+
+            hide();
+            return;
+        }
         if (exerciseId) {
             mutate({ exerciseId });
         }

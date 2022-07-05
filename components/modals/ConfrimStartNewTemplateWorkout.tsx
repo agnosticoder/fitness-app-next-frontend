@@ -51,7 +51,7 @@ const ConfirmStartNewTemplateWorkout = NiceModal.create(({workoutId}: {workoutId
 
     return (
         <GenricDialog isOpen={visible} setIsOpen={hide}>
-            <div className="flex justify-center items-center flex-col bg-slate-300 p-4 rounded-md">
+            {/* <div className="flex justify-center items-center flex-col bg-slate-300 p-4 rounded-md">
                 <h1>You have workout still in progress. Starting new workout will delete the workout in progress</h1>
 
                 <div className="flex justify-center items-center">
@@ -60,6 +60,19 @@ const ConfirmStartNewTemplateWorkout = NiceModal.create(({workoutId}: {workoutId
                         Start workout from template
                     </Button>
                     <Button onClick={hide}>Cancel</Button>
+                </div>
+            </div> */}
+            <div className="text-center max-w-xs bg-zinc-800 text-zinc-200 p-4 rounded-md drop-shadow-2xl">
+                <h1 className='font-semibold mb-4'>
+                You have workout still in progress. Starting new workout will delete the workout in progress!
+                </h1>
+
+                <div className="mx-6">
+                    <button className='block w-full mb-2 bg-zinc-500 px-3 py-1 rounded drop-shadow-md' onClick={onResumeTemplate}>Resume</button>
+                    <button className="block w-full mb-2 bg-red-500 px-3 py-1 rounded drop-shadow-md" onClick={onStartNewTemplate}>
+                        Start New Workout
+                    </button>
+                    <button className='block w-full mb-2 bg-zinc-500 px-3 py-1 rounded drop-shadow-md' onClick={hide}>Cancel</button>
                 </div>
             </div>
         </GenricDialog>

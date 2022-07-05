@@ -33,9 +33,9 @@ const ConfirmStartNewWorkout = NiceModal.create(() => {
     return (
         <GenricDialog isOpen={visible} setIsOpen={hide}>
             <div className="text-center max-w-xs bg-zinc-800 text-zinc-200 p-4 rounded-md drop-shadow-2xl">
-                <h2 className='font-semibold mb-4'>
+                <h1 className='font-semibold mb-4'>
                 You have workout still in progress. Starting new workout will delete the workout in progress!
-                </h2>
+                </h1>
 
                 <div className="mx-6">
                     <button className='block w-full mb-2 bg-zinc-500 px-3 py-1 rounded drop-shadow-md' onClick={onResumeTemplate}>Resume</button>

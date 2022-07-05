@@ -3,12 +3,12 @@ import Button from './Button';
 import { useModal } from '@ebay/nice-modal-react';
 import DeleteExercise from './modals/DeleteExercise';
 
-const DeleteExerciseButton = ({ exerciseId }: { exerciseId: string }) => {
+const DeleteExerciseButton = ({ exerciseId, isTemplate }: { exerciseId: string, isTemplate: boolean }) => {
     const deleteExerciseModal = useModal(DeleteExercise);
 
     const onDeleteExercise = (e: FormEvent) => {
         e.preventDefault();
-        deleteExerciseModal.show({exerciseId});
+        deleteExerciseModal.show({exerciseId, isTemplate});
     };
 
     return (
