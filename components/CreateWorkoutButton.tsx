@@ -1,15 +1,15 @@
-import Button from "./Button";
-import useGetWorkouts from "./hooks/useGetWorkouts";
-import invariant from "tiny-invariant";
-import { useModal } from "@ebay/nice-modal-react";
-import ConfirmStartNewWorkout from "./modals/ConfirmStartNewWorkout";
-import { IoIosFitness, IoMdFitness } from 'react-icons/io';
-import useCreateWorkout from "./hooks/useCreateWorkout";
-import { getWorkoutName } from "../lib/getWorkoutName";
+import useGetWorkouts from './hooks/useGetWorkouts';
+import invariant from 'tiny-invariant';
+import { useModal } from '@ebay/nice-modal-react';
+import ConfirmStartNewWorkout from './modals/ConfirmStartNewWorkout';
+import useCreateWorkout from './hooks/useCreateWorkout';
+import { getWorkoutName } from '../lib/getWorkoutName';
+import { IoMdFitness } from 'react-icons/io';
+import { IoFitness } from 'react-icons/io5';
 
 const CreateWorkoutButton = () => {
     const { data: workouts } = useGetWorkouts();
-    const {mutate} = useCreateWorkout();
+    const { mutate } = useCreateWorkout();
     const confirmStartNewWorkoutModal = useModal(ConfirmStartNewWorkout);
 
     const inProcessWorkouts = workouts?.filter((workout) => !workout.isDone && !workout.isTemplate);
@@ -22,7 +22,7 @@ const CreateWorkoutButton = () => {
             return;
         }
 
-        mutate({name: getWorkoutName()});
+        mutate({ name: getWorkoutName() });
     };
 
     return (
@@ -35,7 +35,7 @@ const CreateWorkoutButton = () => {
                 <div className="flex items-center gap-2">
                     <span className="inline-block font-bold">Start New Workout</span>
                     <span className="inline-block">
-                        <IoMdFitness size={25} />
+                        <IoFitness size={25}/>
                     </span>
                 </div>
             </button>
