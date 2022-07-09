@@ -32,7 +32,7 @@ const Layout: FC = ({ children }) => {
                 </span>
             </header>
 
-            <div className="fixed bottom-0 left-0 right-0 z-10 h-20 pb-8 pt-2 bg-zinc-700">
+            <div className="fixed bottom-0 left-0 right-0 z-10 h-20 pb-8 pt-2 bg-zinc-700 drop-shadow-lg">
                 <div className='flex justify-evenly text-center'>
                     <HistoryButton />
                     <StartWorkoutNavLink />

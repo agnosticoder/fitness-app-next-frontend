@@ -2,21 +2,28 @@ import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
 import HistoryWorkoutMenu from "./HistoryWorkoutMenu";
 import useGetWorkouts, { Set } from "./hooks/useGetWorkouts";
+import { useModal } from "@ebay/nice-modal-react";
+import WorkoutHisory from "./modals/WorkoutHistory";
 
 const HistoryWorkouts = () => {
     const { data: workouts } = useGetWorkouts();
+    const workoutHistoryModal = useModal(WorkoutHisory);
 
     const onlyWorkouts = workouts?.filter((workout) => workout.isDone && !workout.isTemplate);
 
     const bestSet = (sets: Set[]) => {
         let bestSet = sets[0];
-        sets.forEach(set => {
-            if(+set.weight * +set.reps > +bestSet.weight * +bestSet.reps) {
+        sets.forEach((set) => {
+            if (+set.weight * +set.reps > +bestSet.weight * +bestSet.reps) {
                 bestSet = set;
             }
         });
         return bestSet;
-    }
+    };
+
+    const onShowWorkoutHistory = ({ workoutId }: { workoutId: string }) => {
+        workoutHistoryModal.show({ workoutId });
+    };
 
     return (
         <div>
@@ -26,35 +33,40 @@ const HistoryWorkouts = () => {
                     <IoIosArrowBack size={35} />
                 </a>
             </Link>
-            <ul className="mb-20 grid grid-col-1 sm:grid-cols-2 gap-3 sm:gap-2">
+            <ul className="mb-20">
                 {onlyWorkouts?.map((workout) => (
                     <div key={workout.id}>
-                        <div className="aspect-w-1 aspect-h-1">
-                            <div>{workout.name}</div>
-                            <div className="nav-link flex flex-col justify-center items-center bg-green-500/70 rounded-lg text-xl">
-                            <HistoryWorkoutMenu workoutId={workout.id} />
-                                <table className="w-full table-auto">
-                                    <thead>
-                                        <tr>
-                                            <th>Excercise</th>
-                                            <th>Best Set</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-center">
-                                    {workout.exercises.map((exercise) => (
-                                            <tr key={exercise.id}>
-                                                <td>
-                                                    <span>{exercise.sets.length} X </span>
-                                                    {exercise.name}
-                                                </td>
-                                                <td>
-                                                    {bestSet(exercise.sets).weight}kg x {bestSet(exercise.sets).reps}
-                                                </td>
+                        <div className=" relative block mb-4 p-2 mx-auto w-full sm:w-96 text-zinc-300/80 bg-zinc-600 rounded-lg">
+                            <button className="block w-full min-h-[180px]" onClick={() => onShowWorkoutHistory({ workoutId: workout.id })}>
+                                <div className="flex flex-col justify-center">
+                                    <div className="mr-10 text-left text-xl text-zinc-100 font-bold mb-2">
+                                        {workout.name}
+                                    </div>
+                                    <table className="w-full table-auto text-left">
+                                        <thead>
+                                            <tr>
+                                                <th>Excercise</th>
+                                                <th>Best Set</th>
                                             </tr>
-                                    ))}
-                                    </tbody>
-                                </table>
-                            </div>
+                                        </thead>
+                                        <tbody className="text-left font-normal text-sm">
+                                            {workout.exercises.map((exercise) => (
+                                                <tr key={exercise.id}>
+                                                    <td>
+                                                        <span>{exercise.sets.length} X </span>
+                                                        {exercise.name}
+                                                    </td>
+                                                    <td>
+                                                        {bestSet(exercise.sets).weight}kg x{' '}
+                                                        {bestSet(exercise.sets).reps}
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </button>
+                            <HistoryWorkoutMenu workoutId={workout.id} />
                         </div>
                     </div>
                 ))}

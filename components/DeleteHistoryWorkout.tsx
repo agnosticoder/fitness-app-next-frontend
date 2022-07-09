@@ -15,7 +15,7 @@ const DeleteHistoryWorkout = ({ workoutId }: { workoutId: string }) => {
     return (
         <Menu.Item>
             {({ active }: { active: boolean }) => (
-                <button onClick={onDelete} className={`${active ? 'bg-blue-500' : 'bg-blue-200'} rounded text-left p-1`}>
+                <button onClick={onDelete} className={`rounded text-left p-1`}>
                     <AiFillDelete className="inline-block mr-2" />
                     Delete
                 </button>

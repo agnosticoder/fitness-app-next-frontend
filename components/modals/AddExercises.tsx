@@ -8,20 +8,39 @@ import { dispatchWorkoutAtom, selectedExercisesAtom} from '../store/atoms';
 import {BrowserView, MobileView} from 'react-device-detect';
 import ChooseExercisesMobile from '../ChooseExercisesMobile';
 import {z} from 'zod';
+import useGetLatestExercises from '../hooks/useGetLatestExercises';
+
+const ExerciseSchema = z.array(
+    z.object({
+        name: z.string(),
+        sets: z
+            .array(
+                z.object({
+                    reps: z.string().optional(),
+                    weight: z.string().optional(),
+                })
+            )
+            .optional(),
+    })
+);
 
 const AddExercises = NiceModal.create(({ workoutId, isTemplate }: { workoutId: string, isTemplate: boolean }) => {
     const { visible, hide } = useModal();
-    const [selectedExercises] = useAtom(selectedExercisesAtom);
+    const selectedExercises = useAtomValue(selectedExercisesAtom);
+    const { data: latestExercises} = useGetLatestExercises({names: selectedExercises.map((exercise) => exercise?.name)});
+    console.log('latestExercises', latestExercises);
     const { mutate } = useCreateExercises();
     const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const onAddExercises = () => {
-        const exercises = z.array(z.object({ name: z.string() })).parse(selectedExercises);
+        const exercises = ExerciseSchema.parse(latestExercises);
         if (isTemplate) {
             dispatchWorkout({type: 'ADD_EXERCISE'});
             hide();
             return;
         }
+
+        console.log('exercises', exercises);
         mutate({ workoutId, exercises });
         hide();
     };

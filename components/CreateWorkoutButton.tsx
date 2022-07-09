@@ -29,11 +29,11 @@ const CreateWorkoutButton = () => {
         <div>
             <button
                 type="button"
-                className="bg-rose-600 text-rose-100 p-2 text-xl rounded-md"
+                className="bg-rose-700 text-rose-100 p-2 text-xl rounded-md border-[1px] border-rose-500"
                 onClick={onCreateWorkout}
             >
                 <div className="flex items-center gap-2">
-                    <span className="inline-block font-bold">Start New Workout</span>
+                    <span className="inline-block font-bold">Start Workout</span>
                     <span className="inline-block">
                         <IoFitness size={25}/>
                     </span>

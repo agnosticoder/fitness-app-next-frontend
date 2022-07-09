@@ -5,8 +5,14 @@ import useErrorMessage from './useErrorMessage';
 import { customFetch } from './useFetch';
 import { config } from '../../config/config';
 
+interface Set {
+    reps?: string;
+    weight?: string;
+}
+
 export interface Exercise {
     name: string;
+    sets?: Set[];
 }
 
 interface Payload {
@@ -47,7 +53,7 @@ const useCreateExercises = () => {
                 console.log('useCreateExercises', err);
             },
             onSuccess: () => {
-                router.replace(router.asPath);
+                // router.replace(router.asPath);
                 queryClient.invalidateQueries(['workout', workoutId]);
             },
         }

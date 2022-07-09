@@ -13,19 +13,17 @@ const SaveAsTemplateHistoryWorkout = ({ workoutId }: { workoutId: string }) => {
     };
 
     return (
-        <div>
             <Menu.Item>
                 {({ active }: { active: boolean }) => (
                     <button
                         onClick={onSaveAsTemplate}
-                        className={`${active ? 'bg-blue-500' : 'bg-blue-200'} rounded text-left p-1`}
+                        className={`rounded text-left p-1`}
                     >
                         <BiMessageSquareAdd className="inline-block mr-2" />
                         Save as Template
                     </button>
                 )}
             </Menu.Item>
-        </div>
     );
 };
 
