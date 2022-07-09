@@ -35,7 +35,7 @@ const StartTemplateWorkout = NiceModal.create(({ workoutId }: { workoutId: strin
     };
 
     const onEdit = () => {
-        router.push(`/template/${workoutId}/`);
+        router.push(`/template/edit/${workoutId}/`);
         hide();
     };
 
