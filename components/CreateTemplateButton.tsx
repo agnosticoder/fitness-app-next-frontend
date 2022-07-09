@@ -1,23 +1,19 @@
 import invariant from 'tiny-invariant';
-import Button from './Button';
 import useGetWorkouts from './hooks/useGetWorkouts';
 import { useModal } from '@ebay/nice-modal-react';
 import ConfirmStartNewTemplate from './modals/ConfrimStartNewTemplate';
 import CreateTemplate from './modals/CreateTemplate';
-import { GrFormAdd } from 'react-icons/gr';
 import { IoMdAdd } from 'react-icons/io';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSetAtom } from 'jotai';
-import { setWorkoutAtom, WorkoutLocal } from './store/atoms';
-import {v4 as uuid} from 'uuid';
+import { dispatchWorkoutAtom } from './store/atoms';
 
 const CreateTemplateButton = () => {
     const { data: workouts } = useGetWorkouts();
     const confirmStartNewTemplateModal = useModal('template/confirm-start-new-template');
     const createTemplateModal = useModal('template/create-template');
     const router = useRouter();
-    const setWorkout = useSetAtom(setWorkoutAtom);
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const inProcessTemplates = workouts?.filter((workout) => !workout.isDone && workout.isTemplate);
 
@@ -34,12 +30,7 @@ const CreateTemplateButton = () => {
     };
 
     const onAddTemplate = () => {
-        const workout: WorkoutLocal = {
-            id: uuid(),
-            name: 'New Template',
-            exercises: []
-        }
-        setWorkout({workout});
+        dispatchWorkout({type: 'NEW_TEMPLATE'});
         router.push('/template/create');
     };
 

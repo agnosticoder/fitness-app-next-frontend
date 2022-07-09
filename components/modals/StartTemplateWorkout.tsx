@@ -41,26 +41,22 @@ const StartTemplateWorkout = NiceModal.create(({ workoutId }: { workoutId: strin
 
     return (
         <GenricDialog isOpen={visible} setIsOpen={hide}>
-            <div className="text-center">
+            <div className="text-center w-80 bg-zinc-800 text-zinc-200 p-4 rounded-md drop-shadow-2xl">
                 {workout && <ExercisesOverview workout={workout} />}
-                <button
-                    onClick={onStartWorkout}
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                >
-                    Start Workout
-                </button>
-                <button
-                    onClick={onEdit}
-                    className="bg-gray-200 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded ml-4"
-                >
-                    Edit
-                </button>
-                <button
-                    onClick={hide}
-                    className="bg-gray-200 hover:bg-gray-400 text-gray-700 font-bold py-2 px-4 rounded ml-4"
-                >
-                    Cancel
-                </button>
+                <div className='mx-6'>
+                    <button
+                        onClick={onStartWorkout}
+                        className="block w-full mb-2 bg-green-500 px-3 py-1 rounded drop-shadow-md"
+                    >
+                        Start Workout
+                    </button>
+                    <button onClick={onEdit} className="block w-full mb-2 bg-zinc-500 px-3 py-1 rounded drop-shadow-md">
+                        Edit
+                    </button>
+                    <button onClick={hide} className="block w-full mb-2 bg-zinc-500 px-3 py-1 rounded drop-shadow-md">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </GenricDialog>
     );

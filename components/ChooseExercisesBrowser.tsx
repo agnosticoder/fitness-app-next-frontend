@@ -7,6 +7,7 @@ import { useAtom } from 'jotai';
 import { CgCloseO } from 'react-icons/cg';
 import { TiTick } from 'react-icons/ti';
 import { isMobile, BrowserView, MobileView } from 'react-device-detect';
+import {v4 as uuid} from 'uuid';
 
 import _exercises from '../db/exercises.json';
 
@@ -24,16 +25,16 @@ const getExercises = () => {
 };
 
 const allExercises = [
-    { name: 'Biceps', id: 'biceps' },
-    { name: 'Triceps', id: 'triceps' },
-    { name: 'Chest', id: 'chest' },
-    { name: 'Back', id: 'back' },
-    { name: 'Shoulders', id: 'shoulders' },
-    { name: 'Legs', id: 'legs' },
-    { name: 'Abs', id: 'abs' },
-    { name: 'Cardio', id: 'cardio' },
-    { name: 'Other', id: 'other' },
-];
+    { name: 'Biceps', id: uuid() },
+    { name: 'Triceps', id: uuid() },
+    { name: 'Chest', id: uuid() },
+    { name: 'Back', id: uuid() },
+    { name: 'Shoulders', id: uuid() },
+    { name: 'Legs', id: uuid() },
+    { name: 'Abs', id: uuid() },
+    { name: 'Cardio', id: uuid() },
+    { name: 'Other', id: uuid() },
+]
 
 const ChooseExercisesBrowser = () => {
     const [inputValue, setInputValue] = useState('');

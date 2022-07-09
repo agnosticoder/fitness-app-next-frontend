@@ -1,13 +1,17 @@
 import { Menu } from "@headlessui/react";
+import { useSetAtom } from "jotai";
 import { useRouter } from "next/router";
 import { MdEdit } from "react-icons/md";
+import { dispatchWorkoutAtom } from "./store/atoms";
 
 const EditWorkoutButton = ({workoutId, isTemplate}: {workoutId: string, isTemplate?: boolean}) => {
     const router = useRouter();
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const onEdit = () => {
         if(isTemplate) {
-            router.push(`/template/${workoutId}`);
+            dispatchWorkout({type: 'RESET_WORKOUT'});
+            router.push(`/template/edit/${workoutId}`);
         }
         else {
             router.push(`/history/edit/${workoutId}`);

@@ -1,28 +1,20 @@
-import produce from "immer";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 import useDebounce from "./hooks/useDebounce";
-import useUpdateWorkout from "./hooks/useUpdateWorkout";
-import { getWorkoutAtom, setWorkoutAtom } from "./store/atoms";
+import { dispatchWorkoutAtom } from "./store/atoms";
 
 const TemplateInputName = ({workoutName}: {workoutName: string}) => {
     const [workoutNameValue, setWorkoutNameValue] = useState(workoutName || '');
     const {debouncedValue} = useDebounce(workoutNameValue);
     const prevWorkoutName = useRef(workoutName);
-    const workout = useAtomValue(getWorkoutAtom)
-    const setWorkout = useSetAtom(setWorkoutAtom);
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     useEffect(() => {
         if (debouncedValue !== prevWorkoutName.current) {
             prevWorkoutName.current = debouncedValue;
-
-            const newWorkout = produce(workout, draft => {
-                draft.name = debouncedValue;
-            })
-
-            setWorkout({workout: newWorkout});
+            dispatchWorkout({type: 'SET_TEMPLATE_NAME', name: debouncedValue});
         }
-    }, [debouncedValue, setWorkout, workout]);
+    }, [debouncedValue, dispatchWorkout]);
 
     return (
         <div className="text-center text-xl font-bold mx-10 border-[1px] border-zinc-700/40">

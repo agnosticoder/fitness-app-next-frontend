@@ -4,28 +4,21 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import ChooseExercisesBrowser from '../ChooseExercisesBrowser';
 import GenricDialog from '../GenricDialog';
 import useCreateExercises from '../hooks/useCreateExercises';
-import { confirmDialogAtom, getWorkoutAtom, selectedExercisesAtom, setWorkoutAtom } from '../store/atoms';
+import { dispatchWorkoutAtom, selectedExercisesAtom} from '../store/atoms';
 import {BrowserView, MobileView} from 'react-device-detect';
 import ChooseExercisesMobile from '../ChooseExercisesMobile';
 import {z} from 'zod';
-import produce from 'immer';
-import { v4 as uuid } from 'uuid';
 
 const AddExercises = NiceModal.create(({ workoutId, isTemplate }: { workoutId: string, isTemplate: boolean }) => {
     const { visible, hide } = useModal();
     const [selectedExercises] = useAtom(selectedExercisesAtom);
-    const { mutate, data } = useCreateExercises();
-    const workout = useAtomValue(getWorkoutAtom);
-    const setWorkout = useSetAtom(setWorkoutAtom);
+    const { mutate } = useCreateExercises();
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const onAddExercises = () => {
         const exercises = z.array(z.object({ name: z.string() })).parse(selectedExercises);
-        const exercisesWithUuid = exercises.map((exercise) => ({ ...exercise, id: uuid() }));
         if (isTemplate) {
-            const newWorkout = produce(workout, (draft) => {
-                draft.exercises = [...draft.exercises, ...exercisesWithUuid];
-            });
-            setWorkout({ workout: newWorkout });
+            dispatchWorkout({type: 'ADD_EXERCISE'});
             hide();
             return;
         }

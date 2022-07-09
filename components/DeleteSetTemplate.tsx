@@ -1,27 +1,14 @@
 import useDeleteSet from './hooks/useDeleteSet';
 import { AiFillDelete } from 'react-icons/ai';
-import { useRouter } from 'next/router';
-import { Set } from './hooks/useGetWorkout';
 import {RiDeleteBin5Line} from 'react-icons/ri';
-import { getWorkoutAtom, SetLocal, setWorkoutAtom } from './store/atoms';
-import { useAtomValue, useSetAtom } from 'jotai';
-import produce from 'immer';
+import { dispatchWorkoutAtom, SetLocal } from './store/atoms';
+import { useSetAtom } from 'jotai';
 
 const DeleteSetTemplate = ({id, exerciseId}:SetLocal & {exerciseId: string}) => {
-    const workout = useAtomValue(getWorkoutAtom);
-    const setWorkout = useSetAtom(setWorkoutAtom);
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const onDeleteSet = () => {
-        console.log('Delete set', id);
-        const newWorkout = produce(workout, draft => {
-            draft.exercises.forEach(exercise => {
-                if(exercise.id === exerciseId){
-                    exercise.sets = exercise.sets?.filter(set => set.id !== id);
-                }
-            });
-        });
-
-        setWorkout({workout: newWorkout});
+        dispatchWorkout({type: 'REMOVE_SET', exerciseId, setId: id});
     };
 
     return (

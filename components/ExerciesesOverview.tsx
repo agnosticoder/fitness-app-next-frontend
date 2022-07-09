@@ -6,7 +6,7 @@ const ExercisesOverview = ({workout}: {workout: Workout}) => {
         <div key={exercise.id} className="flex justify-center items-center">
             <div className="flex flex-col justify-center items-center">
                 <div className="text-center">
-                    <h1 className="text-2xl">
+                    <h1>
                         <span>
                             {exercise.sets.length} X {exercise.name}
                         </span>
@@ -20,7 +20,7 @@ const ExercisesOverview = ({workout}: {workout: Workout}) => {
     console.log('workout', workout);
 
     return (
-        <div>
+        <div className="mb-4">
             {workoutOverview}
         </div>
     );

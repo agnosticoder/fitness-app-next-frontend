@@ -1,35 +1,14 @@
-import produce from "immer";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { FormEvent } from "react";
-import { AiOutlinePlusSquare } from "react-icons/ai";
-import { BsPlusLg } from "react-icons/bs";
 import { IoMdAdd } from "react-icons/io";
-import Button from "./Button";
-import useCreateSet from "./hooks/useCreateSet";
-import {v4 as uuid} from 'uuid';
-import { getWorkoutAtom, setWorkoutAtom } from "./store/atoms";
+import { dispatchWorkoutAtom } from "./store/atoms";
 
 const AddSetButtonTemplate = ({ exerciseId }: { exerciseId: string }) => {
-    const workout = useAtomValue(getWorkoutAtom);
-    const setWorkout = useSetAtom(setWorkoutAtom);
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const onAddSet = (e: FormEvent) => {
         e.preventDefault();
-        //Todo: Add set to workout atom
-        const newWorkout = produce(workout, draft => {
-            draft.exercises.forEach(exercise => {
-                if (exercise.id === exerciseId) {
-                    exercise.sets = exercise.sets || [];
-                    exercise.sets.push({
-                        id: uuid(),
-                        reps: "",
-                        weight: ""
-                    });
-                }
-            });
-        });
-
-        setWorkout({ workout: newWorkout });
+        dispatchWorkout({ type: 'ADD_SET', exerciseId});
     };
 
     return (

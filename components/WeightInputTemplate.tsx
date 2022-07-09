@@ -1,19 +1,14 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import useDebounce from './hooks/useDebounce';
-import useErrorMessage from './hooks/useErrorMessage';
-import { Set } from './hooks/useGetWorkout';
-import useUpdateSet from './hooks/useUpdateSet';
-import { getWorkoutAtom, SetLocal, setWorkoutAtom } from './store/atoms';
-import produce from 'immer';
-import { useAtomValue, useSetAtom } from 'jotai';
+import { dispatchWorkoutAtom, SetLocal} from './store/atoms';
+import { useSetAtom } from 'jotai';
 
 const WeightInputTemplate = ({id, weight, exerciseId}:SetLocal & {exerciseId: string}) => {
     const [weightValue, setWeightValue] = useState(weight || '');
     const {debouncedValue} = useDebounce(weightValue);
     const preWeight = useRef(weight);
 
-    const workout = useAtomValue(getWorkoutAtom);
-    const setWorkout = useSetAtom(setWorkoutAtom);
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const onChangeWeightInput = (e: ChangeEvent<HTMLInputElement>) => {
         // allow floating point numbers upto two decimal places using regex
@@ -26,23 +21,9 @@ const WeightInputTemplate = ({id, weight, exerciseId}:SetLocal & {exerciseId: st
     useEffect(() => {
         if (debouncedValue !== preWeight.current) {
             preWeight.current = debouncedValue;
-
-            //update the workout atom
-            const newWorkout = produce(workout, draft => {
-                draft.exercises.forEach(exercise => {
-                    if(exercise.id === exerciseId){
-                        exercise.sets?.forEach(set => {
-                            if(set.id === id){
-                                set.weight = debouncedValue;
-                            }
-                        }
-                        )
-                    }
-                });
-            });
-            setWorkout({workout: newWorkout});
+            dispatchWorkout({type: 'SET_WEIGHT_INPUT', exerciseId, setId: id, weight: debouncedValue});
         }
-    }, [debouncedValue, exerciseId, id, setWorkout, workout]);
+    }, [debouncedValue, dispatchWorkout, exerciseId, id]);
 
     return (
         <input

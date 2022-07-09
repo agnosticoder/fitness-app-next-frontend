@@ -8,6 +8,7 @@ import FinishTemplateButton from "../../components/FinishTemplateButton";
 import TemplateInputName from "../../components/TemplateInputName";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import CancelTemplateButton from "../../components/CancelTemplateButton";
 
 const CreateTemplate = () => {
     const addExercisesModal = useModal(AddExercises);
@@ -58,8 +59,9 @@ const CreateTemplate = () => {
                 <div>
                     <div className="">
                         <div className="mb-4 flex justify-between">
-                            <CancelWorkoutButton identifier="template" />
-                            <FinishTemplateButton />
+                            {/* <CancelWorkoutButton identifier="template" /> */}
+                            <CancelTemplateButton />
+                            <FinishTemplateButton isEdit={false}/>
                         </div>
                     </div>
                     <div className="mt-4 mb-4">

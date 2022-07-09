@@ -4,8 +4,7 @@ import { useRouter } from 'next/router';
 import Button from '../Button';
 import GenricDialog from '../GenricDialog';
 import useDeleteWorkout from '../hooks/useDeleteWorkout';
-import { setWorkoutAtom, WorkoutLocal } from '../store/atoms';
-import {v4 as uuid} from 'uuid';
+import { dispatchWorkoutAtom } from '../store/atoms';
 
 interface ConfirmCancelWorkoutProps {
     workoutId?: string;
@@ -16,20 +15,14 @@ const ConfirmCancelWorkout = NiceModal.create(({workoutId, identifier}:ConfirmCa
     const {visible, hide} = useModal();
     const { mutate } = useDeleteWorkout();
     const router = useRouter();
-    const setWorkout = useSetAtom(setWorkoutAtom);
+    const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
     const onCancelWorkout = () => {
         hide();
         workoutId && mutate({ workoutId });
 
-        //Todo: empty workout atom
         if (identifier === 'template') {
-            const workout: WorkoutLocal = {
-                id: uuid(),
-                name: 'New Template',
-                exercises: [],
-            };
-            setWorkout({ workout });
+            dispatchWorkout({type: 'RESET_WORKOUT'});
         }
         router.push('/');
     };
