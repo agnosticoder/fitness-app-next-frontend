@@ -60,7 +60,7 @@ const CreateTemplate = () => {
                     <div className="">
                         <div className="mb-4 flex justify-between">
                             {/* <CancelWorkoutButton identifier="template" /> */}
-                            <CancelTemplateButton />
+                            <CancelTemplateButton identifier='template'/>
                             <FinishTemplateButton isEdit={false}/>
                         </div>
                     </div>
