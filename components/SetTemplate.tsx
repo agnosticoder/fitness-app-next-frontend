@@ -8,6 +8,7 @@ import { ExerciseLocal, SetLocal } from './store/atoms';
 import WeightInputTemplate from './WeightInputTemplate';
 import RepsInputTemplate from './RepsInputTemplate';
 import DeleteSetTemplate from './DeleteSetTemplate';
+import SetIsDoneCheckboxTemplate from './SetIsDoneCheckboxTemplate';
 
 interface SetProps extends SetLocal {
     index: number;
@@ -28,6 +29,10 @@ const SetTemplate = (set:SetProps & {exerciseId: string}) => {
 
             <td>
                 <RepsInputTemplate {...set}/>
+            </td>
+
+            <td>
+                <SetIsDoneCheckboxTemplate {...set}/>
             </td>
 
             <td>

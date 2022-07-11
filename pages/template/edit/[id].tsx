@@ -21,6 +21,8 @@ const EditTemplate = () => {
     const workoutLocal = useAtomValue(getWorkoutAtom);
     const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
 
+    console.log('workoutLocal', workoutLocal);
+
     useEffect(() => {
         if (workout) {
             dispatchWorkout({ type: 'SET_WORKOUT', workout });
@@ -34,7 +36,7 @@ const EditTemplate = () => {
                 <div>
                     <div className="">
                         <div className="mb-4 flex justify-between">
-                            <CancelTemplateButton />
+                            <CancelTemplateButton identifier="template"/>
                             <CancelWorkoutButton identifier="template" workoutId={workoutLocal.id}/>
                             <FinishTemplateButton isEdit />
                         </div>

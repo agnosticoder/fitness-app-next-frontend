@@ -7,10 +7,11 @@ import ErrorMessagePortal from '../components/ErrorMessagePortal';
 import ExercisesButton from '../components/ExercisesNavLink';
 import HistoryButton from '../components/HistoryNavLInk';
 import useErrorMessage from '../components/hooks/useErrorMessage';
+import NotificationPortal from '../components/NotificationPortal';
 import StartWorkoutNavLink from '../components/StartWorkoutNavLink';
 import { messageAtom } from '../components/store/atoms';
 
-const Layout: FC = ({ children }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
     const [message] = useAtom(messageAtom);
 
     return (
@@ -44,7 +45,9 @@ const Layout: FC = ({ children }) => {
             <div className="mx-4 sm:mx-16 pt-4 pb-1 lg:mx-52 standalone:pt-[50px]">
                 <main>{children}</main>
             </div>
-            {message && <ErrorMessagePortal>{message}</ErrorMessagePortal>}
+            {/* //Todo: Remove this if not needed */}
+            {/* {message && <ErrorMessagePortal>{message}</ErrorMessagePortal>} */}
+            <NotificationPortal />
         </div>
     );
 };

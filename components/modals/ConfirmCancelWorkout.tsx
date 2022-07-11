@@ -20,10 +20,18 @@ const ConfirmCancelWorkout = NiceModal.create(({workoutId, identifier}:ConfirmCa
     const onCancelWorkout = () => {
         hide();
         workoutId && mutate({ workoutId });
+        dispatchWorkout({type: 'RESET_WORKOUT'});
 
         if (identifier === 'template') {
-            dispatchWorkout({type: 'RESET_WORKOUT'});
+            router.push('/');
+            return;
         }
+
+        if (identifier === 'history') {
+            router.push('/history');
+            return;
+        }
+
         router.push('/');
     };
 
@@ -31,7 +39,7 @@ const ConfirmCancelWorkout = NiceModal.create(({workoutId, identifier}:ConfirmCa
         <GenricDialog isOpen={visible} setIsOpen={hide}>
             <div className="text-center max-w-xs bg-zinc-800 text-zinc-200 p-4 rounded-md drop-shadow-2xl">
                 <h1 className="text-2xl font-semibold mb-2">Delete 
-                    {identifier === 'history' ? ' Workout History' : identifier === 'template' ? ' Template': ' Workout'}?
+                    {identifier === 'history' ? 'History' : identifier === 'template' ? ' Template': ' Workout'}?
                 </h1>
                 <h2 className='font-semibold mb-4'>
                     Are you sure you want to {identifier && 'delete'} this{' '}

@@ -2,10 +2,10 @@ import WeightInput from './WeightInput';
 import RepsInput from './RepsInput';
 import DeleteSet from './DeleteSet';
 import SetIsDoneCheckbox from './SetIsDoneChecbox';
-import useGetWorkout, { Set } from './hooks/useGetWorkout';
+import useGetWorkout, { Set as SetT } from './hooks/useGetWorkout';
 import { useRouter } from 'next/router';
 
-interface SetProps extends Set {
+interface SetProps extends SetT {
     index: number;
 }
 

@@ -1,11 +1,44 @@
 import produce from "immer";
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import {v4 as uuid} from 'uuid';
 
 export const confirmDialogAtom = atom(false);
 
 export const messageAtom = atom('');
+
+/* ---------------------------- Notificaton Atom ---------------------------- */
+type NotificatonT = {
+    notificationId: string;
+    message: string;
+    mode: 'info' | 'success' | 'warning' | 'error';
+};
+
+const notificatonAtom = atom<NotificatonT[]>([]);
+
+export const getNotificationAtom = atom((get) => get(notificatonAtom));
+
+export const setNotificatonAtom = atom(null, (get, set, notification: Pick<NotificatonT, 'message' | 'mode'>) => {
+    const notificationId = uuid();
+
+    const newNotification = {
+        ...notification,
+        notificationId,
+    };
+
+    const notifications = get(notificatonAtom);
+    set(
+        notificatonAtom,
+        notifications.concat(newNotification),
+    );
+
+    setTimeout(() => {
+        const notifications = get(notificatonAtom);
+        set(
+            notificatonAtom,
+            notifications.filter((n) => n.notificationId !== notificationId)
+        );
+    }, 3000);
+});
 
 /* ------------------------- select Exercises Atom ------------------------ */
 
@@ -108,6 +141,7 @@ const addSetAtom = atom(null, (get, set, { exerciseId }: { exerciseId: string })
                 id: uuid(),
                 reps: '',
                 weight: '',
+                isDone: false,
                 exerciseId,
               });
             }
@@ -127,6 +161,22 @@ const removeSetAtom = atom(null, (get, set, { exerciseId, setId }: { exerciseId:
   });
   set(workoutAtom, newWorkout);
 })
+
+const toggleSetDoneAtom = atom(null, (get, set, { exerciseId, setId }: { exerciseId: string, setId: string }) => {
+  const workout = get(workoutAtom);
+  const newWorkout = produce(workout, (draft) => {
+    draft.exercises.forEach((exercise) => {
+      if(exercise.id === exerciseId) {
+        exercise.sets?.forEach((set) => {
+          if(set.id === setId) {
+            set.isDone = !set.isDone;
+          }
+        })
+      }
+    });
+  });
+  set(workoutAtom, newWorkout);
+});
 
 const setRepsInputAtom = atom(
     null,
@@ -187,6 +237,7 @@ type WorkoutAction =
 {type: 'RESET_WORKOUT'} | 
 {type: 'ADD_SET', exerciseId: string} |
 {type: 'REMOVE_SET', exerciseId: string, setId: string} |
+{type: 'TOGGLE_SET_DONE', exerciseId: string, setId: string} |
 {type: 'SET_REPS_INPUT', exerciseId: string, setId: string, reps: string} |
 {type: 'SET_WEIGHT_INPUT', exerciseId: string, setId: string, weight: string} |
 {type: 'DELETE_EXERCISE', exerciseId: string} |
@@ -222,5 +273,8 @@ export const dispatchWorkoutAtom = atom(null, (get, set, action:WorkoutAction) =
   }
   if(action.type === 'SET_TEMPLATE_NAME'){
     set(setTemplateNameAtom, { name: action.name });
+  }
+  if(action.type === 'TOGGLE_SET_DONE'){
+    set(toggleSetDoneAtom, { exerciseId: action.exerciseId, setId: action.setId });
   }
 });
