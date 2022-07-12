@@ -36,7 +36,7 @@ const FinishWorkoutButton = ({ id, name, exercises, identifier }: WorkoutLocal &
             return exercise.sets?.every((set: any) => {
                 if (set.isDone === false) {
                     // handleError(`Please mark set ${set.id} as done`);
-                    setNotification({message: `Please mark set ${set.id} as done`, mode: 'info'});
+                    setNotification({message: `Please mark all set as done`, mode: 'info'});
                     return false;
                 }
 
