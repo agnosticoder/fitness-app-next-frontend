@@ -16,7 +16,7 @@ const NotificationPortal = () => {
     useEffect(() => {
         const div = document.createElement('div');
         div.id = `toast-portal-${id}`;
-        div.className = 'fixed top-0 right-0 m-4 z-50';
+        div.className = 'fixed bottom-20 right-0 left-0 m-4 z-50';
         document.body.prepend(div);
         console.log('ToastPortal', div);
         setLoaded(true);
