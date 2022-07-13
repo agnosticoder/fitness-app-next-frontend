@@ -1,8 +1,7 @@
-import { useRouter } from "next/router";
-import { useErrorHandler } from "react-error-boundary";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useSetAtom } from 'jotai';
+import { useQuery } from "react-query";
 import { config } from "../../config/config";
-import useErrorMessage from "./useErrorMessage";
+import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from "./useFetch";
 
 type Payload = {
@@ -10,12 +9,11 @@ type Payload = {
 }
 
 const useGetLatestExercises = ({names}: Payload) => {
-    const handleError = useErrorHandler();
-    const {handleError: handleErrorMessage} = useErrorMessage();
+    const setNotification = useSetAtom(setNotificationAtom);
     return useQuery(['latestexercises', names], async () => {
         const {data, error} = await customFetch(`${config.apiUrl}/exercises/${names.join(',')}`);
         if(error) {
-            handleErrorMessage(error);
+            setNotification({message: error, mode: 'error'});
             return;
         }
         return data;

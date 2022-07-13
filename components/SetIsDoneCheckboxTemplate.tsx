@@ -1,17 +1,12 @@
 import { useSetAtom } from 'jotai';
-import { useEffect, useRef, useState } from 'react';
-import useErrorMessage from './hooks/useErrorMessage';
-import { Set } from './hooks/useGetWorkout';
-import useUpdateSet from './hooks/useUpdateSet';
-import { dispatchWorkoutAtom, SetLocal, setNotificatonAtom } from './store/atoms';
+import { dispatchWorkoutAtom, SetLocal, setNotificationAtom } from './store/atoms';
 
 const SetIsDoneCheckboxTemplate = ({ id, isDone, weight, reps, exerciseId }: SetLocal & {exerciseId: string}) => {
     // const [isDoneValue, setIsDoneValue] = useState(isDone);
     // // const { mutate } = useUpdateSet();
     // const prevIsDone = useRef(isDone);
-    // const { handleError } = useErrorMessage();
     const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
-    const setNotification = useSetAtom(setNotificatonAtom);
+    const setNotification = useSetAtom(setNotificationAtom);
 
     const onHandleChange = () => {
         console.log('isDoneValue', isDone);

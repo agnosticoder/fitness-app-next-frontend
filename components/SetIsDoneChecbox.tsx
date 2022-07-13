@@ -1,13 +1,14 @@
+import { useSetAtom } from 'jotai';
 import { useEffect, useRef, useState } from 'react';
-import useErrorMessage from './hooks/useErrorMessage';
 import { Set } from './hooks/useGetWorkout';
 import useUpdateSet from './hooks/useUpdateSet';
+import { setNotificationAtom } from './store/atoms';
 
 const SetIsDoneCheckbox = ({ id, isDone, weight, reps }: Set) => {
     const [isDoneValue, setIsDoneValue] = useState(isDone);
     const { mutate } = useUpdateSet();
     const prevIsDone = useRef(isDone);
-    const { handleError } = useErrorMessage();
+    const setNotification = useSetAtom(setNotificationAtom);
 
     const onHandleChange = () => {
         if(isDoneValue){
@@ -15,13 +16,13 @@ const SetIsDoneCheckbox = ({ id, isDone, weight, reps }: Set) => {
         }
         // if weight or reps are falsy, send message saying reps and weight are required
         if (!weight || !reps) {
-            handleError('reps and weight are required');
+            setNotification({message: 'reps and weight are required', mode: 'info'});
             return;
         }
 
         // reps cannot be 0 but weight can be
         if(reps === '0'){
-            handleError('reps cannot be 0');
+            setNotification({message: 'reps cannot be 0', mode: 'info'});
             return;
         }
 

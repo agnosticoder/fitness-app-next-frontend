@@ -17,7 +17,7 @@ const notificatonAtom = atom<NotificatonT[]>([]);
 
 export const getNotificationAtom = atom((get) => get(notificatonAtom));
 
-export const setNotificatonAtom = atom(null, (get, set, notification: Pick<NotificatonT, 'message' | 'mode'>) => {
+export const setNotificationAtom = atom(null, (get, set, notification: Pick<NotificatonT, 'message' | 'mode'>) => {
     const notificationId = uuid();
 
     const newNotification = {

@@ -9,22 +9,14 @@ import { TiTick } from 'react-icons/ti';
 import { isMobile, BrowserView, MobileView } from 'react-device-detect';
 import {v4 as uuid} from 'uuid';
 
-import _exercises from '../db/exercises.json';
+import exercises from '../db/exercises.json';
+//Todo: Add above exercises and vitual window to AddExerciseModal and exercises router
 
-const exercises = _exercises.exercises;
+const exercisesWithUuid = exercises.exercises.map(exercise => ({name: exercise.name, id: uuid()}));
 
+console.log('exercisesWithUuid', exercisesWithUuid);
 
-//choose any 30 exercises form exercises array
-const getExercises = () => {
-    const randomExercises = [];
-    for (let i = 0; i < 30; i++) {
-        const randomIndex = Math.floor(Math.random() * exercises.length);
-        randomExercises.push(exercises[randomIndex]);
-    }
-    return randomExercises;
-};
-
-const allExercises = [
+export const allExercises = [
     { name: 'Biceps', id: uuid() },
     { name: 'Triceps', id: uuid() },
     { name: 'Chest', id: uuid() },
@@ -48,7 +40,7 @@ const ChooseExercisesBrowser = () => {
     // filter items based on inputValue and remove selected items from the list
     const getFilteredItems = () => {
         // const flatenedSelectedItems = selectedItems.map((item) => item.id);
-        const filteredItems = matchSorter(allExercises, inputValue, {
+        const filteredItems = matchSorter(exercisesWithUuid, inputValue, {
             keys: ['name'],
         });
         // return filteredItems.filter((item) => !flatenedSelectedItems.includes(item.id));

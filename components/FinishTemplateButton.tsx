@@ -1,19 +1,19 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import useCreateTemplate from "./hooks/useCreateTemplate";
-import useErrorMessage from "./hooks/useErrorMessage";
 import useSaveTemplate from "./hooks/useSaveTemplate";
-import { dispatchWorkoutAtom, getWorkoutAtom} from "./store/atoms";
+import { dispatchWorkoutAtom, getWorkoutAtom, setNotificationAtom} from "./store/atoms";
 
 const FinishTemplateButton = ({ isEdit }: { isEdit: boolean }) => {
-    const { handleError } = useErrorMessage();
     const { exercises, name,  id} = useAtomValue(getWorkoutAtom);
     const { mutate:createTemplate } = useCreateTemplate();
     const { mutate:updateTemplate} = useSaveTemplate();
     const dispatchWorkout = useSetAtom(dispatchWorkoutAtom);
+    const setNotification = useSetAtom(setNotificationAtom);
 
     const onFinishTemplate = () => {
         if (exercises?.length === 0) {
-            handleError('Please add at least one exercise');
+            // handleError('Please add at least one exercise');
+            setNotification({message: 'Please add at least one exercise', mode: 'info'});   
             return;
         }
         if (isEdit) {

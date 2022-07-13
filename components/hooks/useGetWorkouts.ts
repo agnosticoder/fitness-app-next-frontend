@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { customFetch } from './useFetch';
-import { useErrorHandler } from 'react-error-boundary';
-import useErrorMessage from './useErrorMessage';
 import { config } from '../../config/config';
+import { setNotificationAtom } from '../store/atoms';
+import { useSetAtom } from 'jotai';
 
 export interface Set {
     id: string;
@@ -36,12 +36,11 @@ export interface Workout {
 }
 
 const useGetWorkouts = () => {
-    const handleError = useErrorHandler();
-    const {handleError: handleErrorMessage} = useErrorMessage();
+    const setNotification = useSetAtom(setNotificationAtom);
     return useQuery('workouts', async () => {
         const {data, error} = await customFetch<Workout[]>(`${config.apiUrl}/workouts`);
         if(error) {
-            handleErrorMessage(error);
+            setNotification({message: error, mode: 'error'});
             return;
         }
         return data;

@@ -25,6 +25,7 @@
     "react-hook-form": "^7.32.0",
     "react-icons": "^4.4.0",
     "react-query": "^3.39.1",
+    "react-window": "^1.8.7",
     "sass": "^1.49.7",
     "tiny-invariant": "^1.2.0",
     "uuid": "^8.3.2",

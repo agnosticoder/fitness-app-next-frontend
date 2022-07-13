@@ -1,0 +1,1 @@
+npx pwa-asset-generator public/logo.svg -m ./public/site.webmanifest -b "#282828" -i ./public/asset-generator-changes.html --favicon

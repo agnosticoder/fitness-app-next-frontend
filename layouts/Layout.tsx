@@ -1,18 +1,10 @@
-import { useAtom } from 'jotai';
 import Head from 'next/head';
-import Link from 'next/link';
-import { FC } from 'react';
-import CreateWorkoutModal from '../components/CreateWorkoutModal';
-import ErrorMessagePortal from '../components/ErrorMessagePortal';
 import ExercisesButton from '../components/ExercisesNavLink';
 import HistoryButton from '../components/HistoryNavLInk';
-import useErrorMessage from '../components/hooks/useErrorMessage';
 import NotificationPortal from '../components/NotificationPortal';
 import StartWorkoutNavLink from '../components/StartWorkoutNavLink';
-import { messageAtom } from '../components/store/atoms';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-    const [message] = useAtom(messageAtom);
 
     return (
         <div className="text-zinc-200 bg-zinc-800   min-h-screen">

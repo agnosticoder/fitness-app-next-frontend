@@ -1,17 +1,13 @@
 import produce from "immer";
 import { useSetAtom } from 'jotai';
-import Button from "./Button";
-import useErrorMessage from "./hooks/useErrorMessage";
 import useFinishWorkout from "./hooks/useFinishWorkout";
-import { Workout } from './hooks/useGetWorkout';
-import { setNotificatonAtom, WorkoutLocal } from './store/atoms';
+import { setNotificationAtom, WorkoutLocal } from './store/atoms';
 
 //Todo: Findout why WorkoutLocal is accepted my workout/id page but Workout from useGetWorkout is not by history/edit/[id] page
 const FinishWorkoutButton = ({ id, name, exercises, identifier }: WorkoutLocal & { identifier: 'history' | 'workout' }) => {
     const path = identifier === 'history' ? '/history' : '/';
     const { mutate, data } = useFinishWorkout(path);
-    const { handleError } = useErrorMessage();
-    const setNotification = useSetAtom(setNotificatonAtom);
+    const setNotification = useSetAtom(setNotificationAtom);
 
     const onFinishWorkout = () => {
         console.log('onFinishWorkout');

@@ -1,8 +1,9 @@
+import { useSetAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
 import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
-import useErrorMessage from './useErrorMessage';
+import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
 
 interface Set{
@@ -25,10 +26,10 @@ interface Data{
 }
 
 const useCreateTemplate = () => {
-    const { handleError: handleErrorMessage } = useErrorMessage();
     const handleError = useErrorHandler();
     const router = useRouter();
     const queryClient = useQueryClient();
+    const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
         async (workout: Workout) => {
@@ -43,7 +44,7 @@ const useCreateTemplate = () => {
             if (error) {
                 console.log('useCreateTemplate error', error);
                 //* show error to user
-                handleErrorMessage(error);
+                setNotification({message: error, mode: 'error'});
                 return;
             }
 

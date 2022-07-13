@@ -1,16 +1,15 @@
 import { useQuery } from 'react-query';
 import { customFetch } from './useFetch';
-import { useErrorHandler } from 'react-error-boundary';
-import useErrorMessage from './useErrorMessage';
 import { config } from '../../config/config';
+import { setNotificationAtom } from '../store/atoms';
+import { useSetAtom } from 'jotai';
 
 const useGetLatestExercise = ({ name }: { name: string }) => {
-    const handleError = useErrorHandler();
-    const {handleError: handleErrorMessage} = useErrorMessage();
+    const setNotification = useSetAtom(setNotificationAtom);
     return useQuery(['latestexercise', name], async () => {
         const {data, error} = await customFetch(`${config.apiUrl}/exercise/${name}`);
         if(error) {
-            handleErrorMessage(error);
+            setNotification({message: error, mode: 'info'});
             return;
         }
         return data;
