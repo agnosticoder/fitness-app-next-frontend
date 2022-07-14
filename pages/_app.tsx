@@ -10,9 +10,34 @@ import GlobalLoader from '../components/GloabalLoader';
 import NiceModal from '@ebay/nice-modal-react';
 import '../components/modals/modals';
 import { motion } from 'framer-motion';
-
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const queryClient = new QueryClient();
+
+const Loading = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const handleStart = () => (setIsLoading(true));
+        const handleComplete = () => (setIsLoading(false));
+        
+        router.events.on('routeChangeStart', handleStart);
+        router.events.on('routeChangeComplete', handleComplete);
+        router.events.on('routeChangeError', handleComplete);
+
+        return () => {
+            router.events.off('routeChangeStart', handleStart);
+            router.events.off('routeChangeComplete', handleComplete);
+            router.events.off('routeChangeError', handleComplete);
+        }
+
+    }, [router]);
+
+    return isLoading ? <div className='text-zinc-200 h-screen w-screen flex justify-center items-center'>Loading...</div> : null;
+};
 
 
 function MyApp({ Component, pageProps, router }: AppProps) {
@@ -30,6 +55,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
             }
         }}
         >
+            <Loading />
             <div style={{ WebkitTapHighlightColor: 'transparent' }}>
                 <ErrorBoundary FallbackComponent={ErrorFallbackComponent} onError={clientErrorHandler}>
                     <QueryClientProvider client={queryClient}>
