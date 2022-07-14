@@ -9,26 +9,41 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import GlobalLoader from '../components/GloabalLoader';
 import NiceModal from '@ebay/nice-modal-react';
 import '../components/modals/modals';
+import { motion } from 'framer-motion';
 
 
 const queryClient = new QueryClient();
 
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
     return (
-        <div style={{ WebkitTapHighlightColor: 'transparent' }}>
-            <ErrorBoundary FallbackComponent={ErrorFallbackComponent} onError={clientErrorHandler}>
-                <QueryClientProvider client={queryClient}>
-                    <NiceModal.Provider>
-                        {/* <GlobalLoader /> */}
-                        <Layout>
-                            <Component {...pageProps} />
-                        </Layout>
-                        <ReactQueryDevtools />
-                    </NiceModal.Provider>
-                </QueryClientProvider>
-            </ErrorBoundary>
-        </div>
+        <motion.div
+        key={router.route}
+        initial="initial"
+        animate="pageAnimate"
+        variants={{
+            initial: {
+                opacity: 0,
+            },
+            pageAnimate: {
+                opacity: 1,
+            }
+        }}
+        >
+            <div style={{ WebkitTapHighlightColor: 'transparent' }}>
+                <ErrorBoundary FallbackComponent={ErrorFallbackComponent} onError={clientErrorHandler}>
+                    <QueryClientProvider client={queryClient}>
+                        <NiceModal.Provider>
+                            {/* <GlobalLoader /> */}
+                            <Layout>
+                                <Component {...pageProps} />
+                            </Layout>
+                            <ReactQueryDevtools />
+                        </NiceModal.Provider>
+                    </QueryClientProvider>
+                </ErrorBoundary>
+            </div>
+        </motion.div>
     );
 }
 
