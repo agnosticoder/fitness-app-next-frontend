@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             <ErrorBoundary FallbackComponent={ErrorFallbackComponent} onError={clientErrorHandler}>
                 <QueryClientProvider client={queryClient}>
                     <NiceModal.Provider>
-                        <GlobalLoader />
+                        {/* <GlobalLoader /> */}
                         <Layout>
                             <Component {...pageProps} />
                         </Layout>
