@@ -12,7 +12,7 @@ import {v4 as uuid} from 'uuid';
 import exercises from '../db/exercises.json';
 //Todo: Add above exercises and vitual window to AddExerciseModal and exercises router
 
-const exercisesWithUuid = exercises.exercises.map(exercise => ({name: exercise.name, id: uuid()}));
+export const exercisesWithUuid = exercises.exercises.map(exercise => ({name: exercise.name, id: uuid()}));
 
 console.log('exercisesWithUuid', exercisesWithUuid);
 

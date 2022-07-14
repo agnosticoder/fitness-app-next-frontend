@@ -9,6 +9,7 @@ import { TiTick } from 'react-icons/ti';
 import { isMobile, BrowserView, MobileView } from 'react-device-detect';
 import {v4 as uuid} from 'uuid';
 import _exercises from '../db/exercises.json';
+import { exercisesWithUuid } from './ChooseExercisesBrowser';
 
 const exercises = _exercises.exercises;
 
@@ -45,7 +46,7 @@ const ChooseExercisesMobile = () => {
 
     // filter items based on inputValue
     const getFilteredItems = () => {
-        const filteredItems = matchSorter(allExercises, inputValue, {
+        const filteredItems = matchSorter(exercisesWithUuid, inputValue, {
             keys: ['name'],
         });
         return filteredItems;

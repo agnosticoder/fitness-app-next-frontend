@@ -11,7 +11,7 @@ type Payload = {
 const useGetLatestExercises = ({names}: Payload) => {
     const setNotification = useSetAtom(setNotificationAtom);
     return useQuery(['latestexercises', names], async () => {
-        const {data, error} = await customFetch(`${config.apiUrl}/exercises/${names.join(',')}`);
+        const {data, error} = await customFetch(`${config.apiUrl}/exercises/latest?names=${names.join(',')}`);
         if(error) {
             setNotification({message: error, mode: 'error'});
             return;

@@ -11,10 +11,10 @@ interface Set {
     weight?: string;
 }
 
-export interface Exercise {
+export type Exercise =  {
     name: string;
     sets?: Set[];
-}
+} | null;
 
 interface Payload {
     workoutId: string;

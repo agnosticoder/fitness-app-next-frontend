@@ -1,4 +1,3 @@
-import CreateWorkout from './modals/CreateWorkout';
 import CreateWorkoutButton from './CreateWorkoutButton';
 
 const CreateWorkoutModal = () => {
