@@ -9,4 +9,4 @@ Fitness resort is a workout logging app that help you to keep track of your past
 
 ## Coming soon features
 - performance charts based on past workouts
-- authentication
+- user accounts (authentication)
