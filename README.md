@@ -22,7 +22,8 @@
 
 >This app is actively work in progress 🚧 and should not be used
 
-*Soon the video will be added to this page explaining the working of the app*
+## Watch this video see workflow of the app
+[![Watch this video see workflow of the app](http://img.youtube.com/vi/HXctolyBsnY/0.jpg)](http://www.youtube.com/watch?v=HXctolyBsnY)
 
 ## Coming soon features
 - performance charts based on past workouts
