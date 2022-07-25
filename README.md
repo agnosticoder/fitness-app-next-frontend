@@ -10,7 +10,7 @@
 - Sets info is in the form of reps and weights and a set can only be marked done when both reps and weight are filled in it
 - Similarly, a workout can only be finished when all sets in all added exercises are marked as done
 - Moreover, templates can be created which will help in an easier start of workout just by clicking the start workout from the template button
-Historical workouts can also be saved as a template
+- Historical workouts can also be saved as a template
 - One can edit existing templates and past history
 Adding exercise to a workout renders the most recent history of that particular exercise
 
