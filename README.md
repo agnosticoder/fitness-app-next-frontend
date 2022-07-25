@@ -12,7 +12,7 @@
 - Moreover, templates can be created which will help in an easier start of workout just by clicking the start workout from the template button
 - Historical workouts can also be saved as a template
 - One can edit existing templates and past history
-Adding exercise to a workout renders the most recent history of that particular exercise
+- Adding exercise to a workout renders the most recent history of that particular exercise
 
 ## Technical info
 - This is a standalone app that can be installed on the iPhone using Safari for an app-like experience.
