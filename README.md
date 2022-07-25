@@ -22,7 +22,7 @@
 
 >This app is actively work in progress 🚧 and should not be used
 
-## Watch this video see workflow of the app
+## Watch this video to see workflow of the app
 [![Watch this video see workflow of the app](http://img.youtube.com/vi/HXctolyBsnY/0.jpg)](http://www.youtube.com/watch?v=HXctolyBsnY)
 
 ## Coming soon features
