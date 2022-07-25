@@ -31,9 +31,9 @@ const SetTemplate = (set:SetProps & {exerciseId: string}) => {
                 <RepsInputTemplate {...set}/>
             </td>
 
-            <td>
+            {/* <td>
                 <SetIsDoneCheckboxTemplate {...set}/>
-            </td>
+            </td> */}
 
             <td>
                 <DeleteSetTemplate {...set}/>
