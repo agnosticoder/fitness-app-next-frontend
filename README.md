@@ -4,9 +4,6 @@
 
 ## Fitness resort is a workout logging app that helps you to keep track of your past workouts
 
-## Watch this video to see workflow of the app
-[![Watch this video see workflow of the app](http://img.youtube.com/vi/HXctolyBsnY/0.jpg)](http://www.youtube.com/watch?v=HXctolyBsnY)
-
 ## Summary of working of the app
 - One can start the workout by clicking the 'Start Workout' Button
 - Then they can add exercises they want to perform and sets per exercise
