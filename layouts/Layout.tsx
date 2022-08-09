@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
 import ExercisesButton from '../components/ExercisesNavLink';
 import HistoryButton from '../components/HistoryNavLInk';
 import NotificationPortal from '../components/NotificationPortal';
@@ -158,17 +159,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                 </span>
             </header>
 
+            {/* Main Content */}
+            <div className="mx-4 sm:mx-16 pt-4 pb-1 lg:mx-52 standalone:pt-[50px]">
+                <main>{children}</main>
+            </div>
+
+            {/* Footer */}
             <div className="fixed bottom-0 left-0 right-0 z-10 h-20 pb-8 pt-2 bg-zinc-700 drop-shadow-lg">
                 <div className="flex justify-evenly text-center">
                     <HistoryButton />
                     <StartWorkoutNavLink />
                     <ExercisesButton />
                 </div>
-            </div>
-
-            {/* Main Content */}
-            <div className="mx-4 sm:mx-16 pt-4 pb-1 lg:mx-52 standalone:pt-[50px]">
-                <main>{children}</main>
             </div>
             {/* //Todo: Remove this if not needed */}
             {/* {message && <ErrorMessagePortal>{message}</ErrorMessagePortal>} */}
