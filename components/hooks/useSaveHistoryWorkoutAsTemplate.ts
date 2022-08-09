@@ -6,8 +6,7 @@ import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
 import { Workout } from './useGetWorkout';
-
-type Payload = Workout;
+import type { CopyWorkoutPayload } from '../../../back_end/src/controllers/workouts';
 
 
 const useSaveHistoryWorkoutAsTemplate = () => {
@@ -17,7 +16,7 @@ const useSaveHistoryWorkoutAsTemplate = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (workout: Payload) => {
+        async (workout: CopyWorkoutPayload) => {
             const { data, error } = await customFetch(`${config.apiUrl}/workout/copytotemplate`, {
                 method: 'POST',
                 headers: {

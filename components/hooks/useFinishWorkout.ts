@@ -5,8 +5,7 @@ import { useMutation } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
-
-type Payload = any;
+import type { FinishWorkoutPayload } from '../../../back_end/src/controllers/workouts';
 
 const useFinishWorkout = (path: string) => {
     const handleError = useErrorHandler();
@@ -14,7 +13,7 @@ const useFinishWorkout = (path: string) => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (payload:Payload) => {
+        async (payload:FinishWorkoutPayload) => {
             const { data, error } = await customFetch(`${config.apiUrl}/finishworkout`, {
                 method: 'PUT',
                 headers: {
