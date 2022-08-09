@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import useSignup from '../components/hooks/useSignup';
 
 type SignupInputs = {
     name: string;
@@ -15,21 +17,11 @@ const Signup = () => {
         formState: { errors },
     } = useForm<SignupInputs>();
     const router = useRouter();
-    // const utils = trpc.useContext();
-    // const {
-    //     mutate,
-    //     error,
-    //     data: user,
-    // } = trpc.useMutation(['user.signup'], {
-    //     onSuccess: () => {
-    //         utils.invalidateQueries(['user.get']);
-    //         router.push('/');
-    //     },
-    // });
+    //Todo: Find out better way to show errors
+    const {mutate, data} = useSignup();
 
     const onSignup = ({ name, email, password }: SignupInputs) => {
-        console.log('signing up', { name, email, password });
-        // mutate({ name, email, password });
+        mutate({ name, email, password });
     };
 
     // function return true if password contains at least one number, one letter(both upper and lowercase), one special character and is at least 8 characters long
@@ -96,14 +88,14 @@ const Signup = () => {
                     >
                         Sign Up
                     </button>
-                    {/* {error?.data?.code === 'BAD_REQUEST' && (
+                    {data?.error && (
                         <div>
-                            <span className="inline-block mr-2">{error.message}</span>
+                            <span className="text-zinc-200 inline-block mr-2">{data.error}</span>
                             <Link href="/login">
-                                <a className="text-teal-700 hover:underline inline-block"> login</a>
+                                <a className="text-rose-500 hover:underline inline-block"> login</a>
                             </Link>
                         </div>
-                    )} */}
+                    )}
                 </form>
             </div>
         </div>
