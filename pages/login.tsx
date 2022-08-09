@@ -33,7 +33,7 @@ const Login = () => {
     return (
         <div className="h-full flex justify-center items-center">
             <div className="w-96 mx-auto bg-zinc-700 text-zinc-800 p-4 rounded-lg drop-shadow">
-                <h1 className="text-xl text-zinc-200 font-bold text-center mb-6">Sign up</h1>
+                <h1 className="text-xl text-zinc-200 font-bold text-center mb-6">Login up</h1>
                 <form onSubmit={handleSubmit(onLogin)}>
                     <div className="mb-6 relative">
                         <input

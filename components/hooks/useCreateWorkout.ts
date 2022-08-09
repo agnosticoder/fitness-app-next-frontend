@@ -5,21 +5,7 @@ import { useMutation } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
-
-interface Set{
-    reps?: string;
-    weight?: string;
-}
-
-interface Exercise {
-    name: string;
-    
-}
-
-interface Workout {
-    name: string;
-    exercises?: Exercise[];
-}
+import type { CreateWorkoutPayload } from '../../../back_end/src/controllers/workouts';
 
 interface Data{
     id: string;
@@ -32,7 +18,7 @@ const useCreateWorkout = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (workout: Workout) => {
+        async (workout: CreateWorkoutPayload) => {
             console.log('workout', workout);
             const { data, error } = await customFetch<Data>(`${config.apiUrl}/workout`, {
                 method: 'POST',

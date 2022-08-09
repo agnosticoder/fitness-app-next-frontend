@@ -5,6 +5,13 @@ import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
+import type { CreateSetPayload } from '../../../back_end/src/controllers/sets';
+
+interface Data {
+    id: string;
+    name: string;
+    workoutId: string;
+}
 
 const useCreateSet = () => {
     const handleError = useErrorHandler();
@@ -12,18 +19,10 @@ const useCreateSet = () => {
     const router = useRouter();
     const setNotification = useSetAtom(setNotificationAtom);
 
-    interface Payload {
-        exerciseId: string;
-    }
 
-    interface Data {
-        id: string;
-        name: string;
-        workoutId: string;
-    }
 
     return useMutation(
-        async (payload:Payload) => {
+        async (payload:CreateSetPayload) => {
             const { data, error } = await customFetch<Data>(`${config.apiUrl}/set`, {
                 method: 'POST',
                 headers: {

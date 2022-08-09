@@ -10,6 +10,7 @@ interface Payload {
     workoutId: string;
 }
 
+//Todo: delete this file because useDeleteWorkout is used instead
 const useDeleteTemplate = () => {
     const handleError = useErrorHandler();
     const queryClient = useQueryClient();
