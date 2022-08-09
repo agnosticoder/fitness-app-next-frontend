@@ -1,7 +1,5 @@
 import AddSetButtonTemplate from './AddSetButtonTemplate';
 import DeleteExerciseButton from './DeleteExerciseButton';
-import useGetLatestExercise from './hooks/useGetLatestExercise';
-import DeleteExercise from './modals/DeleteExercise';
 import SetTempalate from './SetTemplate';
 import { ExerciseLocal } from './store/atoms';
 

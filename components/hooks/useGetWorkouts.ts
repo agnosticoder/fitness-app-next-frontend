@@ -48,6 +48,9 @@ const useGetWorkouts = () => {
         {
             //Todo: add error handler
             onError: (err) => console.error(err),
+            onSuccess: (data) => {
+                console.log({data});
+            }
         }
     );
 };

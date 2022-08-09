@@ -12,6 +12,7 @@ const Debounce = () => {
 
     useEffect(() => {
         console.log('debounced value', debouncedValue);
+        fetch('http://localhost:8000').then(res => res.json()).then(res => console.log(res));
     }, [debouncedValue]);
 
     const onClickItem1 = () => {
