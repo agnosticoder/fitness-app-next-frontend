@@ -33,7 +33,7 @@ const useCreateTemplate = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (workout: CreateWorkoutPayload) => {
+        async (workout: Workout) => {
             const { data, error } = await customFetch<Data>(`${config.apiUrl}/workout/template`, {
                 method: 'POST',
                 headers: {

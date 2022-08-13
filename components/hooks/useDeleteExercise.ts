@@ -8,6 +8,9 @@ import { customFetch } from './useFetch';
 import { Exercise } from './useGetWorkout';
 // import type { DeleteExercisePaload } from '../../../back_end/src/controllers/exercises';
 
+interface Payload {
+    exerciseId: string;
+}
 
 const useDeleteExercise = () => {
     const handleError = useErrorHandler();
@@ -16,7 +19,7 @@ const useDeleteExercise = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (payload: DeleteExercisePaload) => {
+        async (payload: Payload) => {
             const { data, error } = await customFetch<Exercise>(`${config.apiUrl}/exercise`, {
                 method: 'DELETE',
                 headers: {

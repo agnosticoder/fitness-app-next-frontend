@@ -33,7 +33,7 @@ const useCreateWorkout = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (workout: CreateWorkoutPayload) => {
+        async (workout: Workout) => {
             console.log('workout', workout);
             const { data, error } = await customFetch<Data>(`${config.apiUrl}/workout`, {
                 method: 'POST',

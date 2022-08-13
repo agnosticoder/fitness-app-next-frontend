@@ -27,7 +27,7 @@ const useCreateSet = () => {
 
 
     return useMutation(
-        async (payload:CreateSetPayload) => {
+        async (payload:Payload) => {
             const { data, error } = await customFetch<Data>(`${config.apiUrl}/set`, {
                 method: 'POST',
                 headers: {

@@ -7,6 +7,9 @@ import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
 // import type { DeleteWorkoutPayload } from '../../../back_end/src/controllers/workouts';
 
+interface Payload {
+    workoutId: string;
+}
 
 const useDeleteWorkout = () => {
     const handleError = useErrorHandler();
@@ -15,7 +18,7 @@ const useDeleteWorkout = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (payload: DeleteWorkoutPayload) => {
+        async (payload: Payload) => {
             const { data, error } = await customFetch(`${config.apiUrl}/workout`, {
                 method: 'DELETE',
                 headers: {
