@@ -9,6 +9,9 @@ import { useModal } from '@ebay/nice-modal-react';
 import { IoIosArrowBack } from 'react-icons/io';
 import Link from 'next/link';
 import WorkoutInputName from '../../components/WorkoutNameInput';
+import { GetServerSideProps } from 'next';
+import { customFetch } from '../../components/hooks/useFetch';
+import { config } from '../../config/config';
 
 const Workout = () => {
     const router = useRouter();
@@ -60,3 +63,25 @@ const Workout = () => {
 };
 
 export default Workout;
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {
+        headers: {
+            cookie: req.headers.cookie || '',
+        }
+    })
+
+    if(!user){
+        return {
+            redirect: {
+                destination: '/login',
+            },
+            props: {
+                user,
+            }
+        }
+    }
+    return {
+        props: {user: null}
+    }
+}

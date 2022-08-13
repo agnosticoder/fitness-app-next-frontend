@@ -1,17 +1,23 @@
-import type { GetServerSideProps, NextPage } from 'next'
-import App from '../components/App';
+import { GetServerSideProps } from 'next';
 import { customFetch } from '../components/hooks/useFetch';
+import useLogout from '../components/hooks/useLogout';
 import { config } from '../config/config';
 
-const Home: NextPage = () => {
+const Profile = () => {
+    const {mutate} = useLogout();
+
+    const onLogout = async () => {
+        mutate();
+    }
+
     return (
         <div>
-            <App />
+            <button className='inline-block bg-rose-200/70 text-rose-600 py-1 px-2 text-sm font-bold rounded-md border-[1px] border-rose-300/70' onClick={onLogout}>Log out</button>
         </div>
     );
-};
+}
 
-export default Home
+export default Profile;
 
 export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
     const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {

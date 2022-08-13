@@ -14,6 +14,9 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect, useRef } from "react";
 import TemplateInputName from "../../../components/TemplateInputName";
 import ExerciseTemplate from "../../../components/ExerciseTemplate";
+import { GetServerSideProps } from 'next';
+import { customFetch } from '../../../components/hooks/useFetch';
+import { config } from '../../../config/config';
 
 const EditHistory = () => {
     const router = useRouter();
@@ -71,3 +74,25 @@ const EditHistory = () => {
 };
 
 export default EditHistory;
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {
+        headers: {
+            cookie: req.headers.cookie || '',
+        }
+    })
+
+    if(!user){
+        return {
+            redirect: {
+                destination: '/login',
+            },
+            props: {
+                user,
+            }
+        }
+    }
+    return {
+        props: {user: null}
+    }
+}

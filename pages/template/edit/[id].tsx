@@ -10,6 +10,9 @@ import TemplateInputName from "../../../components/TemplateInputName";
 import ExerciseTemplate from "../../../components/ExerciseTemplate";
 import useGetWorkoutOnce from "../../../components/hooks/useGetWorkoutOnce";
 import CancelTemplateButton from "../../../components/CancelTemplateButton";
+import { GetServerSideProps } from 'next';
+import { customFetch } from '../../../components/hooks/useFetch';
+import { config } from '../../../config/config';
 
 const EditTemplate = () => {
     const router = useRouter();
@@ -68,3 +71,25 @@ const EditTemplate = () => {
 };
 
 export default EditTemplate;
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {
+        headers: {
+            cookie: req.headers.cookie || '',
+        }
+    })
+
+    if(!user){
+        return {
+            redirect: {
+                destination: '/login',
+            },
+            props: {
+                user,
+            }
+        }
+    }
+    return {
+        props: {user: null}
+    }
+}
