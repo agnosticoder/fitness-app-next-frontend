@@ -9,6 +9,9 @@ import TemplateInputName from "../../components/TemplateInputName";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import CancelTemplateButton from "../../components/CancelTemplateButton";
+import { GetServerSideProps } from 'next';
+import { customFetch } from '../../components/hooks/useFetch';
+import { config } from '../../config/config';
 
 const CreateTemplate = () => {
     const addExercisesModal = useModal(AddExercises);
@@ -90,3 +93,25 @@ const CreateTemplate = () => {
 };
 
 export default CreateTemplate;
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {
+        headers: {
+            cookie: req.headers.cookie || '',
+        }
+    })
+
+    if(!user){
+        return {
+            redirect: {
+                destination: '/login',
+            },
+            props: {
+                user,
+            }
+        }
+    }
+    return {
+        props: {user: null}
+    }
+}

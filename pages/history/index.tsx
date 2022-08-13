@@ -1,4 +1,7 @@
+import { GetServerSideProps } from 'next';
 import HistoryWorkouts from "../../components/HistoryWorkouts";
+import { customFetch } from '../../components/hooks/useFetch';
+import { config } from '../../config/config';
 
 const History = () => {
     return (
@@ -10,3 +13,25 @@ const History = () => {
 };
 
 export default History;
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {
+        headers: {
+            cookie: req.headers.cookie || '',
+        }
+    })
+
+    if(!user){
+        return {
+            redirect: {
+                destination: '/login',
+            },
+            props: {
+                user,
+            }
+        }
+    }
+    return {
+        props: {user: null}
+    }
+}

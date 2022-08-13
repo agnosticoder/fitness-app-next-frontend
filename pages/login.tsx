@@ -1,7 +1,12 @@
+import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { customFetch } from '../components/hooks/useFetch';
+import useGetUser from '../components/hooks/useGetUser';
 import useLogin from '../components/hooks/useLogin';
+import { config } from '../config/config';
 
 type LoginInputs = {
     name: string;
@@ -15,13 +20,11 @@ const Login = () => {
         handleSubmit,
         formState: { errors },
     } = useForm<LoginInputs>();
-    const router = useRouter();
     //Todo: Find out better way to show errors
-    const {mutate, data} = useLogin();
-    console.log('data', data);
+    const { mutate, data } = useLogin();
 
     const onLogin = ({ email, password }: LoginInputs) => {
-            mutate({ email, password });
+        mutate({ email, password });
     };
 
     // function return true if password contains at least one number, one letter(both upper and lowercase), one special character and is at least 8 characters long
@@ -30,10 +33,11 @@ const Login = () => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         return regex.test(value);
     };
+
     return (
-        <div className="h-full flex justify-center items-center">
+        <div className="h-full flex justify-center items-center mt-20">
             <div className="w-96 mx-auto bg-zinc-700 text-zinc-800 p-4 rounded-lg drop-shadow">
-                <h1 className="text-xl text-zinc-200 font-bold text-center mb-6">Login up</h1>
+                <h1 className="text-xl text-zinc-200 font-bold text-center mb-6">Login</h1>
                 <form onSubmit={handleSubmit(onLogin)}>
                     <div className="mb-6 relative">
                         <input
@@ -74,20 +78,49 @@ const Login = () => {
                         type="submit"
                         className="w-full bg-rose-600 p-2 hover:bg-rose-800 rounded text-zinc-100 mb-4 drop-shadow"
                     >
-                        Sign Up
+                        Login
                     </button>
-                    {data?.error && (
-                        <div>
-                            <span className="text-zinc-200 inline-block mr-2">{data.error}</span>
+                    {data?.error ? (
+                        <div className='text-center'>
+                            <span className="text-zinc-200 inline-block mr-2 text-sm">{data.error}</span>
                             {/* <Link href="/signup">
                                 <a className="text-rose-500 hover:underline inline-block">Sign up</a>
                             </Link> */}
+                        </div>
+                    ) : (
+                        <div className="text-zinc-200 text-center text-sm">
+                            Didn't have an account?
+                            <Link href="/signup">
+                                <a className="text-rose-500 hover:underline inline-block ml-2">Signup</a>
+                            </Link>
                         </div>
                     )}
                 </form>
             </div>
         </div>
     );
-}
+};
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {
+        headers: {
+            cookie: req.headers.cookie || '',
+        }
+    })
+
+    if(user){
+        return {
+            redirect: {
+                destination: '/',
+            },
+            props: {
+                user,
+            }
+        }
+    }
+    return {
+        props: {user: null}
+    }
+}

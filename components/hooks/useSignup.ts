@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import { customFetch } from './useFetch';
 import type { SignupPayload } from '../../../back_end/src/controllers/user';
@@ -8,27 +8,32 @@ import { useErrorHandler } from 'react-error-boundary';
 const useSignup = () => {
     const handleError = useErrorHandler();
     const router = useRouter();
+    const queryCleint = useQueryClient();
 
-    return useMutation(async (payload: SignupPayload) => {
-        const {data, error} = await customFetch(`${config.apiUrl}/user/signup`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        });
+    return useMutation(
+        async (payload: SignupPayload) => {
+            const { data, error } = await customFetch(`${config.apiUrl}/user/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload),
+            });
 
-        return {data, error};
-    },
+            return { data, error };
+        },
         {
             onError: (err) => {
                 //* send error to error boundary
                 handleError(err);
                 console.log('useSaveTemplate', err);
             },
-            onSuccess: () => {
-                // router.push('/');
-            }
+            onSuccess: (data) => {
+                if (data.data) {
+                    queryCleint.invalidateQueries(['getUser']);
+                    router.push('/');
+                }
+            },
         }
     );
 };

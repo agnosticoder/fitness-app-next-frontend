@@ -11,7 +11,7 @@ export const customFetch = async <T = unknown>(url: string, options?: RequestIni
         if (response.ok && isJson) {
             const {data, code} = (await response.json()) as {data: T, code: number};
             console.log(data, code);
-            return { data };
+            return { data, code };
 
         } else if (!response.ok && isJson) {
             const error = await response.json();
@@ -19,7 +19,7 @@ export const customFetch = async <T = unknown>(url: string, options?: RequestIni
             //* This error I want to show to the user (recoverable)
             if (typeof error?.error === 'string' && error.code <= 409 && error.code >= 400) {
                 console.log('error', error.error);
-                return { error: error.error as string };
+                return { error: error.error as string, code: error.code };
             }
             //* Throw non-recoverable error
             if (typeof error?.error === 'string' && error.code >= 500) {

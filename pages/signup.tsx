@@ -1,7 +1,10 @@
+import { GetServerSideProps } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
+import { customFetch } from '../components/hooks/useFetch';
 import useSignup from '../components/hooks/useSignup';
+import { config } from '../config/config';
 
 type SignupInputs = {
     name: string;
@@ -18,7 +21,7 @@ const Signup = () => {
     } = useForm<SignupInputs>();
     const router = useRouter();
     //Todo: Find out better way to show errors
-    const {mutate, data} = useSignup();
+    const { mutate, data } = useSignup();
 
     const onSignup = ({ name, email, password }: SignupInputs) => {
         mutate({ name, email, password });
@@ -32,7 +35,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="h-full flex justify-center items-center">
+        <div className="h-full flex justify-center items-center mt-20">
             <div className="w-96 mx-auto bg-zinc-700 text-zinc-800 p-4 rounded-lg drop-shadow">
                 <h1 className="text-xl text-zinc-200 font-bold text-center mb-6">Sign up</h1>
                 <form onSubmit={handleSubmit(onSignup)}>
@@ -88,11 +91,20 @@ const Signup = () => {
                     >
                         Sign Up
                     </button>
-                    {data?.error && (
-                        <div>
+                    
+                    {/* Errors */}
+                    {data?.error ? (
+                        <div className="text-center text-sm">
                             <span className="text-zinc-200 inline-block mr-2">{data.error}</span>
                             <Link href="/login">
-                                <a className="text-rose-500 hover:underline inline-block"> login</a>
+                                <a className="text-rose-500 hover:underline inline-block">Login</a>
+                            </Link>
+                        </div>
+                    ) : (
+                        <div className="text-zinc-200 text-center text-sm">
+                            Already have an account?
+                            <Link href="/login">
+                                <a className="text-rose-500 hover:underline inline-block ml-2">Login</a>
                             </Link>
                         </div>
                     )}
@@ -103,3 +115,25 @@ const Signup = () => {
 };
 
 export default Signup;
+
+export const getServerSideProps: GetServerSideProps = async ({req, res}) => {
+    const {data:user, error} = await customFetch(`${config.apiUrl}/user/get`, {
+        headers: {
+            cookie: req.headers.cookie || '',
+        }
+    })
+
+    if(user){
+        return {
+            redirect: {
+                destination: '/',
+            },
+            props: {
+                user,
+            }
+        }
+    }
+    return {
+        props: {user: null}
+    }
+}

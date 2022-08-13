@@ -2,11 +2,17 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import ExercisesButton from '../components/ExercisesNavLink';
 import HistoryButton from '../components/HistoryNavLInk';
+import { customFetch } from '../components/hooks/useFetch';
+import useGetUser from '../components/hooks/useGetUser';
+import LoginButton from '../components/LoginButton';
 import NotificationPortal from '../components/NotificationPortal';
+import SignupButton from '../components/SignupButton';
 import StartWorkoutNavLink from '../components/StartWorkoutNavLink';
+import UserProfile from '../components/UserProfile';
+import { config } from '../config/config';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-
+    const { data: user } = useGetUser();
     return (
         <div className="text-zinc-200 bg-zinc-800   min-h-screen">
             <Head>
@@ -165,13 +171,23 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             </div>
 
             {/* Footer */}
-            <div className="fixed bottom-0 left-0 right-0 z-10 h-20 pb-8 pt-2 bg-zinc-700 drop-shadow-lg">
-                <div className="flex justify-evenly text-center">
-                    <HistoryButton />
-                    <StartWorkoutNavLink />
-                    <ExercisesButton />
+            {user ? (
+                <div className="fixed bottom-0 left-0 right-0 z-10 h-20 pb-8 pt-2 bg-zinc-700 drop-shadow-lg">
+                    <div className="flex justify-evenly text-center">
+                        <HistoryButton />
+                        <StartWorkoutNavLink />
+                        <ExercisesButton />
+                        <UserProfile />
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <div className="fixed bottom-0 left-0 right-0 z-10 h-20 pb-8 pt-2 bg-zinc-700 drop-shadow-lg">
+                    <div className="flex justify-evenly text-center">
+                        <LoginButton />
+                        <SignupButton />
+                    </div>
+                </div>
+            )}
             {/* //Todo: Remove this if not needed */}
             {/* {message && <ErrorMessagePortal>{message}</ErrorMessagePortal>} */}
             <NotificationPortal />
