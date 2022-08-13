@@ -4,7 +4,7 @@ import SetTempalate from './SetTemplate';
 import { ExerciseLocal } from './store/atoms';
 
 
-const ExerciseTemplate = ({ id, name, sets }: ExerciseLocal) => {
+const ExerciseTemplate = ({ id, name, sets, isHistory }: ExerciseLocal & { isHistory?: boolean}) => {
     return (
         <div>
             <ul className="relative bg-rose-900 text-zinc-300 rounded-lg p-2 drop-shadow-md pb-14">
@@ -21,7 +21,7 @@ const ExerciseTemplate = ({ id, name, sets }: ExerciseLocal) => {
                     )}
                     <tbody>
                         {sets?.map((set, index) => (
-                            <SetTempalate key={set.id} {...set} index={index} exerciseId={id} />
+                            <SetTempalate key={set.id} {...set} index={index} exerciseId={id} isHistory= {isHistory}/>
                         ))}
                     </tbody>
                 </table>
