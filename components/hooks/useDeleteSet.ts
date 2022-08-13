@@ -5,7 +5,11 @@ import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
-import type { DeleteSetPayload } from '../../../back_end/src/controllers/sets';
+// import type { DeleteSetPayload } from '../../../back_end/src/controllers/sets';
+
+interface Payload {
+    setId: string;
+}
 
 
 const useDeleteSet = (workoutId: string) => {
@@ -15,7 +19,7 @@ const useDeleteSet = (workoutId: string) => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (payload: DeleteSetPayload) => {
+        async (payload: Payload) => {
             const { data, error } = await customFetch(`${config.apiUrl}/set`, {
                 method: 'DELETE',
                 headers: {

@@ -5,7 +5,9 @@ import { useMutation } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
-import type { TemplateWorkoutPayload } from '../../../back_end/src/controllers/workouts';
+// import type { TemplateWorkoutPayload } from '../../../back_end/src/controllers/workouts';
+
+type Payload = any;
 
 const useSaveTemplate = () => {
     const handleError = useErrorHandler();
@@ -13,7 +15,7 @@ const useSaveTemplate = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (payload:TemplateWorkoutPayload) => {
+        async (payload:Payload) => {
             const { data, error } = await customFetch(`${config.apiUrl}/savetemplate`, {
                 method: 'PUT',
                 headers: {

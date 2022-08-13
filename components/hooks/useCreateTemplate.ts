@@ -5,11 +5,25 @@ import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
-import type { CreateWorkoutPayload } from '../../../back_end/src/controllers/workouts';
+// import type { CreateWorkoutPayload } from '../../../back_end/src/controllers/workouts';
 
 interface Data{
     id: string;
     name: string;
+}
+
+interface Set{
+    reps?: string;
+    weight?: string;
+}
+interface Exercise {
+    name: string;
+    sets?: Set[];
+}
+
+interface Workout {
+    name: string;
+    exercises: Exercise[];
 }
 
 const useCreateTemplate = () => {
@@ -19,7 +33,7 @@ const useCreateTemplate = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (workout: CreateWorkoutPayload) => {
+        async (workout: Workout) => {
             const { data, error } = await customFetch<Data>(`${config.apiUrl}/workout/template`, {
                 method: 'POST',
                 headers: {

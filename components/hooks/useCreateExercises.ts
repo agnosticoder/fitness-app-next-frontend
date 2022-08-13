@@ -5,7 +5,22 @@ import { customFetch } from './useFetch';
 import { config } from '../../config/config';
 import { useSetAtom } from 'jotai';
 import { setNotificationAtom } from '../store/atoms';
-import type { CreateExercisesPayload } from '../../../back_end/src/controllers/exercises';
+// import type { CreateExercisesPayload } from '../../../back_end/src/controllers/exercises';
+
+interface Set {
+    reps?: string;
+    weight?: string;
+}
+
+export type Exercise =  {
+    name: string;
+    sets?: Set[];
+} | null;
+
+interface Payload {
+    workoutId: string;
+    exercises: Exercise[];
+}
 
 const useCreateExercises = () => {
     const handleError = useErrorHandler();
@@ -15,7 +30,7 @@ const useCreateExercises = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (payload: CreateExercisesPayload) => {
+        async (payload: Payload) => {
             const { data, error } = await customFetch(`${config.apiUrl}/exercises`, {
                 method: 'POST',
                 headers: {

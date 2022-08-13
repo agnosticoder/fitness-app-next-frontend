@@ -1,9 +1,14 @@
 import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import { customFetch } from './useFetch';
-import type { LoginPayload } from '../../../back_end/src/controllers/user';
+// import type { LoginPayload } from '../../../back_end/src/controllers/user';
 import { useRouter } from 'next/router';
 import { useErrorHandler } from 'react-error-boundary';
+
+type Payload = {
+    email: string;
+    password: string;
+}
 
 const useLogin = () => {
     const handleError = useErrorHandler();
@@ -11,7 +16,7 @@ const useLogin = () => {
     const queryClient = useQueryClient();
 
     return useMutation(
-        async (payload: LoginPayload) => {
+        async (payload: Payload) => {
             const { data, error } = await customFetch(`${config.apiUrl}/user/login`, {
                 method: 'POST',
                 headers: {
