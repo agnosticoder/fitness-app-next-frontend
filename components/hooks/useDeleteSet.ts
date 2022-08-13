@@ -5,7 +5,8 @@ import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
-import type { DeleteSetPayload } from '../../../back_end/src/controllers/sets';
+// import type { DeleteSetPayload } from '../../../back_end/src/controllers/sets';
+
 
 
 const useDeleteSet = (workoutId: string) => {

@@ -5,13 +5,18 @@ import { useMutation, useQueryClient } from 'react-query';
 import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
-import type { CreateSetPayload } from '../../../back_end/src/controllers/sets';
+// import type { CreateSetPayload } from '../../../back_end/src/controllers/sets';
 
 interface Data {
     id: string;
     name: string;
     workoutId: string;
 }
+
+interface Payload {
+    exerciseId: string;
+}
+
 
 const useCreateSet = () => {
     const handleError = useErrorHandler();

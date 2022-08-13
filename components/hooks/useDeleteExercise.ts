@@ -6,7 +6,7 @@ import { config } from '../../config/config';
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from './useFetch';
 import { Exercise } from './useGetWorkout';
-import type { DeleteExercisePaload } from '../../../back_end/src/controllers/exercises';
+// import type { DeleteExercisePaload } from '../../../back_end/src/controllers/exercises';
 
 
 const useDeleteExercise = () => {

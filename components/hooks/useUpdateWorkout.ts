@@ -6,7 +6,14 @@ import { config } from "../../config/config";
 import { setNotificationAtom } from '../store/atoms';
 import { customFetch } from "./useFetch";
 import { Workout } from "./useGetWorkout";
-import type { UpdateWorkdoutPayload } from '../../../back_end/src/controllers/workouts';
+// import type { UpdateWorkdoutPayload } from '../../../back_end/src/controllers/workouts';
+
+type Payload = {
+    id: string;
+    name?: string;
+    isTemplate?: boolean;
+    isDone?: boolean;
+}
 
 const useUpdateWorkout = () => {
     const handleError = useErrorHandler();
@@ -16,7 +23,7 @@ const useUpdateWorkout = () => {
     const setNotification = useSetAtom(setNotificationAtom);
 
     return useMutation(
-        async (payload: UpdateWorkdoutPayload) => {
+        async (payload: Payload) => {
             const { data, error } = await customFetch<Workout>(`${config.apiUrl}/workout/update`, {
                 method: 'PUT',
                 headers: {

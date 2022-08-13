@@ -5,7 +5,22 @@ import { customFetch } from './useFetch';
 import { config } from '../../config/config';
 import { useSetAtom } from 'jotai';
 import { setNotificationAtom } from '../store/atoms';
-import type { CreateExercisesPayload } from '../../../back_end/src/controllers/exercises';
+// import type { CreateExercisesPayload } from '../../../back_end/src/controllers/exercises';
+
+interface Set {
+    reps?: string;
+    weight?: string;
+}
+
+export type Exercise =  {
+    name: string;
+    sets?: Set[];
+} | null;
+
+interface Payload {
+    workoutId: string;
+    exercises: Exercise[];
+}
 
 const useCreateExercises = () => {
     const handleError = useErrorHandler();
