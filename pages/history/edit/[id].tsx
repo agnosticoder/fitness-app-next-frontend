@@ -56,7 +56,7 @@ const EditHistory = () => {
                     {/* <AddExercise id={id} /> */}
                     <div className="grid grid-col-1 sm:grid-cols-2 gap-3 sm:gap-2">
                         {workoutLocal?.exercises?.map((exercise: any) => (
-                            <ExerciseTemplate key={exercise.id} {...exercise} />
+                            <ExerciseTemplate key={exercise.id} {...exercise} isHistory/>
                         ))}
                     </div>
                 </div>

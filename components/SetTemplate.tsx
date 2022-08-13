@@ -14,29 +14,30 @@ interface SetProps extends SetLocal {
     index: number;
 }
 
-const SetTemplate = (set:SetProps & {exerciseId: string}) => {
+const SetTemplate = ({isHistory, ...set}:SetProps & {exerciseId: string, isHistory?: boolean}) => {
     const router = useRouter();
+    console.log({isHistory})
 
     return (
         <tr>
-            <td className='text-center'>
-                {set.index + 1}
+            <td className="text-center">{set.index + 1}</td>
+
+            <td>
+                <WeightInputTemplate {...set} />
             </td>
 
             <td>
-                <WeightInputTemplate {...set}/>
+                <RepsInputTemplate {...set} />
             </td>
 
-            <td>
-                <RepsInputTemplate {...set}/>
-            </td>
-
-            {/* <td>
-                <SetIsDoneCheckboxTemplate {...set}/>
-            </td> */}
+            {isHistory && (
+                <td>
+                    <SetIsDoneCheckboxTemplate {...set} />
+                </td>
+            )}
 
             <td>
-                <DeleteSetTemplate {...set}/>
+                <DeleteSetTemplate {...set} />
             </td>
         </tr>
     );
