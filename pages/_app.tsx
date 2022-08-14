@@ -1,4 +1,4 @@
-import '../styles/globals.css'
+import '../styles/main.css'
 import type { AppProps } from 'next/app'
 import Layout from '../layouts/Layout';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -13,16 +13,16 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import LoadingSpinner from '../components/LoadingSpinner';
+import Nprogress from 'nprogress';
 
 const queryClient = new QueryClient();
 
-const Loading = () => {
-    const [isLoading, setIsLoading] = useState(false);
+const useLoading = () => {
     const router = useRouter();
 
     useEffect(() => {
-        const handleStart = () => (setIsLoading(true));
-        const handleComplete = () => (setIsLoading(false));
+        const handleStart = () => Nprogress.start();
+        const handleComplete = () => Nprogress.done();
         
         router.events.on('routeChangeStart', handleStart);
         router.events.on('routeChangeComplete', handleComplete);
@@ -35,12 +35,11 @@ const Loading = () => {
         }
 
     }, [router]);
-
-    return isLoading ? <div className='text-zinc-200 h-screen w-screen flex justify-center items-center'>Loading...</div> : null;
 };
 
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+    useLoading();
     return (
         <motion.div
         key={router.route}
@@ -52,10 +51,12 @@ function MyApp({ Component, pageProps, router }: AppProps) {
             },
             pageAnimate: {
                 opacity: 1,
+                transition: {
+                    duration: 0.3,
+                }
             }
         }}
         >
-            <Loading />
             <div style={{ WebkitTapHighlightColor: 'transparent' }}>
                 <ErrorBoundary FallbackComponent={ErrorFallbackComponent} onError={clientErrorHandler}>
                     <QueryClientProvider client={queryClient}>

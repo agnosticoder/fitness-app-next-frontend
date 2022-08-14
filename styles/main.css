@@ -1,0 +1,17 @@
+@import "tailwindcss/base";
+/* @import "./custom-base-styles.css"; */
+
+@import "tailwindcss/components";
+@import "./nprogress.css";
+
+@media screen and (display-mode: standalone) {
+    * {
+        outline: none;
+    }
+    *:focus {
+        outline: none;
+    }
+}
+
+@import "tailwindcss/utilities";
+/* @import "./custom-utilities.css"; */
