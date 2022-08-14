@@ -13,15 +13,17 @@
 - Historical workouts can also be saved as a template
 - One can edit existing templates and past history
 - Adding exercise to a workout renders the most recent history of that particular exercise
+- Has Email Password authentication
 
 ## Technical info
 - This is a standalone app that can be installed on the iPhone using Safari for an app-like experience.
 - Next.js, Typescript, Tailwind, Prisma, React Query, MySQL, Jotai (global state manager), etc. have been used as primary technologies for the making of this app.
 - The backend of the app has been written in Node.js using Express.js
+- Authentication/authorization has been implemented using cookie-session
 
 
 >This app is actively work in progress 🚧 and should not be used
 
 ## Coming soon features
 - performance charts based on past workouts
-- user accounts (authentication)
+
