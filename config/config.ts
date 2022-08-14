@@ -7,3 +7,7 @@ export const IN_PROD = NODE_ENV === 'production';
 export const config = {
     apiUrl: NEXT_PUBLIC_API_URL,
 }
+
+if(NODE_ENV === 'production') {
+    console.log = () => {};
+}
